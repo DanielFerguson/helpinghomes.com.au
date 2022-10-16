@@ -28,8 +28,8 @@ class LocationSeeder extends Seeder
                 'stateName' => $data[5],
                 'type' => $data[6],
                 'localGovernmentArea' => $data[7],
-                'lat' => $data[13],
-                'lng' => $data[14],
+                'lng' => $data[13],
+                'lat' => $data[14],
                 'timezone' => $data[15],
             ]);
         }
