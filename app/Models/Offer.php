@@ -12,7 +12,8 @@ class Offer extends Model
 
     protected $fillable = [
         'user_id',
-        'location_id',
+        'lat',
+        'lng',
         'type',
         'notes',
         'duration',
@@ -20,9 +21,4 @@ class Offer extends Model
         'canTakePets',
         'assistanceType',
     ];
-
-    public function location(): BelongsTo
-    {
-        return $this->belongsTo(Location::class);
-    }
 }

@@ -32,8 +32,8 @@ An open service to connect those that need emergency housing, with the people wh
 - [x] Create offer database seeder.
 - [x] Create offer controller.
 - [x] Create base inertiajs-powered map view.
-- [ ] Change user id to use uuid, rather than autoincrement id.
-- [ ] Move from location relationship to straight lat, lng.
+- [x] Change user id to use uuid, rather than autoincrement id.
+- [x] Move from location relationship to straight lat, lng.
 - [ ] Fuzz the lat lng of requests on creation, for privacy reasons.
 - [ ] Create offer form requests.
 - [ ] Setup laravel socialite with google, facebook and email providers.

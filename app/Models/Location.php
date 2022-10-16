@@ -22,9 +22,4 @@ class Location extends Model
         'lng',
         'timezone',
     ];
-
-    public function offers(): HasMany
-    {
-        return $this->hasMany(Offer::class);
-    }
 }

@@ -19,8 +19,9 @@ return new class extends Migration
             $table->id();
 
             $table->foreignIdFor(User::class);
-            $table->foreignIdFor(Location::class);
 
+            $table->double('lat');
+            $table->double('lng');
             $table->string('type');
             $table->text('notes');
 

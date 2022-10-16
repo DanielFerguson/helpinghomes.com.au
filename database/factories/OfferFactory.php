@@ -27,8 +27,11 @@ class OfferFactory extends Factory
             ?  ['SINGLE', 'COUPLE', 'FAMILY'][rand(0, 2)]
             : '';
 
+        $randomLocation = Location::inRandomOrder()->first();
+
         return [
-            'location_id' => Location::inRandomOrder()->first()->id,
+            'lat' => $randomLocation->lat,
+            'lng' => $randomLocation->lng,
             'type' => $type,
             'notes' => fake()->text(),
             'duration' => $duration,
