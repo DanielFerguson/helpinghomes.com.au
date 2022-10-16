@@ -12,11 +12,6 @@ An open service to connect those that need emergency housing, with the people wh
 - Improved privacy with location fuzzing and rate-limiting of contact detail requests.
 
 
-### Improvements over v2
-
-- TODO
-
-
 ## Roadmap
 
 - [x] Setup react and typescript
@@ -34,15 +29,21 @@ An open service to connect those that need emergency housing, with the people wh
 - [x] Create base inertiajs-powered map view.
 - [x] Change user id to use uuid, rather than autoincrement id.
 - [x] Move from location relationship to straight lat, lng.
-- [ ] Fuzz the lat lng of requests on creation, for privacy reasons.
-- [ ] Create offer form requests.
 - [ ] Setup laravel socialite with google, facebook and email providers.
+- [ ] Look into offer clustering.
+- [ ] Update offer pins to custom images.
+- [ ] Show modal when the user clicks an offer on the map, where the user can 'request details'.
+- [ ] Record this click against the users id under a new table called `offer_detail_requests` with `user_id`, `requested_at`, and `offer_id`.
+- [ ] Create offer form requests.
+- [ ] Fuzz the lat lng of requests on creation, for privacy reasons.
 - [ ] Add authenticated state to inertia shared state.
 - [ ] Add spatie/x-ray to build pipeline
 - [ ] Setup deployment to Forge server.
+- [ ] Add appropriate license to project (MIT?).
 - [ ] Create /help page.
 - [ ] Create /about page.
-- [ ] Add appropriate license to project.
+- [ ] Create observer for offers
+- [ ] On offer creation, trigger a job to send the offerer a message after 3 days asking whether their offer has been taken. If it has been, soft delete the offer. If not, delay the job a week to run again.
 
 ### Tests to write...
 
@@ -65,6 +66,7 @@ An open service to connect those that need emergency housing, with the people wh
 - [ ] Test relationships between models
 - [ ] When creating an offer, it fuzzes the location slightly
 - [ ] It rate limits the number of offers you can get contact details
+- [ ] When an offer is created, a job is queued to ask the offerer whether it's taken, and is delayed for 3 days
 
 ## Technologies
 
