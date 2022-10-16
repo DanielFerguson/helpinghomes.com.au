@@ -6,12 +6,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [1.0.0] - 2017-06-20
+## [1.0.0] - 2022-10-16
 ### Added
 - Initial laravel application.
 - Installed inertiajs with react.
 - Setup react-map-gl and mapbox.
-- Created basic default view with sidebar
+- Created basic default view with sidebar.
+- Added basic ci pipeline to run tests on main branch.
+- Created model, migration for locations, offers.
+- Created policy for offers.
+- Added contact detail fields to users.
 
 ### Changed
 - Moved back to webpack (vite was being tricky)

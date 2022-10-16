@@ -37,4 +37,29 @@ class UserFactory extends Factory
             'email_verified_at' => null,
         ]);
     }
+
+    /**
+     * Indicate that the model's email address should be unverified.
+     *
+     * @return static
+     */
+    public function emailVerified()
+    {
+        return $this->state(fn (array $attributes) => [
+            'email_verified_at' => now(),
+        ]);
+    }
+
+    /**
+     * Indicate that the model's email address should be unverified.
+     *
+     * @return static
+     */
+    public function contactVerified()
+    {
+        return $this->state(fn (array $attributes) => [
+            'mobile_number' => fake()->phoneNumber(),
+            'mobile_number_verified_at' => now(),
+        ]);
+    }
 }
