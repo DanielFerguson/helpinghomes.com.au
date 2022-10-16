@@ -16,6 +16,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Created model, migration for locations, offers.
 - Created policy for offers.
 - Added contact detail fields to users.
+- Added laravel/socialite authentication package.
+- Added socialite setups for...
+    - Github (auth testing)
+    - Twitter
+    - Google
+    - Facebook
 
 ### Changed
 - Moved back to webpack (vite was being tricky)
