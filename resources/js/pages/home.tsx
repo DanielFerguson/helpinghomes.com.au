@@ -1,5 +1,5 @@
 import React from "react";
-import Map, { Source, Layer } from 'react-map-gl';
+import Map, { Source, Layer, GeolocateControl, NavigationControl, ScaleControl } from 'react-map-gl';
 import SidebarLayout from '../components/sidebar-layout.tsx';
 import useSWR from 'swr';
 import axios from 'axios'
@@ -19,7 +19,7 @@ const layerStyle = {
 const Home = () => {
     const { data, error } = useSWR('/api/offers', fetcher);
 
-    // TODO: Add error
+    // TODO: Do something with error
 
     return (
         <SidebarLayout>
@@ -37,6 +37,9 @@ const Home = () => {
                     mapStyle="mapbox://styles/mapbox/streets-v9"
                     mapboxAccessToken="pk.eyJ1IjoiZGFuaWVsZmVyZ3Vzb24iLCJhIjoiY2w5YXFjazNtMGp1ZTNwcXdtMjBlYTc2YyJ9.2Cz8UmqgWB4VpagnJ6_ATw"
                 >
+                    <GeolocateControl />
+                    <NavigationControl />
+                    <ScaleControl />
                     <Source id="my-data" type="geojson" data={data}>
                         <Layer {...layerStyle} />
                     </Source>
