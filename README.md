@@ -2,6 +2,9 @@
 
 An open service to connect those that need emergency housing, with the people who can provide it. 
 
+![Banner](https://github.com/DanielFerguson/helpinghomes.com.au/blob/main/.github/assets/banner.jpg?raw=true)
+
+[![Test & Deploy](https://github.com/DanielFerguson/helpinghomes.com.au/actions/workflows/run-tests.yml/badge.svg)](https://github.com/DanielFerguson/helpinghomes.com.au/actions/workflows/run-tests.yml)
 
 ## ✨ Features
 
