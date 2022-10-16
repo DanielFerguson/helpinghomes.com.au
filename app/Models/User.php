@@ -34,6 +34,21 @@ class User extends Authenticatable
         'email_verified_at',
         'mobile_number',
         'mobile_number_verified_at',
+        'github_id',
+        'github_token',
+        'github_refresh_token',
+        'google_id',
+        'google_token',
+        'google_refresh_token',
+        'facebook_id',
+        'facebook_token',
+        'facebook_refresh_token',
+        'twitter_id',
+        'twitter_token',
+        'twitter_refresh_token',
+        'apple_id',
+        'apple_token',
+        'apple_refresh_token',
     ];
 
     /**
