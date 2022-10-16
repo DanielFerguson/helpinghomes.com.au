@@ -10,3 +10,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Initial laravel application.
 - Installed inertiajs with react.
+- Setup react-map-gl and mapbox.
+- Created basic default view with sidebar
+
+### Changed
+- Moved back to webpack (vite was being tricky)
+- Setup react 18 necessities
