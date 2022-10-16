@@ -9,6 +9,7 @@ import {
     InboxIcon,
     UsersIcon,
     XMarkIcon,
+    EnvelopeIcon
 } from '@heroicons/react/24/outline'
 
 const navigation = [
@@ -26,9 +27,103 @@ function classNames(...classes) {
 
 export default function SidebarLayout({ children }) {
     const [sidebarOpen, setSidebarOpen] = useState(false)
+    const [authModalOpen, setAuthModalOpen] = useState(false);
 
     return (
         <div className='text-gray-900'>
+            {/* Auth modal */}
+            <Transition.Root show={authModalOpen} as={Fragment}>
+                <Dialog as="div" className="relative z-10" onClose={() => setAuthModalOpen(false)}>
+                    <Transition.Child
+                        as={Fragment}
+                        enter="ease-out duration-300"
+                        enterFrom="opacity-0"
+                        enterTo="opacity-100"
+                        leave="ease-in duration-200"
+                        leaveFrom="opacity-100"
+                        leaveTo="opacity-0"
+                    >
+                        <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
+                    </Transition.Child>
+
+                    <div className="fixed inset-0 z-10 overflow-y-auto">
+                        <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+                            <Transition.Child
+                                as={Fragment}
+                                enter="ease-out duration-300"
+                                enterFrom="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+                                enterTo="opacity-100 translate-y-0 sm:scale-100"
+                                leave="ease-in duration-200"
+                                leaveFrom="opacity-100 translate-y-0 sm:scale-100"
+                                leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+                            >
+                                <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white px-4 pt-5 pb-4 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-sm sm:p-6">
+                                    <div>
+                                        <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-green-100">
+                                            <UsersIcon className="h-6 w-6 text-green-600" aria-hidden="true" />
+                                        </div>
+                                        <div className="mt-3 text-center sm:mt-5">
+                                            <Dialog.Title as="h3" className="text-lg font-medium leading-6 text-gray-900">
+                                                Login
+                                            </Dialog.Title>
+                                            <div className="mt-2">
+                                                <p className="text-sm text-gray-500">
+                                                    Login with your preferred platform to create an offer, request offer details and more.
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="mt-5 sm:mt-6 grid gap-3">
+                                        <a
+                                            href="/auth/redirect/github"
+                                            className="inline-flex items-center justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-base font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+                                        >
+                                            <img className="-ml-1 mr-3 h-5 w-5 text-white" src='/assets/icons/github.svg' />
+                                            Github (Dev Only)
+                                        </a>
+                                        <a
+                                            href="/auth/redirect/apple"
+                                            className="inline-flex items-center justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-base font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+                                        >
+                                            <img className="-ml-1 mr-3 h-5 w-5 text-white" src='/assets/icons/apple.svg' />
+                                            Apple
+                                        </a>
+                                        <a
+                                            href="/auth/redirect/facebook"
+                                            className="inline-flex items-center justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-base font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+                                        >
+                                            <img className="-ml-1 mr-3 h-5 w-5 text-white" src='/assets/icons/facebook.svg' />
+                                            Facebook
+                                        </a>
+                                        <a
+                                            href="/auth/redirect/google"
+                                            className="inline-flex items-center justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-base font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+                                        >
+                                            <img className="-ml-1 mr-3 h-5 w-5 text-white" src='/assets/icons/google.svg' />
+                                            Google
+                                        </a>
+                                        <a
+                                            href="/auth/redirect/twitter"
+                                            className="inline-flex items-center justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-base font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+                                        >
+                                            <img className="-ml-1 mr-3 h-5 w-5 text-white" src='/assets/icons/twitter.svg' />
+                                            Twitter
+                                        </a>
+                                        <button
+                                            className="inline-flex w-full justify-center px-4 py-2 text-sm hover:text-green-600"
+                                            onClick={() => setAuthModalOpen(false)}
+                                        >
+                                            Back to map
+                                        </button>
+                                    </div>
+                                </Dialog.Panel>
+                            </Transition.Child>
+                        </div>
+                    </div>
+                </Dialog>
+            </Transition.Root>
+
+            {/* Sidebar */}
             <Transition.Root show={sidebarOpen} as={Fragment}>
                 <Dialog as="div" className="relative z-40 md:hidden" onClose={setSidebarOpen}>
                     <Transition.Child
@@ -137,6 +232,7 @@ export default function SidebarLayout({ children }) {
                                 <p className='text-sm font-normal'>Please login to create an offer.</p>
                                 <button
                                     type="button"
+                                    onClick={() => setAuthModalOpen(true)}
                                     className="inline-flex items-center rounded-md border border-transparent bg-green-100 px-3 py-2 text-sm font-medium leading-4 text-green-700 hover:bg-green-200 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
                                 >
                                     Login
@@ -147,12 +243,12 @@ export default function SidebarLayout({ children }) {
                                 <h2 className='text-lg font-medium'>Other ways to help</h2>
                                 <p className='text-sm'>Not everyone can offer accomodation, however there are other ways to make an immediate, meaningful impact in this time of crisis.</p>
                                 <p className='text-sm'>Each of these organisations are helping communities affected by natural disaster right now - <b>and they need our help.</b></p>
-                                <button
-                                    type="button"
-                                    className="inline-flex items-center rounded-md border border-gray-300 bg-white px-3 py-2 text-sm font-medium leading-4 text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                                <a
+                                    href="/help"
+                                    className="inline-flex items-center rounded-md border border-gray-300 bg-white px-3 py-2 text-sm font-medium leading-4 text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
                                 >
                                     Find out how
-                                </button>
+                                </a>
                             </div>
                             {/* Assistance */}
                             <div className="px-4 grid gap-3 py-6">
