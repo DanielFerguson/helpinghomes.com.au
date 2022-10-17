@@ -77,4 +77,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(PointOfInterest::class);
     }
+
+    public function contactDetailRequests(): HasMany
+    {
+        return $this->hasMany(ContactDetailRequest::class);
+    }
 }

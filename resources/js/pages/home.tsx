@@ -1,8 +1,11 @@
-import React, { } from "react";
+import React, { useState, Fragment } from "react";
 import Map, { Source, Layer, GeolocateControl, NavigationControl, ScaleControl } from 'react-map-gl';
 import SidebarLayout from '../components/sidebar-layout.tsx';
 import useSWR from 'swr';
-import axios from 'axios'
+import axios from 'axios';
+import { Dialog, Transition } from '@headlessui/react'
+import { startCase } from 'lodash';
+import { FlagIcon } from "@heroicons/react/24/solid";
 
 const fetcher = url => axios.get(url).then(res => res.data)
 
@@ -11,7 +14,15 @@ const offersLayerStyle = {
     type: 'symbol',
     source: 'offers',
     layout: {
-        'icon-image': 'offer-housing',
+        'icon-image': [
+            'match',
+            ['get', 'offerType'],
+            'HOUSING',
+            'offer-housing',
+            'TRANSPORT_ASSISTANCE',
+            'offer-shelter-livestock',
+            'offer-assistance',
+        ],
         'icon-size': 0.06
     }
 };
@@ -36,13 +47,273 @@ const pointsOfInterestLayerStyle = {
     }
 };
 
+const AccomodateTypeBadges = ({ offer }) => {
+    let badges = [];
+
+    if (offer.canTakeSingles && offer.canTakeCouples && offer.canTakeFamilies) {
+        return (
+            <span key="anyone" className="inline-flex items-center rounded bg-green-100 px-2 py-0.5 text-xs font-medium text-green-800">
+                <svg xmlns="http://www.w3.org/2000/svg" className="mr-1.5 h-3 w-3 text-green-400" viewBox="0 0 512 512"><path d="M470.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L192 338.7 425.4 105.4c12.5-12.5 32.8-12.5 45.3 0z" /></svg>
+                Anyone
+            </span>
+        )
+    }
+
+    if (offer.canTakeSingles) {
+        badges.push(
+            <span key="singles" className="inline-flex items-center rounded bg-green-100 px-2 py-0.5 text-xs font-medium text-green-800">
+                <svg xmlns="http://www.w3.org/2000/svg" className="mr-1.5 h-3 w-3 text-green-400" viewBox="0 0 512 512"><path d="M470.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L192 338.7 425.4 105.4c12.5-12.5 32.8-12.5 45.3 0z" /></svg>
+                Singles
+            </span>
+        )
+    }
+
+    if (offer.canTakeCouples) {
+        badges.push(
+            <span key="couples" className="inline-flex items-center rounded bg-green-100 px-2 py-0.5 text-xs font-medium text-green-800">
+                <svg xmlns="http://www.w3.org/2000/svg" className="mr-1.5 h-3 w-3 text-green-400" viewBox="0 0 512 512"><path d="M470.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L192 338.7 425.4 105.4c12.5-12.5 32.8-12.5 45.3 0z" /></svg>
+                Couples
+            </span>
+        )
+    }
+
+    if (offer.canTakeFamilies) {
+        badges.push(
+            <span key="families" className="inline-flex items-center rounded bg-green-100 px-2 py-0.5 text-xs font-medium text-green-800">
+                <svg xmlns="http://www.w3.org/2000/svg" className="mr-1.5 h-3 w-3 text-green-400" viewBox="0 0 512 512"><path d="M470.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L192 338.7 425.4 105.4c12.5-12.5 32.8-12.5 45.3 0z" /></svg>
+                Families
+            </span>
+        )
+    }
+
+    return badges;
+}
+
+const HousingOfferDetails = ({ offer }) => {
+    const [contactDetails, setContactDetails] = useState(null);
+
+    const fetchContactDetails = async () => {
+        const response = await axios.get(`/offers/${offer.id}`);
+        setContactDetails(response.data);
+    }
+
+    return (
+        <dl className="sm:divide-y sm:divide-gray-200">
+            <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5">
+                <dt className="text-sm font-medium text-gray-500">Can help</dt>
+                <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0 flex gap-2">
+                    <AccomodateTypeBadges offer={offer} />
+                </dd>
+            </div>
+            <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5">
+                <dt className="text-sm font-medium text-gray-500">Can take pets</dt>
+                <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
+                    {offer.canTakePets ? (
+                        <span key="singles" className="inline-flex items-center rounded bg-green-100 px-2 py-0.5 text-xs font-medium text-green-800">
+                            <svg xmlns="http://www.w3.org/2000/svg" className="mr-1.5 h-3 w-3 text-green-400" viewBox="0 0 512 512"><path d="M470.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L192 338.7 425.4 105.4c12.5-12.5 32.8-12.5 45.3 0z" /></svg>
+                            Yes
+                        </span>
+                    ) : (
+                        <span>No</span>
+                    )}
+                </dd>
+            </div>
+            <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 items-center">
+                <dt className="text-sm font-medium text-gray-500">Contact</dt>
+                <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
+                    {contactDetails === null ? (
+                        <button
+                            type="button"
+                            onClick={() => fetchContactDetails()}
+                            className="inline-flex items-center rounded-md border border-gray-300 bg-white px-3 py-2 text-sm font-medium leading-4 text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+                        >
+                            Request Contact Details
+                        </button>
+                    ) : (
+                        <a
+                            className="inline-flex items-center rounded-md border border-gray-300 bg-white px-3 py-2 text-sm font-medium leading-4 text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+                            href={`tel:+${contactDetails.mobile_number}`}
+                        >Call Offerer Now</a>
+                    )}
+                </dd>
+            </div>
+        </dl>
+    );
+}
+
+const LivestockTransportOfferDetails = ({ offer }) => {
+    const [contactDetails, setContactDetails] = useState(null);
+
+    const fetchContactDetails = async () => {
+        const response = await axios.get(`/offers/${offer.id}`);
+        setContactDetails(response.data);
+    }
+
+    return (
+        <dl className="sm:divide-y sm:divide-gray-200">
+            <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5">
+                <dt className="text-sm font-medium text-gray-500">Notes</dt>
+                <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
+                    {offer.notes}
+                </dd>
+            </div>
+            <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 items-center">
+                <dt className="text-sm font-medium text-gray-500">Contact</dt>
+                <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
+                    {contactDetails === null ? (
+                        <button
+                            type="button"
+                            onClick={() => fetchContactDetails()}
+                            className="inline-flex items-center rounded-md border border-gray-300 bg-white px-3 py-2 text-sm font-medium leading-4 text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+                        >
+                            Request Contact Details
+                        </button>
+                    ) : (
+                        <a
+                            className="inline-flex items-center rounded-md border border-gray-300 bg-white px-3 py-2 text-sm font-medium leading-4 text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+                            href={`tel:+${contactDetails.mobile_number}`}
+                        >Call Offerer Now</a>
+                    )}
+                </dd>
+            </div>
+        </dl>
+    )
+}
+
+const OfferModal = ({ open, toggleFn, offer }) => {
+    if (offer === null) return;
+
+    const description = {
+        'HOUSING': 'If you have been displaced due to natural disaster and need temporary accomodation, this Good Samaritan has offered to help.',
+        'TRANSPORT_ASSISTANCE': 'If you have livestock and need help transporting them to a place of safety, this Good Samaritan has offered to help.',
+    };
+
+    return (
+        <Transition.Root show={open} as={Fragment}>
+            <Dialog as="div" className="relative z-10" onClose={() => toggleFn(null)}>
+                <Transition.Child
+                    as={Fragment}
+                    enter="ease-out duration-300"
+                    enterFrom="opacity-0"
+                    enterTo="opacity-100"
+                    leave="ease-in duration-200"
+                    leaveFrom="opacity-100"
+                    leaveTo="opacity-0"
+                >
+                    <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
+                </Transition.Child>
+
+                <div className="fixed inset-0 z-10 overflow-y-auto">
+                    <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+                        <Transition.Child
+                            as={Fragment}
+                            enter="ease-out duration-300"
+                            enterFrom="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+                            enterTo="opacity-100 translate-y-0 sm:scale-100"
+                            leave="ease-in duration-200"
+                            leaveFrom="opacity-100 translate-y-0 sm:scale-100"
+                            leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+                        >
+                            <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white px-4 pt-5 pb-4 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-sm sm:p-6">
+                                {/* Details */}
+                                <div className="overflow-hidden bg-white">
+                                    <div className="pb-5">
+                                        <h3 className="text-lg font-medium leading-6 text-gray-900">Offer of {startCase(offer.offerType.toLowerCase())}</h3>
+                                        <p className="mt-1 max-w-2xl text-sm text-gray-500">{description[offer.offerType]}</p>
+                                    </div>
+                                    <div className="border-t border-gray-200 py-5 sm:p-0">
+                                        {offer.offerType === 'HOUSING' && <HousingOfferDetails offer={offer} />}
+                                        {offer.offerType === 'TRANSPORT_ASSISTANCE' && <LivestockTransportOfferDetails offer={offer} />}
+                                    </div>
+                                </div>
+                            </Dialog.Panel>
+                        </Transition.Child>
+                    </div>
+                </div>
+            </Dialog>
+        </Transition.Root>
+    );
+}
+
+const PointOfInterestModal = ({ open, toggleFn, pointOfInterest }) => {
+    if (pointOfInterest === null) return;
+
+    const report = () => {
+        // TODO
+    }
+
+    return (
+        <Transition.Root show={open} as={Fragment}>
+            <Dialog as="div" className="relative z-10" onClose={() => toggleFn(null)}>
+                <Transition.Child
+                    as={Fragment}
+                    enter="ease-out duration-300"
+                    enterFrom="opacity-0"
+                    enterTo="opacity-100"
+                    leave="ease-in duration-200"
+                    leaveFrom="opacity-100"
+                    leaveTo="opacity-0"
+                >
+                    <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
+                </Transition.Child>
+
+                <div className="fixed inset-0 z-10 overflow-y-auto">
+                    <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+                        <Transition.Child
+                            as={Fragment}
+                            enter="ease-out duration-300"
+                            enterFrom="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+                            enterTo="opacity-100 translate-y-0 sm:scale-100"
+                            leave="ease-in duration-200"
+                            leaveFrom="opacity-100 translate-y-0 sm:scale-100"
+                            leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+                        >
+                            <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white px-4 pt-5 pb-4 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-sm sm:p-6">
+                                {/* Details */}
+                                <div className="overflow-hidden bg-white">
+                                    <div className="pb-5">
+                                        <div className="flex items-center justify-between">
+                                            <h3 className="text-lg font-medium leading-6 text-gray-900">{startCase(pointOfInterest.type.toLowerCase())}</h3>
+                                            <button onClick={() => report()}>
+                                                {/* TODO: Add confirmation window */}
+                                                <FlagIcon className="w-4 h-4" />
+                                            </button>
+                                        </div>
+                                        <p className="mt-1 max-w-2xl text-sm text-gray-500">{pointOfInterest.name}</p>
+                                    </div>
+                                    <div className="border-t border-gray-200 py-5 sm:p-0">
+                                        {/* Directors - Take me there */}
+                                        <dl className="sm:divide-y sm:divide-gray-200">
+                                            <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 items-center">
+                                                <dt className="text-sm font-medium text-gray-500">Directions</dt>
+                                                <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0 flex gap-2">
+                                                    <a
+                                                        href={`https://www.google.com/maps/dir//${pointOfInterest.lat},${pointOfInterest.lng}`} target="_blank" rel="noopener noreferrer"
+                                                        className="inline-flex items-center rounded-md border border-gray-300 bg-white px-3 py-2 text-sm font-medium leading-4 text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+                                                    >
+                                                        Take Me There
+                                                    </a>
+                                                </dd>
+                                            </div>
+                                        </dl>
+                                    </div>
+                                </div>
+                            </Dialog.Panel>
+                        </Transition.Child>
+                    </div>
+                </div>
+            </Dialog>
+        </Transition.Root>
+    );
+}
+
 const Home = () => {
-    const { data: offers, error: offersError } = useSWR('/offers', fetcher);
-    const { data: pointsOfInterest, error: pointsOfInterestError } = useSWR('/points-of-interest', fetcher);
+    const [selectedOffer, selectOffer] = useState(null);
+    const [selectedPointOfInterest, selectPointOfInterest] = useState(null);
 
-    // TODO: Do something with errors
+    const { data: offers } = useSWR('/offers', fetcher);
+    const { data: pointsOfInterest } = useSWR('/points-of-interest', fetcher);
 
-    // TODO: Add on-click events
     // Load images for layers
     const loadMap = (event) => {
         const map = event.target;
@@ -50,6 +321,16 @@ const Home = () => {
         map.loadImage('/assets/map/offer-assistance.png', (error, image) => {
             if (error || image === undefined) throw error;
             map.addImage('offer-assistance', image);
+        });
+
+        map.loadImage('/assets/map/offer-shelter-livestock.png', (error, image) => {
+            if (error || image === undefined) throw error;
+            map.addImage('offer-shelter-livestock', image);
+        });
+
+        map.loadImage('/assets/map/offer-transport-livestock.png', (error, image) => {
+            if (error || image === undefined) throw error;
+            map.addImage('offer-transport-livestock', image);
         });
 
         map.loadImage('/assets/map/offer-housing.png', (error, image) => {
@@ -82,48 +363,36 @@ const Home = () => {
             map.addImage('danger-unknown', image);
         });
 
-        // TODO
-        // // When a click event occurs on a feature in the places layer, open a popup at the
-        // // location of the feature, with description HTML from its properties.
-        // map.on('click', 'point', (e) => {
-        //     // Copy coordinates array.
-        //     // @ts-ignore
-        //     const coordinates = e.features[0].geometry.coordinates.slice();
-        //     // @ts-ignore
-        //     const description = e.features[0].properties.description;
+        map.on('click', 'offers-layer', (e) => {
+            selectOffer(e.features[0].properties);
+        });
 
-        //     // Ensure that if the map is zoomed out such that multiple
-        //     // copies of the feature are visible, the popup appears
-        //     // over the copy being pointed to.
-        //     while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
-        //         coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
-        //     }
+        map.on('mouseenter', 'offers-layer', () => {
+            map.getCanvas().style.cursor = 'pointer';
+        });
 
-        //     // @ts-ignore
-        //     const type = startCase(e.features[0].properties.hazardType.toLowerCase());
+        map.on('mouseleave', 'offers-layer', () => {
+            map.getCanvas().style.cursor = '';
+        });
 
-        //     new mapboxgl.Popup({
-        //         closeButton: false
-        //     })
-        //         .setLngLat(coordinates)
-        //         // @ts-ignore
-        //         .setHTML(`<p>${type}</p><p>Created ${dayjs().to(e.features[0].properties.createdAt)}.</p>`)
-        //         .addTo(map);
-        // });
+        map.on('click', 'points-of-interest-layer', (e) => {
+            selectPointOfInterest(e.features[0].properties);
+        });
 
-        // // Change the cursor to a pointer when the mouse is over the point layer.
-        // map.on('mouseenter', 'point', () => {
-        //     map.getCanvas().style.cursor = 'pointer';
-        // });
+        map.on('mouseenter', 'points-of-interest-layer', () => {
+            map.getCanvas().style.cursor = 'pointer';
+        });
 
-        // // Change it back to a pointer when it leaves.
-        // map.on('mouseleave', 'point', () => {
-        //     map.getCanvas().style.cursor = '';
-        // });
+        map.on('mouseleave', 'points-of-interest-layer', () => {
+            map.getCanvas().style.cursor = '';
+        });
     }
 
     return (
         <SidebarLayout>
+            <OfferModal open={selectedOffer !== null} toggleFn={selectOffer} offer={selectedOffer} />
+            <PointOfInterestModal open={selectedPointOfInterest !== null} toggleFn={selectPointOfInterest} pointOfInterest={selectedPointOfInterest} />
+
             <div className="h-full w-full relative">
                 <Map
                     initialViewState={{

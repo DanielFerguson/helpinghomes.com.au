@@ -688,17 +688,17 @@ const AccomodateTypeBadges = ({ offer }) => {
 
     if (offer.canTakeSingles && offer.canTakeCouples && offer.canTakeFamilies) {
         return (
-            <span key="everyone" className="inline-flex items-center rounded bg-indigo-100 px-2 py-0.5 text-xs font-medium text-indigo-800">
-                <svg xmlns="http://www.w3.org/2000/svg" className="mr-1.5 h-3 w-3 text-indigo-400" viewBox="0 0 512 512"><path d="M470.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L192 338.7 425.4 105.4c12.5-12.5 32.8-12.5 45.3 0z" /></svg>
-                Everyone
+            <span key="anyone" className="inline-flex items-center rounded bg-green-100 px-2 py-0.5 text-xs font-medium text-green-800">
+                <svg xmlns="http://www.w3.org/2000/svg" className="mr-1.5 h-3 w-3 text-green-400" viewBox="0 0 512 512"><path d="M470.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L192 338.7 425.4 105.4c12.5-12.5 32.8-12.5 45.3 0z" /></svg>
+                Anyone
             </span>
         )
     }
 
     if (offer.canTakeSingles) {
         badges.push(
-            <span key="singles" className="inline-flex items-center rounded bg-indigo-100 px-2 py-0.5 text-xs font-medium text-indigo-800">
-                <svg xmlns="http://www.w3.org/2000/svg" className="mr-1.5 h-3 w-3 text-indigo-400" viewBox="0 0 512 512"><path d="M470.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L192 338.7 425.4 105.4c12.5-12.5 32.8-12.5 45.3 0z" /></svg>
+            <span key="singles" className="inline-flex items-center rounded bg-green-100 px-2 py-0.5 text-xs font-medium text-green-800">
+                <svg xmlns="http://www.w3.org/2000/svg" className="mr-1.5 h-3 w-3 text-green-400" viewBox="0 0 512 512"><path d="M470.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L192 338.7 425.4 105.4c12.5-12.5 32.8-12.5 45.3 0z" /></svg>
                 Singles
             </span>
         )
@@ -706,8 +706,8 @@ const AccomodateTypeBadges = ({ offer }) => {
 
     if (offer.canTakeCouples) {
         badges.push(
-            <span key="couples" className="inline-flex items-center rounded bg-indigo-100 px-2 py-0.5 text-xs font-medium text-indigo-800">
-                <svg xmlns="http://www.w3.org/2000/svg" className="mr-1.5 h-3 w-3 text-indigo-400" viewBox="0 0 512 512"><path d="M470.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L192 338.7 425.4 105.4c12.5-12.5 32.8-12.5 45.3 0z" /></svg>
+            <span key="couples" className="inline-flex items-center rounded bg-green-100 px-2 py-0.5 text-xs font-medium text-green-800">
+                <svg xmlns="http://www.w3.org/2000/svg" className="mr-1.5 h-3 w-3 text-green-400" viewBox="0 0 512 512"><path d="M470.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L192 338.7 425.4 105.4c12.5-12.5 32.8-12.5 45.3 0z" /></svg>
                 Couples
             </span>
         )
@@ -715,8 +715,8 @@ const AccomodateTypeBadges = ({ offer }) => {
 
     if (offer.canTakeFamilies) {
         badges.push(
-            <span key="families" className="inline-flex items-center rounded bg-indigo-100 px-2 py-0.5 text-xs font-medium text-indigo-800">
-                <svg xmlns="http://www.w3.org/2000/svg" className="mr-1.5 h-3 w-3 text-indigo-400" viewBox="0 0 512 512"><path d="M470.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L192 338.7 425.4 105.4c12.5-12.5 32.8-12.5 45.3 0z" /></svg>
+            <span key="families" className="inline-flex items-center rounded bg-green-100 px-2 py-0.5 text-xs font-medium text-green-800">
+                <svg xmlns="http://www.w3.org/2000/svg" className="mr-1.5 h-3 w-3 text-green-400" viewBox="0 0 512 512"><path d="M470.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L192 338.7 425.4 105.4c12.5-12.5 32.8-12.5 45.3 0z" /></svg>
                 Families
             </span>
         )
@@ -756,14 +756,15 @@ const OffersPanelSection = ({ offers, setCreateModalOpen, selectOffer }) => {
                                 <button onClick={() => selectOffer(offer)}>
                                     <PencilSquareIcon className="h-3.5 w-3.5 text-gray-400 hover:text-gray-900 transition duration-75 cursor-pointer" />
                                 </button>
-                                <MapPinIcon className="h-3.5 w-3.5 text-gray-400 hover:text-gray-900 transition duration-75 cursor-pointer" />
+                                {/* TODO */}
+                                {/* <MapPinIcon className="h-3.5 w-3.5 text-gray-400 hover:text-gray-900 transition duration-75 cursor-pointer" /> */}
                             </div>
                         </div>
                         <div className="flex items-center gap-2">
                             <AccomodateTypeBadges offer={offer} />
                             {offer.canTakePets && (
-                                <span className="inline-flex items-center rounded bg-indigo-100 px-2 py-0.5 text-xs font-medium text-indigo-800">
-                                    <svg xmlns="http://www.w3.org/2000/svg" className="mr-1.5 h-3 w-3 text-indigo-400" viewBox="0 0 512 512"><path d="M470.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L192 338.7 425.4 105.4c12.5-12.5 32.8-12.5 45.3 0z" /></svg>
+                                <span className="inline-flex items-center rounded bg-green-100 px-2 py-0.5 text-xs font-medium text-green-800">
+                                    <svg xmlns="http://www.w3.org/2000/svg" className="mr-1.5 h-3 w-3 text-green-400" viewBox="0 0 512 512"><path d="M470.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L192 338.7 425.4 105.4c12.5-12.5 32.8-12.5 45.3 0z" /></svg>
                                     Pets
                                 </span>
                             )}
@@ -774,7 +775,7 @@ const OffersPanelSection = ({ offers, setCreateModalOpen, selectOffer }) => {
             {offers.length < 3 && (
                 <button
                     onClick={() => setCreateModalOpen(true)}
-                    className="inline-flex w-full items-center rounded-md mt-2 border border-gray-300 bg-white px-3 py-2 text-sm font-medium leading-4 text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+                    className="inline-flex mb-3 w-full items-center rounded-md mt-2 border border-gray-300 bg-white px-3 py-2 text-sm font-medium leading-4 text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
                 >
                     Create another offer
                 </button>
@@ -783,9 +784,20 @@ const OffersPanelSection = ({ offers, setCreateModalOpen, selectOffer }) => {
     )
 }
 
-const ReportsPanelSection = ({ reports }) => {
+const ReportsPanelSection = ({ reports, setCreateModalOpen }) => {
     if (reports.length === 0) {
-        return;
+        return (
+            <div className="px-4 py-6">
+                <button
+                    type="button"
+                    onClick={() => setCreateModalOpen(true)}
+                    className="relative block w-full rounded-lg border-2 border-dashed border-gray-300 px-12 py-6 text-center hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+                >
+                    <PlusCircleIcon className="mx-auto h-12 w-12 text-gray-400" />
+                    <span className="mt-2 block text-sm font-medium text-gray-900">Create a report</span>
+                </button>
+            </div>
+        );
     }
 
     const deleteReport = (id) => {
@@ -807,12 +819,21 @@ const ReportsPanelSection = ({ reports }) => {
                                 <button onClick={() => deleteReport(report.id)}>
                                     <XMarkIcon className="h-3.5 w-3.5 text-gray-400 hover:text-gray-900 transition duration-75 cursor-pointer" />
                                 </button>
-                                <MapPinIcon className="h-3.5 w-3.5 text-gray-400 hover:text-gray-900 transition duration-75 cursor-pointer" />
+                                {/* TODO */}
+                                {/* <MapPinIcon className="h-3.5 w-3.5 text-gray-400 hover:text-gray-900 transition duration-75 cursor-pointer" /> */}
                             </div>
                         </div>
                     </li>
                 ))}
             </ul>
+            {reports.length < 10 && (
+                <button
+                    onClick={() => setCreateModalOpen(true)}
+                    className="inline-flex mb-3 w-full items-center rounded-md mt-2 border border-gray-300 bg-white px-3 py-2 text-sm font-medium leading-4 text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+                >
+                    Create another report
+                </button>
+            )}
         </div>
     );
 }
