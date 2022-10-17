@@ -37,8 +37,8 @@ const pointsOfInterestLayerStyle = {
 };
 
 const Home = () => {
-    const { data: offers, error: offersError } = useSWR('/api/offers', fetcher);
-    const { data: pointsOfInterest, error: pointsOfInterestError } = useSWR('/api/points-of-interest', fetcher);
+    const { data: offers, error: offersError } = useSWR('/offers', fetcher);
+    const { data: pointsOfInterest, error: pointsOfInterestError } = useSWR('/points-of-interest', fetcher);
 
     // TODO: Do something with errors
 
