@@ -1,6 +1,9 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\OfferController;
+use App\Http\Controllers\PointsOfInterestController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,7 +17,22 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::inertia('/', 'home');
+Route::inertia('/', 'home')->name('home');
+Route::inertia('/login', 'home')->name('login');
+
+Route::get('/test', function () {
+    return response()->json(Auth::user());
+})->middleware(['auth']);
+
+Route::apiResource('offers', OfferController::class);
+
+Route::controller(PointsOfInterestController::class)->group(function () {
+    Route::get('/points-of-interest', 'index');
+    Route::post('/points-of-interest', 'store');
+    Route::get('/points-of-interest/{id}', 'show');
+    Route::put('/points-of-interest/{id}', 'update');
+    Route::delete('/points-of-interest/{id}', 'destroy');
+});
 
 /*
 |--------------------------------------------------------------------------
