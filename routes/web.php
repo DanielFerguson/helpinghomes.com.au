@@ -31,3 +31,5 @@ Route::get('/auth/callback/github', [AuthController::class, 'callbackGithub']);
 Route::get('/auth/callback/google', [AuthController::class, 'callbackGoogle']);
 Route::get('/auth/callback/facebook', [AuthController::class, 'callbackFacebook']);
 Route::get('/auth/callback/twitter', [AuthController::class, 'callbackTwitter']);
+
+Route::post('logout', [AuthController::class, 'logout']);
