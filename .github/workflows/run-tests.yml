@@ -25,6 +25,9 @@ jobs:
         id: composer-cache
         run: |
           echo "::set-output name=dir::$(composer config cache-files-dir)"
+      - name: Setup composer auth variables
+        run: |
+          composer config http-basic.nova.laravel.com ${{ secrets.NOVA_USER }} ${{ secrets.NOVA_KEY }}
       - uses: actions/cache@v2
         id: actions-cache
         with:
@@ -49,3 +52,7 @@ jobs:
         run: chmod -R 777 storage bootstrap/cache
       - name: Execute tests (Unit and Feature tests) via PestPHP
         run: vendor/bin/pest
+      - name: Deploy
+        uses: jbrooksuk/laravel-forge-action@v1.0.2
+        with:
+          trigger_url: ${{ secrets.FORGE_TRIGGER_URL }}

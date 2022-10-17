@@ -8,6 +8,7 @@ An open service to connect those that need emergency housing, with the people wh
 
 ## ✨ Features
 
+- Quickly find relief centers near you.
 - Ability to register offers of assistance.
 - Ability to register offers of livestock accomodation.
 - Facebook and Google OAuth support.
@@ -36,8 +37,9 @@ An open service to connect those that need emergency housing, with the people wh
 - [x] Setup laravel socialite google driver.
 - [x] Setup laravel socialite facebook driver.
 - [x] Setup laravel socialite twitter driver.
-- [ ] Setup laravel socialite apple driver.
-- [ ] Test logging into each of the drivers.
+- [x] Add Point of Interest to map, including relief centers.
+- [ ] Add key/legend to the map to toggle layers.
+- [ ] Add reverse geolocation to the map for searching.
 - [ ] Look into offer clustering.
 - [ ] Update offer pins to custom images.
 - [ ] Show modal when the user clicks an offer on the map, where the user can 'request details'.
@@ -48,6 +50,8 @@ An open service to connect those that need emergency housing, with the people wh
 - [ ] Add spatie/x-ray to build pipeline
 - [ ] Setup deployment to Forge server.
 - [ ] Add appropriate license to project (MIT?).
+- [ ] Setup laravel socialite apple driver.
+- [ ] Test logging into each of the drivers.
 - [ ] Create /help page.
 - [ ] Create /about page.
 - [ ] Create observer for offers

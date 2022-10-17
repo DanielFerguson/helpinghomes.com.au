@@ -6,6 +6,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.0] - 2022-10-17
+### Added
+- Point of interest model and API
+- Added Laravel Nova for basic CMS capabilities
+
+### Removed
+- Removed js and css from public git history, added to gitignore
+
 ## [1.0.0] - 2022-10-16
 ### Added
 - Initial laravel application.
