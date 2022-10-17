@@ -6,11 +6,24 @@ use App\Http\Requests\StoreOfferRequest;
 use App\Http\Requests\UpdateOfferRequest;
 use App\Models\Offer;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 
 // TODO: Protect create, edit, delete route with middleware
 
 class OfferController extends Controller
 {
+    /**
+     * Instantiate a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth')->except('index');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -44,26 +57,26 @@ class OfferController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \App\Http\Requests\StoreOfferRequest  $request
-     * @return \Illuminate\Http\JsonResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(StoreOfferRequest $request): JsonResponse
+    public function store(StoreOfferRequest $request): RedirectResponse
     {
         Offer::create($request->validated());
 
-        return response()->json();
+        return Redirect::route('home');
     }
 
     /**
      * Display the specified resource.
      *
      * @param  \App\Models\Offer  $offer
-     * @return \Illuminate\Http\JsonResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function show(Offer $offer): JsonResponse
+    public function show(Offer $offer): RedirectResponse
     {
         // TODO
 
-        return response()->json();
+        return Redirect::route('home');
     }
 
     /**
@@ -71,25 +84,33 @@ class OfferController extends Controller
      *
      * @param  \App\Http\Requests\UpdateOfferRequest  $request
      * @param  \App\Models\Offer  $offer
-     * @return \Illuminate\Http\JsonResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(UpdateOfferRequest $request, Offer $offer): JsonResponse
+    public function update(UpdateOfferRequest $request, Offer $offer): RedirectResponse
     {
-        // TODO
+        if (!Auth::user()->can('update', $offer)) {
+            return response()->back();
+        }
 
-        return response()->json();
+        $offer->update($request->validated());
+
+        return Redirect::route('home');
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\Offer  $offer
-     * @return \Illuminate\Http\JsonResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy(Offer $offer): JsonResponse
+    public function destroy(Offer $offer): RedirectResponse
     {
-        // TODO
+        if (!Auth::user()->can('delete', $offer)) {
+            return response()->back();
+        }
 
-        return response()->json();
+        $offer->delete();
+
+        return Redirect::route('home');
     }
 }

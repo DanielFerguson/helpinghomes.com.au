@@ -6,9 +6,20 @@ use App\Http\Requests\StorePointOfInterestRequest;
 use App\Http\Requests\UpdatePointOfInterestRequest;
 use App\Models\PointOfInterest;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Redirect;
 
 class PointsOfInterestController extends Controller
 {
+    /**
+     * Instantiate a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth')->except('index');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -40,13 +51,13 @@ class PointsOfInterestController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \App\Http\Requests\StorePointOfInterestRequest  $request
-     * @return \Illuminate\Http\JsonResponse
+     * @return \Illuminate\Http\Response
      */
-    public function store(StorePointOfInterestRequest $request): JsonResponse
+    public function store(StorePointOfInterestRequest $request)
     {
         PointOfInterest::create($request->validated());
 
-        return response()->json();
+        return redirect()->back();
     }
 
     /**
@@ -58,7 +69,6 @@ class PointsOfInterestController extends Controller
     public function show(PointOfInterest $pointOfInterest): JsonResponse
     {
         // TODO
-
         return response()->json();
     }
 
@@ -67,25 +77,26 @@ class PointsOfInterestController extends Controller
      *
      * @param  \App\Http\Requests\UpdatePointOfInterestRequest  $request
      * @param  \App\Models\PointOfInterest  $pointOfInterest
-     * @return \Illuminate\Http\JsonResponse
+     * @return \Illuminate\Http\Response
      */
-    public function update(UpdatePointOfInterestRequest $request, PointOfInterest $pointOfInterest): JsonResponse
+    public function update(UpdatePointOfInterestRequest $request, PointOfInterest $pointOfInterest)
     {
-        // TODO
+        $pointOfInterest->update($request->validated());
 
-        return response()->json();
+        return redirect()->back();
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\PointOfInterest  $pointOfInterest
-     * @return \Illuminate\Http\JsonResponse
+     * @param  int  $id
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy(PointOfInterest $pointOfInterest): JsonResponse
+    public function destroy(int $id)
     {
-        // TODO
+        $pointOfInterest = PointOfInterest::find($id);
+        $pointOfInterest->delete();
 
-        return response()->json();
+        return Redirect::route('home');
     }
 }

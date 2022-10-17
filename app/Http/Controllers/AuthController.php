@@ -27,7 +27,7 @@ class AuthController extends Controller
             'github_refresh_token' => $githubUser->refreshToken,
         ]);
 
-        Auth::login($user);
+        Auth::login($user, true);
 
         return redirect('/');
     }
@@ -50,7 +50,7 @@ class AuthController extends Controller
             'google_refresh_token' => $googleUser->refreshToken,
         ]);
 
-        Auth::login($user);
+        Auth::login($user, true);
 
         return redirect('/');
     }
@@ -73,7 +73,7 @@ class AuthController extends Controller
             'facebook_refresh_token' => $facebookUser->refreshToken,
         ]);
 
-        Auth::login($user);
+        Auth::login($user, true);
 
         return redirect('/');
     }
@@ -96,7 +96,7 @@ class AuthController extends Controller
             'twitter_refresh_token' => $twitterUser->refreshToken,
         ]);
 
-        Auth::login($user);
+        Auth::login($user, true);
 
         return redirect('/');
     }
