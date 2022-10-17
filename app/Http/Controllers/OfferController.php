@@ -7,6 +7,8 @@ use App\Http\Requests\UpdateOfferRequest;
 use App\Models\Offer;
 use Illuminate\Http\JsonResponse;
 
+// TODO: Protect create, edit, delete route with middleware
+
 class OfferController extends Controller
 {
     /**
@@ -20,13 +22,12 @@ class OfferController extends Controller
             'type' => 'Feature',
             'geometry' => [
                 'type' => 'Point',
-                'coordinates' => [$offer->lat, $offer->lng],
+                'coordinates' => [$offer->lng, $offer->lat],
             ],
             'properties' => [
                 'userId' => $offer->user_id,
                 'offerType' => $offer->type,
                 'notes' => $offer->notes,
-                'duration' => $offer->duration,
                 'canTakePets' => $offer->canTakePets,
                 'assistanceType' => $offer->assistanceType,
                 'capacity' => $offer->capacity,
@@ -47,7 +48,7 @@ class OfferController extends Controller
      */
     public function store(StoreOfferRequest $request): JsonResponse
     {
-        // TODO
+        Offer::create($request->validated());
 
         return response()->json();
     }

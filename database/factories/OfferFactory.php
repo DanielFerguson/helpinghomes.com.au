@@ -19,24 +19,17 @@ class OfferFactory extends Factory
     {
         $type = rand(0, 1) ? 'HOUSING' : 'TRANSPORT_ASSISTANCE';
 
-        $duration = $type === 'HOUSING'
-            ? ['SHORT', 'MEDIUM', 'LONG'][rand(0, 2)]
-            : null;
-
-        $capacity = $type === 'HOUSING'
-            ? ['SINGLE', 'COUPLE', 'FAMILY'][rand(0, 2)]
-            : '';
-
         $randomLocation = Location::inRandomOrder()->first();
 
         return [
             'lat' => $randomLocation->lat,
             'lng' => $randomLocation->lng,
             'type' => $type,
-            'notes' => fake()->text(),
-            'duration' => $duration,
-            'capacity' => $capacity,
+            'notes' => rand(0, 1) ? fake()->text() : null,
             'canTakePets' => $type === 'HOUSING' ? rand(0, 1) : null,
+            'canTakeSingles' => $type === 'HOUSING' ? rand(0, 1) : null,
+            'canTakeCouples' => $type === 'HOUSING' ? rand(0, 1) : null,
+            'canTakeFamilies' => $type === 'HOUSING' ? rand(0, 1) : null,
             'assistanceType' => $type === 'TRANSPORT_ASSISTANCE' ? ['TRANSPORT_LIVESTOCK', 'SHELTER_LIVESTOCK'][rand(0, 1)] : null,
         ];
     }

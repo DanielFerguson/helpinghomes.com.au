@@ -9,30 +9,6 @@ use Laravel\Socialite\Facades\Socialite;
 
 class AuthController extends Controller
 {
-    public function redirectApple(): RedirectResponse
-    {
-        return Socialite::driver('apple')->redirect();
-    }
-
-    // TODO
-    public function callbackApple(): RedirectResponse
-    {
-        $appleUser = Socialite::driver('apple')->user();
-
-        $user = User::updateOrCreate([
-            'apple_id' => $appleUser->id,
-        ], [
-            'name' => $appleUser->name,
-            'email' => $appleUser->email,
-            'apple_token' => $appleUser->token,
-            'apple_refresh_token' => $appleUser->refreshToken,
-        ]);
-
-        Auth::login($user);
-
-        return redirect('/');
-    }
-
     public function redirectGithub(): RedirectResponse
     {
         return Socialite::driver('github')->redirect();

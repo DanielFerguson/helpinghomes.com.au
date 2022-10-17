@@ -3,3 +3,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+#offer-location-select>.mapboxgl-map {
+    border-radius: 0.25rem;
+}
+
+svg {
+    fill: currentColor;
+}

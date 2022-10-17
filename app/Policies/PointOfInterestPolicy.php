@@ -2,11 +2,11 @@
 
 namespace App\Policies;
 
-use App\Models\Offer;
+use App\Models\PointOfInterest;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class OfferPolicy
+class PointOfInterestPolicy
 {
     use HandlesAuthorization;
 
@@ -25,10 +25,10 @@ class OfferPolicy
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Offer  $offer
+     * @param  \App\Models\PointOfInterest  $pointOfInterest
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user, Offer $offer)
+    public function view(User $user, PointOfInterest $pointOfInterest)
     {
         return true;
     }
@@ -41,43 +41,43 @@ class OfferPolicy
      */
     public function create(User $user)
     {
-        return true;
+        return count($user->reports) < 15;
     }
 
     /**
      * Determine whether the user can update the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Offer  $offer
+     * @param  \App\Models\PointOfInterest  $pointOfInterest
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, Offer $offer)
+    public function update(User $user, PointOfInterest $pointOfInterest)
     {
         /** @phpstan-ignore-next-line */
-        return $user->id === $offer->user_id;
+        return $user->id === $pointOfInterest->user_id;
     }
 
     /**
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Offer  $offer
+     * @param  \App\Models\PointOfInterest  $pointOfInterest
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user, Offer $offer)
+    public function delete(User $user, PointOfInterest $pointOfInterest)
     {
         /** @phpstan-ignore-next-line */
-        return $user->id === $offer->user_id;
+        return $user->id === $pointOfInterest->user_id;
     }
 
     /**
      * Determine whether the user can restore the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Offer  $offer
+     * @param  \App\Models\PointOfInterest  $pointOfInterest
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function restore(User $user, Offer $offer)
+    public function restore(User $user, PointOfInterest $pointOfInterest)
     {
         return false;
     }
@@ -86,10 +86,10 @@ class OfferPolicy
      * Determine whether the user can permanently delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Offer  $offer
+     * @param  \App\Models\PointOfInterest  $pointOfInterest
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function forceDelete(User $user, Offer $offer)
+    public function forceDelete(User $user, PointOfInterest $pointOfInterest)
     {
         return false;
     }

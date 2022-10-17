@@ -21,76 +21,38 @@ An open service to connect those that need emergency housing, with the people wh
 ## Questions
 
 - How can we outline places of danger, evacuations, etc?
+- How can we allow businesses to add support offers as well? Another page of business offers, with a map of locations so users can get relevant offers? It would be cool if we could scrape branding details (logo/favicon/color) from a businesses website.
+- How can we allow users to report offers, and how do we mediate those?
 
 
 ## 🛣️ Roadmap
 
+- [ ] Add ability to remove a report.
+- [ ] Add ability to update an offer.
+- [ ] Add ability to remove an offer.
+- [ ] Add ability to 'fly-to' when select map icon next to offer or report.
 
-- [ ] Copy sidebar content to mobile sidebar.
-- [ ] Ability for user to create...
-    - [ ] an offer of housing,
-    - [ ] an offer of assistance
-    - [ ] a danger warning
-
-- [ ] Add reverse geolocation to the map for searching.
 - [ ] Show modal when the user clicks an offer on the map, where the user can 'request details'.
 - [ ] Record this click against the users id under a new table called `offer_detail_requests` with `user_id`, `requested_at`, and `offer_id`.
-- [ ] Create offer form requests.
-    - [ ] Fuzz the lat lng of requests on creation, for privacy reasons.
-- [ ] Add small, darker boarder to pins like in [this example](https://codesandbox.io/s/l7p179qr6m)
-- [ ] Add key/legend to the map to toggle layers.
+- [ ] Add ability to report an offer or report.
+- [ ] If an offer gets a report, send Dan Ferguson an email.
+- [ ] If a hazard gets more than 2 reports, send Dan Ferguson an email.
 
+- [ ] Add key/legend to the map to toggle layers.
 - [ ] Setup laravel socialite drivers for production site URLs.
-- [ ] Setup laravel socialite apple driver.
 - [ ] Test logging into each of the drivers.
 - [ ] Create /help page.
 - [ ] Create /about page.
-
 - [ ] Setup fathom events tracking
 - [ ] Add site SEO tags
 - [ ] Create custom 404 page
 - [ ] Create custom 500 page
-- [ ] Create observer for offers.
-- [ ] On offer creation, trigger a job to send the offerer a message after 3 days asking whether their offer has been taken. If it has been, soft delete the offer. If not, delay the job a week to run again.
-
-### Completed
-
-- [x] Setup react and typescript
-- [x] Setup inertia
-- [x] Setup webpack over vite
-- [x] Setup default view
-- [x] Create deploy script to run tests before deployment.
-- [x] Create offer migration.
-- [x] Create offer policy.
-- [x] Create location model.
-- [x] Create location migration.
-- [x] Create offer model.
-- [x] Create offer database seeder.
-- [x] Create offer controller.
-- [x] Create base inertiajs-powered map view.
-- [x] Change user id to use uuid, rather than autoincrement id.
-- [x] Move from location relationship to straight lat, lng.
-- [x] Setup laravel socialite.
-- [x] Setup laravel socialite google driver.
-- [x] Setup laravel socialite facebook driver.
-- [x] Setup laravel socialite twitter driver.
-- [x] Add Point of Interest to map, including relief centers.
-- [x] Add point clustering.
-- [x] Update offer pins to custom images.
-- [x] Update points of interest pins to custom images.
-- [x] Update road damange pins to custom images.
-- [x] Setup deployment to Forge server.
-- [x] Added favicon
-- [x] Add appropriate license to the project.
-- [x] Add spatie/x-ray to build pipeline
-- [x] Add authenticated state to inertia shared state.
-- [x] Add linting check to CI job through Pint
-- [x] Add static analysis through larastan
-- [x] Add fathom tracking
-
+- [ ] If a user requests an offers details and clicks the call button, queue up a job to message the offerer 10 minutes later asking whether the offer has been taken and if we should remove the offer.
 
 ### 🐛 Known Bugs
 
+- [ ] User can create more than 3 offers at a time.
+- [ ] When you create an offer of accomodation, you need to select at least one type
 - [ ] When you come back to login again once you've registered, it throws a duplicate error because it's trying to create another account rather than validate.
 - [ ] When you register with one service (ie. facebook) and then try and login with a different service (ie. Google), it will break.
 
@@ -122,6 +84,8 @@ An open service to connect those that need emergency housing, with the people wh
 - [ ] User can login through Google.
 - [ ] User can login through Twitter.
 - [ ] User can login through one provider and then another with a conflicting email and it will append to their account.
+- [ ] Add tests for creating, editing, updating and deleting offers
+- [ ] Add tests for creating, editing, updating and deleting points of interest
 
 
 ## 💻 Technologies

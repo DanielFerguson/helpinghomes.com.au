@@ -23,9 +23,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added linting check to ci pipeline.
 - Added license to project.
 - Added point clustering.
+- Added ability to create an offer of accomodation.
+- Added slight location fuzzing to increase privacy of offers of accomodation.
+- Added a resource controller and form requests for point of interests.
+- Added ability to create a hazard report.
+- Added list of offers.
+- Added list of reports.
+- Added soft deletes to offers and point of interests.
+- Registered policies for offers and point of interests.
+
+### Changed
+- Implemented logic for the StoreOfferFormRequest.
+- Updated map icon images to have small border.
+- Updated POIs to have optional user_id for reports.
 
 ### Removed
 - Removed js and css from public git history, added to gitignore.
+- Removed `duration` column from offers.
+- Removed list of completed items from `README`.
+- Removed apple laravel socialite drivers.
 
 ## [1.0.0] - 2022-10-16
 ### Added

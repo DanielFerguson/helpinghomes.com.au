@@ -46,9 +46,6 @@ class User extends Authenticatable
         'twitter_id',
         'twitter_token',
         'twitter_refresh_token',
-        'apple_id',
-        'apple_token',
-        'apple_refresh_token',
     ];
 
     /**
@@ -74,5 +71,10 @@ class User extends Authenticatable
     public function offers(): HasMany
     {
         return $this->hasMany(Offer::class);
+    }
+
+    public function reports(): HasMany
+    {
+        return $this->hasMany(PointOfInterest::class);
     }
 }
