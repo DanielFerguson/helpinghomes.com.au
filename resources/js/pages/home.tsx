@@ -6,14 +6,13 @@ import axios from 'axios'
 
 const fetcher = url => axios.get(url).then(res => res.data)
 
-// TODO: Extract out into offer layer component
 const offersLayerStyle = {
     id: 'offers-layer',
     type: 'symbol',
     source: 'offers',
     layout: {
         'icon-image': 'offer-housing',
-        'icon-size': 0.05
+        'icon-size': 0.06
     }
 };
 
@@ -22,8 +21,18 @@ const pointsOfInterestLayerStyle = {
     type: 'symbol',
     source: 'points-of-interest',
     layout: {
-        'icon-image': 'point-of-interest-relief-center',
-        'icon-size': 0.05
+        'icon-image': [
+            'match',
+            ['get', 'type'],
+            'RELIEF_CENTER',
+            'point-of-interest-relief-center',
+            'SANDBAGGING_SITE',
+            'point-of-interest-sandbagging-site',
+            'ROAD_DAMAGE',
+            'danger-road-damage',
+            'point-of-interest',
+        ],
+        'icon-size': 0.06
     }
 };
 
@@ -33,7 +42,6 @@ const Home = () => {
 
     // TODO: Do something with errors
 
-    // TODO
     // Load images for layers
     const loadMap = (event) => {
         const map = event.target;
@@ -41,17 +49,37 @@ const Home = () => {
         map.loadImage('/assets/map/offer-assistance.png', (error, image) => {
             if (error || image === undefined) throw error;
             map.addImage('offer-assistance', image);
-        })
+        });
 
         map.loadImage('/assets/map/offer-housing.png', (error, image) => {
             if (error || image === undefined) throw error;
             map.addImage('offer-housing', image);
-        })
+        });
+
+        map.loadImage('/assets/map/point-of-interest.png', (error, image) => {
+            if (error || image === undefined) throw error;
+            map.addImage('point-of-interest', image);
+        });
 
         map.loadImage('/assets/map/point-of-interest-relief-center.png', (error, image) => {
             if (error || image === undefined) throw error;
             map.addImage('point-of-interest-relief-center', image);
-        })
+        });
+
+        map.loadImage('/assets/map/point-of-interest-sandbagging-site.png', (error, image) => {
+            if (error || image === undefined) throw error;
+            map.addImage('point-of-interest-sandbagging-site', image);
+        });
+
+        map.loadImage('/assets/map/danger-road-damage.png', (error, image) => {
+            if (error || image === undefined) throw error;
+            map.addImage('danger-road-damage', image);
+        });
+
+        map.loadImage('/assets/map/danger-unknown.png', (error, image) => {
+            if (error || image === undefined) throw error;
+            map.addImage('danger-unknown', image);
+        });
 
         // TODO
         // // When a click event occurs on a feature in the places layer, open a popup at the
