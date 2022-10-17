@@ -31,6 +31,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added list of reports.
 - Added soft deletes to offers and point of interests.
 - Registered policies for offers and point of interests.
+- Added ability to edit offer.
+- Added ability to delete offer.
+- Added ability to delete report.
 
 ### Changed
 - Implemented logic for the StoreOfferFormRequest.

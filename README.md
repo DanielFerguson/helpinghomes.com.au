@@ -27,11 +27,6 @@ An open service to connect those that need emergency housing, with the people wh
 
 ## 🛣️ Roadmap
 
-- [ ] Add ability to remove a report.
-- [ ] Add ability to update an offer.
-- [ ] Add ability to remove an offer.
-- [ ] Add ability to 'fly-to' when select map icon next to offer or report.
-
 - [ ] Show modal when the user clicks an offer on the map, where the user can 'request details'.
 - [ ] Record this click against the users id under a new table called `offer_detail_requests` with `user_id`, `requested_at`, and `offer_id`.
 - [ ] Add ability to report an offer or report.
@@ -48,9 +43,11 @@ An open service to connect those that need emergency housing, with the people wh
 - [ ] Create custom 404 page
 - [ ] Create custom 500 page
 - [ ] If a user requests an offers details and clicks the call button, queue up a job to message the offerer 10 minutes later asking whether the offer has been taken and if we should remove the offer.
+- [ ] Add ability to 'fly-to' when select map icon next to offer or report.
 
 ### 🐛 Known Bugs
 
+- [ ] When deleting resources, it comes back with a weird error...
 - [ ] User can create more than 3 offers at a time.
 - [ ] When you create an offer of accomodation, you need to select at least one type
 - [ ] When you come back to login again once you've registered, it throws a duplicate error because it's trying to create another account rather than validate.
