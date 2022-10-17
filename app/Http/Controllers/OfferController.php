@@ -48,7 +48,6 @@ class OfferController extends Controller
                 'canTakeCouples' => $offer->canTakeCouples,
                 'canTakeFamilies' => $offer->canTakeFamilies,
                 'assistanceType' => $offer->assistanceType,
-                'capacity' => $offer->capacity,
             ],
         ]);
 
