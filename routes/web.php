@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\OfferController;
 use App\Http\Controllers\PointsOfInterestController;
+use App\Http\Controllers\ReportController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -20,11 +21,9 @@ use Illuminate\Support\Facades\Route;
 Route::inertia('/', 'home')->name('home');
 Route::inertia('/login', 'home')->name('login');
 
-Route::get('/test', function () {
-    return response()->json(Auth::user());
-})->middleware(['auth']);
-
 Route::apiResource('offers', OfferController::class);
+
+Route::get('/reports', [ReportController::class, 'store']);
 
 Route::controller(PointsOfInterestController::class)->group(function () {
     Route::get('/points-of-interest', 'index');
