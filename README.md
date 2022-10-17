@@ -16,6 +16,11 @@ An open service to connect those that need emergency housing, with the people wh
 - Improved privacy with location fuzzing and rate-limiting of contact detail requests.
 
 
+## Questions
+
+- How can we outline places of danger, evacuations, etc?
+
+
 ## 🛣️ Roadmap
 
 - [x] Setup react and typescript
@@ -37,8 +42,8 @@ An open service to connect those that need emergency housing, with the people wh
 - [x] Setup laravel socialite google driver.
 - [x] Setup laravel socialite facebook driver.
 - [x] Setup laravel socialite twitter driver.
+- [x] Add key/legend to the map to toggle layers.
 - [x] Add Point of Interest to map, including relief centers.
-- [ ] Add key/legend to the map to toggle layers.
 - [ ] Add reverse geolocation to the map for searching.
 - [ ] Look into offer clustering.
 - [ ] Update offer pins to custom images.
