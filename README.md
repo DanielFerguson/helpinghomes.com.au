@@ -14,6 +14,8 @@ An open service to connect those that need emergency housing, with the people wh
 - Facebook and Google OAuth support.
 - Improved viewing of offers through modal popups (single and multi-offer view).
 - Improved privacy with location fuzzing and rate-limiting of contact detail requests.
+- Navigate to a point of interest option when clicked on one w/ Google Maps.
+- Add road repairs needed POI.
 
 
 ## Questions
@@ -22,6 +24,36 @@ An open service to connect those that need emergency housing, with the people wh
 
 
 ## 🛣️ Roadmap
+
+
+- [ ] Copy sidebar content to mobile sidebar.
+- [ ] Ability for user to create...
+    - [ ] an offer of housing,
+    - [ ] an offer of assistance
+    - [ ] a danger warning
+
+- [ ] Add reverse geolocation to the map for searching.
+- [ ] Show modal when the user clicks an offer on the map, where the user can 'request details'.
+- [ ] Record this click against the users id under a new table called `offer_detail_requests` with `user_id`, `requested_at`, and `offer_id`.
+- [ ] Create offer form requests.
+    - [ ] Fuzz the lat lng of requests on creation, for privacy reasons.
+- [ ] Add small, darker boarder to pins like in [this example](https://codesandbox.io/s/l7p179qr6m)
+- [ ] Add key/legend to the map to toggle layers.
+
+- [ ] Setup laravel socialite drivers for production site URLs.
+- [ ] Setup laravel socialite apple driver.
+- [ ] Test logging into each of the drivers.
+- [ ] Create /help page.
+- [ ] Create /about page.
+
+- [ ] Setup fathom events tracking
+- [ ] Add site SEO tags
+- [ ] Create custom 404 page
+- [ ] Create custom 500 page
+- [ ] Create observer for offers.
+- [ ] On offer creation, trigger a job to send the offerer a message after 3 days asking whether their offer has been taken. If it has been, soft delete the offer. If not, delay the job a week to run again.
+
+### Completed
 
 - [x] Setup react and typescript
 - [x] Setup inertia
@@ -42,29 +74,19 @@ An open service to connect those that need emergency housing, with the people wh
 - [x] Setup laravel socialite google driver.
 - [x] Setup laravel socialite facebook driver.
 - [x] Setup laravel socialite twitter driver.
-- [x] Add key/legend to the map to toggle layers.
 - [x] Add Point of Interest to map, including relief centers.
-- [ ] Add reverse geolocation to the map for searching.
-- [ ] Look into offer clustering.
-- [ ] Update offer pins to custom images.
-- [ ] Show modal when the user clicks an offer on the map, where the user can 'request details'.
-- [ ] Record this click against the users id under a new table called `offer_detail_requests` with `user_id`, `requested_at`, and `offer_id`.
-- [ ] Create offer form requests.
-- [ ] Fuzz the lat lng of requests on creation, for privacy reasons.
-- [ ] Add authenticated state to inertia shared state.
-- [ ] Add spatie/x-ray to build pipeline
-- [ ] Setup deployment to Forge server.
-- [ ] Add appropriate license to project (MIT?).
-- [ ] Setup laravel socialite apple driver.
-- [ ] Test logging into each of the drivers.
-- [ ] Create /help page.
-- [ ] Create /about page.
-- [ ] Create observer for offers
-- [ ] Create custom 404 page
-- [ ] Create custom 500 page
-- [ ] Add linting check to CI job through Pint
-- [ ] Add static analysis through larastan
-- [ ] On offer creation, trigger a job to send the offerer a message after 3 days asking whether their offer has been taken. If it has been, soft delete the offer. If not, delay the job a week to run again.
+- [x] Add point clustering.
+- [x] Update offer pins to custom images.
+- [x] Update points of interest pins to custom images.
+- [x] Update road damange pins to custom images.
+- [x] Setup deployment to Forge server.
+- [x] Added favicon
+- [x] Add appropriate license to the project.
+- [x] Add spatie/x-ray to build pipeline
+- [x] Add authenticated state to inertia shared state.
+- [x] Add linting check to CI job through Pint
+- [x] Add static analysis through larastan
+- [x] Add fathom tracking
 
 
 ### 🐛 Known Bugs
@@ -104,12 +126,14 @@ An open service to connect those that need emergency housing, with the people wh
 
 ## 💻 Technologies
 
-- Laravel
-- React w/ TypeScript
-- MapBox
+- [Laravel](https://laravel.com/)
+- [React](https://reactjs.org/) w/ [TypeScript](https://www.typescriptlang.org/) and [webpack](https://webpack.js.org/)
+- [Mapbox](https://www.mapbox.com/) through [React Map GL](https://visgl.github.io/react-map-gl/)
 
 
 ## Contributing
+
+### Contributors
 
 - [Dan Ferguson](https://linkedin.com/in/danferg) [🐦](https://twitter.com/thedannyferg) <gday@danferg.com>
 
