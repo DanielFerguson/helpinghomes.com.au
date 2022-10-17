@@ -34,11 +34,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added ability to edit offer.
 - Added ability to delete offer.
 - Added ability to delete report.
+- Added the ability to report offers or point of interest(s).
+- Added basic SEO meta tags.
 
 ### Changed
 - Implemented logic for the StoreOfferFormRequest.
 - Updated map icon images to have small border.
 - Updated POIs to have optional user_id for reports.
+- Fixed icon matching for offers.
 
 ### Removed
 - Removed js and css from public git history, added to gitignore.
