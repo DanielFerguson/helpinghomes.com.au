@@ -44,12 +44,13 @@ class PointOfInterest extends Resource
     {
         return [
             ID::make()->sortable(),
-            Text::make('name'),
+            Text::make('name')->required(),
             Select::make('type')->options([
                 'RELIEF_CENTER' => 'Relief Center',
-            ])->displayUsingLabels(),
-            Number::make('lat')->step('any')->hideFromIndex(),
-            Number::make('lng')->step('any')->hideFromIndex(),
+                'SANDBAGGING_SITE' => 'Sandbagging Site',
+            ])->displayUsingLabels()->required(),
+            Number::make('lat')->step('any')->hideFromIndex()->required(),
+            Number::make('lng')->step('any')->hideFromIndex()->required(),
         ];
     }
 
