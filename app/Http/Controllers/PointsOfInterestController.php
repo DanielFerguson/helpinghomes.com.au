@@ -37,6 +37,8 @@ class PointsOfInterestController extends Controller
                 'properties' => [
                     'name' => $feature->name,
                     'type' => $feature->type,
+                    'lat' => $feature->lat,
+                    'lng' => $feature->lng,
                 ],
             ];
         });

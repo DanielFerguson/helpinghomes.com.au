@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreOfferRequest;
 use App\Http\Requests\UpdateOfferRequest;
+use App\Models\ContactDetailRequest;
 use App\Models\Offer;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
@@ -38,10 +39,14 @@ class OfferController extends Controller
                 'coordinates' => [$offer->lng, $offer->lat],
             ],
             'properties' => [
+                'id' => $offer->id,
                 'userId' => $offer->user_id,
                 'offerType' => $offer->type,
                 'notes' => $offer->notes,
                 'canTakePets' => $offer->canTakePets,
+                'canTakeSingles' => $offer->canTakeSingles,
+                'canTakeCouples' => $offer->canTakeCouples,
+                'canTakeFamilies' => $offer->canTakeFamilies,
                 'assistanceType' => $offer->assistanceType,
                 'capacity' => $offer->capacity,
             ],
@@ -70,13 +75,18 @@ class OfferController extends Controller
      * Display the specified resource.
      *
      * @param  \App\Models\Offer  $offer
-     * @return \Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function show(Offer $offer): RedirectResponse
+    public function show(Offer $offer): JsonResponse
     {
-        // TODO
+        ContactDetailRequest::create([
+            'user_id' => Auth::user()->id,
+            'offer_id' => $offer->id
+        ]);
 
-        return Redirect::route('home');
+        return response()->json([
+            'phone_number' => $offer->user->mobile_number,
+        ]);
     }
 
     /**
