@@ -24,7 +24,7 @@ class OfferFactory extends Factory
             : null;
 
         $capacity = $type === 'HOUSING'
-            ?  ['SINGLE', 'COUPLE', 'FAMILY'][rand(0, 2)]
+            ? ['SINGLE', 'COUPLE', 'FAMILY'][rand(0, 2)]
             : '';
 
         $randomLocation = Location::inRandomOrder()->first();

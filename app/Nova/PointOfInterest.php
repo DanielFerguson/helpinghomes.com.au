@@ -4,9 +4,9 @@ namespace App\Nova;
 
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\ID;
-use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Number;
+use Laravel\Nova\Fields\Select;
+use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
 class PointOfInterest extends Resource
@@ -28,7 +28,7 @@ class PointOfInterest extends Resource
     /**
      * The columns that should be searched.
      *
-     * @var array
+     * @var array<string>
      */
     public static $search = [
         'id',
@@ -38,7 +38,7 @@ class PointOfInterest extends Resource
      * Get the fields displayed by the resource.
      *
      * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
-     * @return array
+     * @return array<mixed>
      */
     public function fields(NovaRequest $request)
     {
@@ -58,7 +58,7 @@ class PointOfInterest extends Resource
      * Get the cards available for the request.
      *
      * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
-     * @return array
+     * @return array<mixed>
      */
     public function cards(NovaRequest $request)
     {
@@ -69,7 +69,7 @@ class PointOfInterest extends Resource
      * Get the filters available for the resource.
      *
      * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
-     * @return array
+     * @return array<mixed>
      */
     public function filters(NovaRequest $request)
     {
@@ -80,7 +80,7 @@ class PointOfInterest extends Resource
      * Get the lenses available for the resource.
      *
      * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
-     * @return array
+     * @return array<mixed>
      */
     public function lenses(NovaRequest $request)
     {
@@ -91,7 +91,7 @@ class PointOfInterest extends Resource
      * Get the actions available for the resource.
      *
      * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
-     * @return array
+     * @return array<mixed>
      */
     public function actions(NovaRequest $request)
     {

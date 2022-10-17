@@ -16,18 +16,18 @@ Route::get('points-of-interest', function () {
             'type' => 'Feature',
             'geometry' => [
                 'type' => 'Point',
-                'coordinates' => [$feature->lng, $feature->lat]
+                'coordinates' => [$feature->lng, $feature->lat],
             ],
             'properties' => [
                 'name' => $feature->name,
                 'type' => $feature->type,
-            ]
+            ],
         ];
     });
 
     return response()->json([
         'type' => 'FeatureCollection',
-        'features' => $features
+        'features' => $features,
     ]);
 });
 

@@ -46,7 +46,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
             return in_array($user->email, [
                 'finntwclark@outlook.com',
                 'thedanielfergusonkid@gmail.com',
-                'gday@danferg.com'
+                'gday@danferg.com',
             ]);
         });
     }
@@ -54,7 +54,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     /**
      * Get the dashboards that should be listed in the Nova sidebar.
      *
-     * @return array
+     * @return array<mixed>
      */
     protected function dashboards()
     {
@@ -66,7 +66,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     /**
      * Get the tools that should be listed in the Nova sidebar.
      *
-     * @return array
+     * @return array<mixed>
      */
     public function tools()
     {

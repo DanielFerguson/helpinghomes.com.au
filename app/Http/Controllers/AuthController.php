@@ -2,20 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
 
 class AuthController extends Controller
 {
-    public function redirectApple()
+    public function redirectApple(): RedirectResponse
     {
         return Socialite::driver('apple')->redirect();
     }
 
     // TODO
-    public function callbackApple()
+    public function callbackApple(): RedirectResponse
     {
         $appleUser = Socialite::driver('apple')->user();
 
@@ -33,12 +33,12 @@ class AuthController extends Controller
         return redirect('/');
     }
 
-    public function redirectGithub()
+    public function redirectGithub(): RedirectResponse
     {
         return Socialite::driver('github')->redirect();
     }
 
-    public function callbackGithub()
+    public function callbackGithub(): RedirectResponse
     {
         $githubUser = Socialite::driver('github')->user();
 
@@ -56,12 +56,12 @@ class AuthController extends Controller
         return redirect('/');
     }
 
-    public function redirectGoogle()
+    public function redirectGoogle(): RedirectResponse
     {
         return Socialite::driver('google')->redirect();
     }
 
-    public function callbackGoogle()
+    public function callbackGoogle(): RedirectResponse
     {
         $googleUser = Socialite::driver('google')->user();
 
@@ -79,12 +79,12 @@ class AuthController extends Controller
         return redirect('/');
     }
 
-    public function redirectFacebook()
+    public function redirectFacebook(): RedirectResponse
     {
         return Socialite::driver('facebook')->redirect();
     }
 
-    public function callbackFacebook()
+    public function callbackFacebook(): RedirectResponse
     {
         $facebookUser = Socialite::driver('facebook')->user();
 
@@ -102,12 +102,12 @@ class AuthController extends Controller
         return redirect('/');
     }
 
-    public function redirectTwitter()
+    public function redirectTwitter(): RedirectResponse
     {
         return Socialite::driver('twitter')->redirect();
     }
 
-    public function callbackTwitter()
+    public function callbackTwitter(): RedirectResponse
     {
         $twitterUser = Socialite::driver('twitter')->user();
 
@@ -125,7 +125,7 @@ class AuthController extends Controller
         return redirect('/');
     }
 
-    public function logout()
+    public function logout(): RedirectResponse
     {
         Auth::logout();
 

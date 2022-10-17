@@ -53,6 +53,7 @@ class OfferPolicy
      */
     public function update(User $user, Offer $offer)
     {
+        /** @phpstan-ignore-next-line */
         return $user->id === $offer->user_id;
     }
 
@@ -65,6 +66,7 @@ class OfferPolicy
      */
     public function delete(User $user, Offer $offer)
     {
+        /** @phpstan-ignore-next-line */
         return $user->id === $offer->user_id;
     }
 
@@ -77,7 +79,8 @@ class OfferPolicy
      */
     public function restore(User $user, Offer $offer)
     {
-        //
+        /** @phpstan-ignore-next-line */
+        return $user->id === $offer->user_id;
     }
 
     /**
@@ -89,6 +92,7 @@ class OfferPolicy
      */
     public function forceDelete(User $user, Offer $offer)
     {
-        //
+        /** @phpstan-ignore-next-line */
+        return $user->id === $offer->user_id;
     }
 }

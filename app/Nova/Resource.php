@@ -26,6 +26,7 @@ abstract class Resource extends NovaResource
      * @param  \Laravel\Scout\Builder  $query
      * @return \Laravel\Scout\Builder
      */
+    /** @phpstan-ignore-next-line */
     public static function scoutQuery(NovaRequest $request, $query)
     {
         return $query;

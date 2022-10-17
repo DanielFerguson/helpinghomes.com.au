@@ -11,6 +11,8 @@ class OfferController extends Controller
 {
     /**
      * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\JsonResponse
      */
     public function index(): JsonResponse
     {
@@ -18,7 +20,7 @@ class OfferController extends Controller
             'type' => 'Feature',
             'geometry' => [
                 'type' => 'Point',
-                'coordinates' => [$offer->lat, $offer->lng]
+                'coordinates' => [$offer->lat, $offer->lng],
             ],
             'properties' => [
                 'userId' => $offer->user_id,
@@ -28,12 +30,12 @@ class OfferController extends Controller
                 'canTakePets' => $offer->canTakePets,
                 'assistanceType' => $offer->assistanceType,
                 'capacity' => $offer->capacity,
-            ]
+            ],
         ]);
 
         return response()->json([
             'type' => 'FeatureCollection',
-            'features' => $offers
+            'features' => $offers,
         ]);
     }
 
@@ -41,22 +43,26 @@ class OfferController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \App\Http\Requests\StoreOfferRequest  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(StoreOfferRequest $request): JsonResponse
     {
-        //
+        // TODO
+
+        return response()->json();
     }
 
     /**
      * Display the specified resource.
      *
      * @param  \App\Models\Offer  $offer
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function show(Offer $offer): JsonResponse
     {
-        //
+        // TODO
+
+        return response()->json();
     }
 
     /**
@@ -64,21 +70,25 @@ class OfferController extends Controller
      *
      * @param  \App\Http\Requests\UpdateOfferRequest  $request
      * @param  \App\Models\Offer  $offer
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function update(UpdateOfferRequest $request, Offer $offer): JsonResponse
     {
-        //
+        // TODO
+
+        return response()->json();
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\Offer  $offer
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function destroy(Offer $offer): JsonResponse
     {
-        //
+        // TODO
+
+        return response()->json();
     }
 }

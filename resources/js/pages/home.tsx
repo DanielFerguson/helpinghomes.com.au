@@ -42,6 +42,7 @@ const Home = () => {
 
     // TODO: Do something with errors
 
+    // TODO: Add on-click events
     // Load images for layers
     const loadMap = (event) => {
         const map = event.target;

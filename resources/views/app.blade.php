@@ -17,6 +17,8 @@
   <link href="{{ mix('/css/app.css') }}" rel="stylesheet" />
   <script src="{{ mix('/js/app.js') }}" defer></script>
 
+  <script src="https://cdn.usefathom.com/script.js" data-site="MFVFTKZD" defer></script>
+
   @inertiaHead
 </head>
 
