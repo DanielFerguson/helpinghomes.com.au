@@ -5,7 +5,9 @@ import useSWR from 'swr';
 import axios from 'axios';
 import { Dialog, Transition } from '@headlessui/react'
 import { startCase } from 'lodash';
-import { FlagIcon } from "@heroicons/react/24/solid";
+import { FlagIcon } from "@heroicons/react/24/outline";
+import { useForm } from '@inertiajs/inertia-react';
+import toast, { Toaster } from 'react-hot-toast';
 
 const fetcher = url => axios.get(url).then(res => res.data)
 
@@ -181,7 +183,22 @@ const LivestockTransportOfferDetails = ({ offer }) => {
 }
 
 const OfferModal = ({ open, toggleFn, offer }) => {
+    const { data, setData, post, processing } = useForm({
+        reason: '',
+    });
+
     if (offer === null) return;
+
+    const report = (e) => {
+        e.preventDefault()
+
+        const toastId = toast.loading('Reporting...');
+
+        post(`/offers/${offer.id}/report`, {
+            onSuccess: () => toast.success('We\'ve logged your report.', { id: toastId }),
+            onError: () => toast.error('Whoops... something went wrong.', { id: toastId })
+        })
+    }
 
     const description = {
         'HOUSING': 'If you have been displaced due to natural disaster and need temporary accomodation, this Good Samaritan has offered to help.',
@@ -217,8 +234,14 @@ const OfferModal = ({ open, toggleFn, offer }) => {
                             <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white px-4 pt-5 pb-4 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-sm sm:p-6">
                                 {/* Details */}
                                 <div className="overflow-hidden bg-white">
-                                    <div className="pb-5">
-                                        <h3 className="text-lg font-medium leading-6 text-gray-900">Offer of {startCase(offer.offerType.toLowerCase())}</h3>
+                                    <div className="pb-5 flex flex-col items-between justify-center">
+                                        <form onSubmit={report} className="flex items-center justify-between">
+                                            <h3 className="text-lg font-medium leading-6 text-gray-900">Offer of {startCase(offer.offerType.toLowerCase())}</h3>
+                                            <button type="submit">
+                                                {/* TODO: Add confirmation window */}
+                                                <FlagIcon className="w-4 h-4" />
+                                            </button>
+                                        </form>
                                         <p className="mt-1 max-w-2xl text-sm text-gray-500">{description[offer.offerType]}</p>
                                     </div>
                                     <div className="border-t border-gray-200 py-5 sm:p-0">
@@ -236,10 +259,22 @@ const OfferModal = ({ open, toggleFn, offer }) => {
 }
 
 const PointOfInterestModal = ({ open, toggleFn, pointOfInterest }) => {
+    const { post } = useForm({
+        reason: '',
+    });
+
     if (pointOfInterest === null) return;
 
-    const report = () => {
-        // TODO
+    // TODO: Add the ability for users to add a reason before saving.
+    const report = (e) => {
+        e.preventDefault()
+
+        const toastId = toast.loading('Reporting...');
+
+        post(`/points-of-interest/${pointOfInterest.id}/report`, {
+            onSuccess: () => toast.success('We\'ve logged your report.', { id: toastId }),
+            onError: () => toast.error('Whoops... something went wrong.', { id: toastId })
+        })
     }
 
     return (
@@ -272,13 +307,13 @@ const PointOfInterestModal = ({ open, toggleFn, pointOfInterest }) => {
                                 {/* Details */}
                                 <div className="overflow-hidden bg-white">
                                     <div className="pb-5">
-                                        <div className="flex items-center justify-between">
+                                        <form onSubmit={report} className="flex items-center justify-between">
                                             <h3 className="text-lg font-medium leading-6 text-gray-900">{startCase(pointOfInterest.type.toLowerCase())}</h3>
-                                            <button onClick={() => report()}>
+                                            <button type="submit">
                                                 {/* TODO: Add confirmation window */}
                                                 <FlagIcon className="w-4 h-4" />
                                             </button>
-                                        </div>
+                                        </form>
                                         <p className="mt-1 max-w-2xl text-sm text-gray-500">{pointOfInterest.name}</p>
                                     </div>
                                     <div className="border-t border-gray-200 py-5 sm:p-0">
@@ -389,37 +424,40 @@ const Home = () => {
     }
 
     return (
-        <SidebarLayout>
-            <OfferModal open={selectedOffer !== null} toggleFn={selectOffer} offer={selectedOffer} />
-            <PointOfInterestModal open={selectedPointOfInterest !== null} toggleFn={selectPointOfInterest} pointOfInterest={selectedPointOfInterest} />
+        <>
+            <Toaster />
+            <SidebarLayout>
+                <OfferModal open={selectedOffer !== null} toggleFn={selectOffer} offer={selectedOffer} />
+                <PointOfInterestModal open={selectedPointOfInterest !== null} toggleFn={selectPointOfInterest} pointOfInterest={selectedPointOfInterest} />
 
-            <div className="h-full w-full relative">
-                <Map
-                    initialViewState={{
-                        longitude: 144.9631,
-                        latitude: -37.8136,
-                        zoom: 5
-                    }}
-                    style={{
-                        width: '100%',
-                        height: '100%'
-                    }}
-                    onLoad={(event) => loadMap(event)}
-                    mapStyle="mapbox://styles/mapbox/streets-v9"
-                    mapboxAccessToken="pk.eyJ1IjoiZGFuaWVsZmVyZ3Vzb24iLCJhIjoiY2w5YXFjazNtMGp1ZTNwcXdtMjBlYTc2YyJ9.2Cz8UmqgWB4VpagnJ6_ATw"
-                >
-                    <GeolocateControl />
-                    <NavigationControl />
-                    <ScaleControl />
-                    <Source id="offers" type="geojson" data={offers}>
-                        <Layer {...offersLayerStyle} />
-                    </Source>
-                    <Source id="points-of-interest" type="geojson" data={pointsOfInterest}>
-                        <Layer {...pointsOfInterestLayerStyle} />
-                    </Source>
-                </Map>
-            </div>
-        </SidebarLayout>
+                <div className="h-full w-full relative">
+                    <Map
+                        initialViewState={{
+                            longitude: 144.9631,
+                            latitude: -37.8136,
+                            zoom: 5
+                        }}
+                        style={{
+                            width: '100%',
+                            height: '100%'
+                        }}
+                        onLoad={(event) => loadMap(event)}
+                        mapStyle="mapbox://styles/mapbox/streets-v9"
+                        mapboxAccessToken="pk.eyJ1IjoiZGFuaWVsZmVyZ3Vzb24iLCJhIjoiY2w5YXFjazNtMGp1ZTNwcXdtMjBlYTc2YyJ9.2Cz8UmqgWB4VpagnJ6_ATw"
+                    >
+                        <GeolocateControl />
+                        <NavigationControl />
+                        <ScaleControl />
+                        <Source id="offers" type="geojson" data={offers}>
+                            <Layer {...offersLayerStyle} />
+                        </Source>
+                        <Source id="points-of-interest" type="geojson" data={pointsOfInterest}>
+                            <Layer {...pointsOfInterestLayerStyle} />
+                        </Source>
+                    </Map>
+                </div>
+            </SidebarLayout>
+        </>
     );
 }
 
