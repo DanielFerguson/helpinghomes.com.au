@@ -670,13 +670,13 @@ const AuthModal = ({ open, toggleFn }) => {
                                     </div>
                                 </div>
                                 <div className="mt-5 sm:mt-6 grid gap-3">
-                                    <a
+                                    {/* <a
                                         href="/auth/redirect/github"
                                         className="inline-flex items-center justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-base font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
                                     >
                                         <img className="-ml-1 mr-3 h-5 w-5 text-white" src='/assets/icons/github.svg' />
                                         Github (Dev Only)
-                                    </a>
+                                    </a> */}
                                     <a
                                         href="/auth/redirect/facebook"
                                         className="inline-flex items-center justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-base font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"

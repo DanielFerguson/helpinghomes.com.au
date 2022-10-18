@@ -80,18 +80,17 @@ class AuthController extends Controller
 
     public function redirectTwitter(): RedirectResponse
     {
-        return Socialite::driver('twitter')->redirect();
+        return Socialite::driver('twitter-oauth-2')->redirect();
     }
 
     public function callbackTwitter(): RedirectResponse
     {
-        $twitterUser = Socialite::driver('twitter')->user();
+        $twitterUser = Socialite::driver('twitter-oauth-2')->user();
 
         $user = User::updateOrCreate([
             'twitter_id' => $twitterUser->id,
         ], [
             'name' => $twitterUser->name,
-            'email' => $twitterUser->email,
             'twitter_token' => $twitterUser->token,
             'twitter_refresh_token' => $twitterUser->refreshToken,
         ]);
