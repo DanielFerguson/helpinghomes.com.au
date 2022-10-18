@@ -17,7 +17,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::inertia('/', 'home')->name('home');
-Route::inertia('/login', 'home')->name('login');
+
+Route::view('/about', 'about');
 
 Route::post('/offers/{offer}/report', [OfferController::class, 'report']);
 Route::post('/points-of-interest/{pointOfInterest}/report', [PointOfInterestController::class, 'report']);
@@ -31,6 +32,8 @@ Route::apiResources([
 | Authentication Routes
 |--------------------------------------------------------------------------
 */
+
+Route::inertia('/login', 'home')->name('login');
 
 Route::get('/auth/redirect/github', [AuthController::class, 'redirectGithub']);
 Route::get('/auth/redirect/google', [AuthController::class, 'redirectGoogle']);
