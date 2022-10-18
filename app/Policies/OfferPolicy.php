@@ -41,7 +41,7 @@ class OfferPolicy
      */
     public function create(User $user)
     {
-        return count($user->offers) < 3;
+        return $user->mobile_number_verified_at !== null && count($user->offers) < 3;
     }
 
     /**
