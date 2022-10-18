@@ -29,12 +29,10 @@ An open service to connect those that need emergency housing, with the people wh
 - [ ] ✨ Ability to create alternative offer types (livestock transport, livestock housing).
 - [ ] ✨ If a user requests an offers details and clicks the call button, queue up a job to message the offerer 10 minutes later asking whether the offer has been taken and if we should remove the offer.
 - [ ] ✨ Setup fathom events tracking
+- [ ] 🐛 If a user requests tries to verify a pin, leaves the site and then comes back, there's no way for them to request a new code.
+- --------
 - [ ] ✨ Create /help page.
 - [ ] ✨ Add more information about Helping Homes to the LHS section.
-
-### 🐛 Bugs
-
-- [ ] If a user requests tries to verify a pin, leaves the site and then comes back, there's no way for them to request a new code.
 
 ### Future Items
 - [ ] ♻️ Refactor modals to reduce copied code - wrap content in a reusable modal container component.

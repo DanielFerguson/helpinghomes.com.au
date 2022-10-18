@@ -590,7 +590,7 @@ const CreateReportModal = ({ open, toggleFn }) => {
                                                     <p className="text-sm text-gray-500">Please contact the number for your state below. These organisations will be able to help you more immediately than we can.</p>
                                                     <div className="mt-4 space-y-4">
                                                         <ul className="text-sm list-disc space-y-3 pl-3">
-                                                            <li>VIC: <a className='underline' href="tel:0384007300" target="_blank" rel="noopener noreferrer">Wildlife Vic</a></li>
+                                                            <li>VIC: <a className='underline' href="tel:0384007300" target="_blank" rel="noopener noreferrer">Wildlife VIC</a></li>
                                                         </ul>
                                                     </div>
                                                 </fieldset>
