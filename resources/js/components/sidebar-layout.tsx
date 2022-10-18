@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useCallback, useRef, useEffect } from 'react'
+import React, { Fragment, useState, useCallback, useRef } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import {
     Bars3Icon,
@@ -17,14 +17,10 @@ import { Inertia } from '@inertiajs/inertia'
 import Map, { GeolocateControl, Marker } from 'react-map-gl';
 
 const pinTypes = [
-    {
-        src: '/assets/map/danger-road-damage.png',
-        name: 'Road Damaged',
-    },
-    {
-        src: '/assets/map/offer-assistance.png',
-        name: 'Offer of Assistance',
-    },
+    // {
+    //     src: '/assets/map/offer-assistance.png',
+    //     name: 'Offer of Assistance',
+    // },
     {
         src: '/assets/map/offer-housing.png',
         name: 'Offer of Housing',
@@ -36,6 +32,10 @@ const pinTypes = [
     {
         src: '/assets/map/offer-transport-livestock.png',
         name: 'Offer of Livestock Transport',
+    },
+    {
+        src: '/assets/map/danger-road-damage.png',
+        name: 'Road Damaged',
     },
     {
         src: '/assets/map/point-of-interest-relief-center.png',
@@ -225,6 +225,13 @@ const CreateOfferModal = ({ open, toggleFn }) => {
                                                         <option value="false">No</option>
                                                     </select>
                                                 </div>
+                                            </div>
+                                        </div>
+
+                                        {/* Offer Notice */}
+                                        <div className="pt-6">
+                                            <div className="mt-1 sm:mt-0 text-sm">
+                                                <p>Before you create your offer, please make sure that you have read our <a href="/about" className='underline' target="_blank" rel="noopener noreferrer">about page</a>; mainly the 'offers' section.</p>
                                             </div>
                                         </div>
                                     </div>
@@ -766,7 +773,7 @@ const OffersPanelSection = ({ flyTo, offers, setCreateModalOpen, selectOffer }) 
                     className="relative block w-full rounded-lg border-2 border-dashed border-gray-300 px-12 py-6 text-center hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
                 >
                     <PlusCircleIcon className="mx-auto h-12 w-12 text-gray-400" />
-                    <span className="mt-2 block text-sm font-medium text-gray-900">Create an offer</span>
+                    <span className="mt-2 block text-sm font-medium text-gray-900">Offer accomodation, livestock housing or transport.</span>
                 </button>
             </div>
         )
@@ -826,7 +833,7 @@ const ReportsPanelSection = ({ flyTo, reports, setCreateModalOpen }) => {
                     className="relative block w-full rounded-lg border-2 border-dashed border-gray-300 px-12 py-6 text-center hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
                 >
                     <PlusCircleIcon className="mx-auto h-12 w-12 text-gray-400" />
-                    <span className="mt-2 block text-sm font-medium text-gray-900">Create a report</span>
+                    <span className="mt-2 block text-sm font-medium text-gray-900">Report damaged roads, and injured wildlife.</span>
                 </button>
             </div>
         );
@@ -912,7 +919,7 @@ export default function SidebarLayout({ flyTo, children }) {
             <AuthModal open={authModalOpen} toggleFn={setAuthModalOpen} />
 
             {/* Sidebar */}
-            <Transition.Root show={sidebarOpen} as={Fragment}>
+            <Transition.Root show={sidebarOpen && !createOfferModalOpen && !createReportModalOpen} as={Fragment}>
                 <Dialog as="div" className="relative z-40 md:hidden" onClose={setSidebarOpen}>
                     <Transition.Child
                         as={Fragment}
@@ -970,7 +977,28 @@ export default function SidebarLayout({ flyTo, children }) {
                                         <p className='text-gray-400 italic text-xs'>Proudly by Helping Group</p>
                                     </div>
                                     <nav className="flex-1 space-y-1 divide-y">
-                                        {/* TODO */}
+                                        {/* Login */}
+                                        {auth.user === false && <LoginPanelSection toggleFn={setAuthModalOpen} />}
+
+                                        {/* Offers */}
+                                        {auth.user && <OffersPanelSection flyTo={flyTo} offers={offers} setCreateModalOpen={setCreateOfferModalOpen} selectOffer={setSelectedOffer} />}
+
+                                        {/* Reports */}
+                                        {auth.user && <ReportsPanelSection flyTo={flyTo} reports={reports} setCreateModalOpen={setCreateReportModalOpen} />}
+
+                                        {/* Key */}
+                                        <div className="px-4 grid gap-3 py-6">
+                                            <h2 className='text-lg font-medium'>Map Key</h2>
+                                            <div className="pt-4 grid gap-y-6 grid-cols-3 text-sm text-center">
+                                                {pinTypes.map(type => (
+                                                    <div key={type.name}>
+                                                        <img src={type.src} alt={type.name} className='h-10 mb-2 mx-auto' />
+                                                        <p>{type.name}</p>
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        </div>
+
                                         {/* Link to give page */}
                                         <div className="px-4 grid gap-3 py-6">
                                             <h2 className='text-lg font-medium'>Other ways to help</h2>
@@ -983,11 +1011,19 @@ export default function SidebarLayout({ flyTo, children }) {
                                                 Find out how
                                             </a>
                                         </div>
+
                                         {/* Assistance */}
                                         <div className="px-4 grid gap-3 py-6">
                                             <h2 className='text-lg font-medium'>Get assistance</h2>
                                             <p className='text-sm text-red-600 font-bold'>If you need urgent assistance, please call 000 immediately.</p>
                                             <p className='text-sm'>There are other fantastic organisations who are helping in so many ways, and we want to recognise them, and enable people find the help they need.</p>
+                                        </div>
+
+                                        {/* Information */}
+                                        <div className="px-4 grid gap-3 py-6">
+                                            <h2 className='text-lg font-medium'>Other information</h2>
+                                            <p className='text-sm'>Please make sure you read the information of <a href="/about" className='underline' target="_blank" rel="noopener noreferrer">our about page</a> before using the platform.</p>
+                                            <p className="text-sm">If you have any questions, don't hesitate to reach out via email, <a className='underline' href="mailto:contact@helping.group">contact@helping.group</a>.</p>
                                         </div>
                                     </nav>
                                 </div>
@@ -1060,11 +1096,19 @@ export default function SidebarLayout({ flyTo, children }) {
                                     Find out how
                                 </a>
                             </div>
+
                             {/* Assistance */}
                             <div className="px-4 grid gap-3 py-6">
                                 <h2 className='text-lg font-medium'>Get assistance</h2>
                                 <p className='text-sm text-red-600 font-bold'>If you need urgent assistance, please call 000 immediately.</p>
                                 <p className='text-sm'>There are other fantastic organisations who are helping in so many ways, and we want to recognise them, and enable people find the help they need.</p>
+                            </div>
+
+                            {/* Information */}
+                            <div className="px-4 grid gap-3 py-6">
+                                <h2 className='text-lg font-medium'>Other information</h2>
+                                <p className='text-sm'>Please make sure you read the information of <a href="/about" className='underline' target="_blank" rel="noopener noreferrer">our about page</a> before using the platform.</p>
+                                <p className="text-sm">If you have any questions, don't hesitate to reach out via email, <a className='underline' href="mailto:contact@helping.group">contact@helping.group</a>.</p>
                             </div>
                         </nav>
                     </div>
@@ -1079,6 +1123,8 @@ export default function SidebarLayout({ flyTo, children }) {
                     )}
                 </div>
             </div >
+
+            {/* Content */}
             <div className="flex flex-1 flex-col md:pl-72 h-screen">
                 <div className="sticky top-0 z-10 p-1 md:hidden">
                     <button
