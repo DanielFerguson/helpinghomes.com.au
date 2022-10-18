@@ -25,19 +25,14 @@ An open service to connect those that need emergency housing, with the people wh
 
 ## 🛣️ Roadmap
 
-- [ ] 🎨 Move sidebar content to mobile.
-- [ ] 🐛 If the user is not logged in and clicks on an offer pin, show a modal asking them to login to view details.
 - [ ] ✨ Ability to create alternative offer types (livestock transport, livestock housing).
-- [ ] ✨ Create SEO image banner.
+- [ ] ✨ If the user wants to report an injured animal, show the number for the states call (i.e VIC: 03 8400 7300)
 - [ ] ✨ If a user requests an offers details and clicks the call button, queue up a job to message the offerer 10 minutes later asking whether the offer has been taken and if we should remove the offer.
-- [ ] 🐛 Fix: can set canTakePets to true, but can't set it back to false.
-- [ ] 🐛 Fix: user can create more than 3 offers at a time.
-- [ ] 🐛 Fix: when you create an offer of accomodation, you need to select at least one type
-- [ ] 🐛 Fix: when you register with one service (ie. facebook) and then try and login with a different service (ie. Google), it will break.
 - [ ] ✨ Create /help page.
 - [ ] ✨ Setup fathom events tracking
 - [ ] 🗃️ Setup periodic database backups.
-- [ ] ✨ Create /about page.
+
+### Future Items
 - [ ] ♻️ Refactor modals to reduce copied code - wrap content in a reusable modal container component.
 - [ ] ✨ If you click on a map key item, it will toggle it's visibility on the map.
 

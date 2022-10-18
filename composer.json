@@ -19,6 +19,7 @@
         "laravel/tinker": "^2.7",
         "madewithlove/laravel-nova-uuid-support": "^1.4",
         "ramsey/uuid-doctrine": "^1.8",
+        "spatie/laravel-backup": "^8.1",
         "symfony/http-client": "^6.1",
         "symfony/mailgun-mailer": "^6.1"
     },

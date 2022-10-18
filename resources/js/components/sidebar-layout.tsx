@@ -299,7 +299,7 @@ const EditOfferModal = ({ open, toggleFn, selectedOffer }) => {
     }
 
     function deleteOffer() {
-        destroy(`/offers/${offer.id}`, {
+        destroy(`/offers/${selectedOffer.id}`, {
             onSuccess: () => toggleFn(null),
         })
     }

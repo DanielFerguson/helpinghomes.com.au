@@ -14,16 +14,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added toast UI feedback on successful reporting.
 - Added the ability to fly-to a report and offer.
 - Added map icon key to sidebar.
-- Added husky pre-commit checks and linting
+- Added husky pre-commit checks and linting.
+- Added basic about page.
+- Added link to about page when creating first offer.
+- Added content to mobile sidebar.
+- If the user is not logged in and clicks on an offer pin, show a modal asking them to login to view details.
+- Added Offer policy to StoreOfferRequest.
 
 ### Changed
 - Set laravel to strict mode in local environments.
 - Refactored `web` routes to use condensed `apiResources`.
+- Defaulted canTake checkboxes to true.
 
 ### Fixed
 - Fixed call to capacity in offer controller; attribute no longer exists.
 - Renamed `PointsOfInterestController` to uniform singular `PointOfInterestController`.
 - Fixed facebook_token field; needed to be a text field type.
+- Fixed updating `canTakePets` selection on edit.
 
 ### Removed
 - Removed ReportController; implementing on reportable controllers (offer, pois).
