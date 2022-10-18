@@ -14,7 +14,7 @@ class ReportObserver
      * @param  \App\Models\Report  $report
      * @return void
      */
-    public function created(Report $report)
+    public function created(Report $report): void
     {
         // If the reported model has more than 1 report, notify Dan Ferguson
         if (count($report->reportable->reports) > 1) {

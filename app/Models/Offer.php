@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Offer extends Model
@@ -45,7 +46,7 @@ class Offer extends Model
     /**
      * Get all of the offers reports.
      */
-    public function reports()
+    public function reports(): MorphMany
     {
         return $this->morphMany(Report::class, 'reportable');
     }

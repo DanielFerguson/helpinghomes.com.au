@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 class Report extends Model
 {
@@ -19,7 +20,7 @@ class Report extends Model
     /**
      * Get the parent reportable model (offer or point-of-interest).
      */
-    public function reportable()
+    public function reportable(): MorphTo
     {
         return $this->morphTo();
     }

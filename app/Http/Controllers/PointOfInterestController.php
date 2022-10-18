@@ -57,13 +57,13 @@ class PointOfInterestController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \App\Http\Requests\StorePointOfInterestRequest  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(StorePointOfInterestRequest $request)
+    public function store(StorePointOfInterestRequest $request): RedirectResponse
     {
         PointOfInterest::create($request->validated());
 
-        return redirect()->back();
+        return Redirect::route('home');
     }
 
     /**
@@ -71,13 +71,13 @@ class PointOfInterestController extends Controller
      *
      * @param  \App\Http\Requests\UpdatePointOfInterestRequest  $request
      * @param  \App\Models\PointOfInterest  $pointOfInterest
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(UpdatePointOfInterestRequest $request, PointOfInterest $pointOfInterest): RedirectResponse
     {
         $pointOfInterest->update($request->validated());
 
-        return redirect()->back();
+        return Redirect::route('home');
     }
 
     /**

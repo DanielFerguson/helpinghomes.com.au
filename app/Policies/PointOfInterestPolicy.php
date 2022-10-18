@@ -14,9 +14,9 @@ class PointOfInterestPolicy
      * Determine whether the user can view any models.
      *
      * @param  \App\Models\User  $user
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @return bool
      */
-    public function viewAny(User $user)
+    public function viewAny(User $user): bool
     {
         return true;
     }
@@ -26,9 +26,9 @@ class PointOfInterestPolicy
      *
      * @param  \App\Models\User  $user
      * @param  \App\Models\PointOfInterest  $pointOfInterest
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @return bool
      */
-    public function view(User $user, PointOfInterest $pointOfInterest)
+    public function view(User $user, PointOfInterest $pointOfInterest): bool
     {
         return true;
     }
@@ -37,9 +37,9 @@ class PointOfInterestPolicy
      * Determine whether the user can create models.
      *
      * @param  \App\Models\User  $user
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @return bool
      */
-    public function create(User $user)
+    public function create(User $user): bool
     {
         return count($user->reports) < 15;
     }
@@ -49,11 +49,10 @@ class PointOfInterestPolicy
      *
      * @param  \App\Models\User  $user
      * @param  \App\Models\PointOfInterest  $pointOfInterest
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @return bool
      */
-    public function update(User $user, PointOfInterest $pointOfInterest)
+    public function update(User $user, PointOfInterest $pointOfInterest): bool
     {
-        /** @phpstan-ignore-next-line */
         return $user->id === $pointOfInterest->user_id;
     }
 
@@ -62,11 +61,10 @@ class PointOfInterestPolicy
      *
      * @param  \App\Models\User  $user
      * @param  \App\Models\PointOfInterest  $pointOfInterest
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @return bool
      */
-    public function delete(User $user, PointOfInterest $pointOfInterest)
+    public function delete(User $user, PointOfInterest $pointOfInterest): bool
     {
-        /** @phpstan-ignore-next-line */
         return $user->id === $pointOfInterest->user_id;
     }
 
@@ -75,9 +73,9 @@ class PointOfInterestPolicy
      *
      * @param  \App\Models\User  $user
      * @param  \App\Models\PointOfInterest  $pointOfInterest
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @return bool
      */
-    public function restore(User $user, PointOfInterest $pointOfInterest)
+    public function restore(User $user, PointOfInterest $pointOfInterest): bool
     {
         return false;
     }
@@ -87,9 +85,9 @@ class PointOfInterestPolicy
      *
      * @param  \App\Models\User  $user
      * @param  \App\Models\PointOfInterest  $pointOfInterest
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @return bool
      */
-    public function forceDelete(User $user, PointOfInterest $pointOfInterest)
+    public function forceDelete(User $user, PointOfInterest $pointOfInterest): bool
     {
         return false;
     }
