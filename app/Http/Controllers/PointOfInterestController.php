@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StorePointOfInterestReportRequest;
 use App\Http\Requests\StorePointOfInterestRequest;
 use App\Http\Requests\UpdatePointOfInterestRequest;
-use App\Http\Requests\StorePointOfInterestReportRequest;
 use App\Models\PointOfInterest;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
@@ -97,7 +97,7 @@ class PointOfInterestController extends Controller
     /**
      * Create a report on an point of interest.
      *
-     * @param \App\Http\Requests\StorePointOfInterestReportRequest $request
+     * @param  \App\Http\Requests\StorePointOfInterestReportRequest  $request
      * @param  \App\Models\PointOfInterest  $pointOfInterest
      * @return \Illuminate\Http\RedirectResponse
      */
@@ -107,7 +107,7 @@ class PointOfInterestController extends Controller
 
         $pointOfInterest->reports()->create([
             'user_id' => Auth::id(),
-            'reason' => $validated['reason']
+            'reason' => $validated['reason'],
         ]);
 
         return Redirect::route('home');

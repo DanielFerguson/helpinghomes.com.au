@@ -4,17 +4,48 @@ import {
     Bars3Icon,
     UsersIcon,
     XMarkIcon,
-    MapPinIcon,
+    ExclamationTriangleIcon,
+    MapPinIcon
 } from '@heroicons/react/24/outline'
 import {
     HomeIcon,
-    ExclamationTriangleIcon,
     PencilSquareIcon,
     PlusCircleIcon
 } from '@heroicons/react/24/solid'
 import { usePage, useForm } from '@inertiajs/inertia-react'
 import { Inertia } from '@inertiajs/inertia'
 import Map, { GeolocateControl, Marker } from 'react-map-gl';
+
+const pinTypes = [
+    {
+        src: '/assets/map/danger-road-damage.png',
+        name: 'Road Damaged',
+    },
+    {
+        src: '/assets/map/offer-assistance.png',
+        name: 'Offer of Assistance',
+    },
+    {
+        src: '/assets/map/offer-housing.png',
+        name: 'Offer of Housing',
+    },
+    {
+        src: '/assets/map/offer-shelter-livestock.png',
+        name: 'Offer of Livestock Shelter',
+    },
+    {
+        src: '/assets/map/offer-transport-livestock.png',
+        name: 'Offer of Livestock Transport',
+    },
+    {
+        src: '/assets/map/point-of-interest-relief-center.png',
+        name: 'Relief Center',
+    },
+    {
+        src: '/assets/map/point-of-interest-sandbagging-site.png',
+        name: 'Sandbagging Site',
+    },
+]
 
 const CreateOfferModal = ({ open, toggleFn }) => {
     const mapRef = useRef();
@@ -725,7 +756,7 @@ const AccomodateTypeBadges = ({ offer }) => {
     return badges;
 }
 
-const OffersPanelSection = ({ offers, setCreateModalOpen, selectOffer }) => {
+const OffersPanelSection = ({ flyTo, offers, setCreateModalOpen, selectOffer }) => {
     if (offers.length === 0) {
         return (
             <div className="px-4 py-6">
@@ -756,8 +787,9 @@ const OffersPanelSection = ({ offers, setCreateModalOpen, selectOffer }) => {
                                 <button onClick={() => selectOffer(offer)}>
                                     <PencilSquareIcon className="h-3.5 w-3.5 text-gray-400 hover:text-gray-900 transition duration-75 cursor-pointer" />
                                 </button>
-                                {/* TODO */}
-                                {/* <MapPinIcon className="h-3.5 w-3.5 text-gray-400 hover:text-gray-900 transition duration-75 cursor-pointer" /> */}
+                                <button onClick={() => flyTo(offer.lat, offer.lng)}>
+                                    <MapPinIcon className="h-3.5 w-3.5 text-gray-400 hover:text-gray-900 transition duration-75 cursor-pointer" />
+                                </button>
                             </div>
                         </div>
                         <div className="flex items-center gap-2">
@@ -784,7 +816,7 @@ const OffersPanelSection = ({ offers, setCreateModalOpen, selectOffer }) => {
     )
 }
 
-const ReportsPanelSection = ({ reports, setCreateModalOpen }) => {
+const ReportsPanelSection = ({ flyTo, reports, setCreateModalOpen }) => {
     if (reports.length === 0) {
         return (
             <div className="px-4 py-6">
@@ -819,8 +851,9 @@ const ReportsPanelSection = ({ reports, setCreateModalOpen }) => {
                                 <button onClick={() => deleteReport(report.id)}>
                                     <XMarkIcon className="h-3.5 w-3.5 text-gray-400 hover:text-gray-900 transition duration-75 cursor-pointer" />
                                 </button>
-                                {/* TODO */}
-                                {/* <MapPinIcon className="h-3.5 w-3.5 text-gray-400 hover:text-gray-900 transition duration-75 cursor-pointer" /> */}
+                                <button onClick={() => flyTo(report.lat, report.lng)}>
+                                    <MapPinIcon className="h-3.5 w-3.5 text-gray-400 hover:text-gray-900 transition duration-75 cursor-pointer" />
+                                </button>
                             </div>
                         </div>
                     </li>
@@ -854,7 +887,7 @@ const LoginPanelSection = ({ toggleFn }) => {
     );
 }
 
-export default function SidebarLayout({ children }) {
+export default function SidebarLayout({ flyTo, children }) {
     const [sidebarOpen, setSidebarOpen] = useState(false)
     const [authModalOpen, setAuthModalOpen] = useState(false);
     const [createOfferModalOpen, setCreateOfferModalOpen] = useState(false);
@@ -997,10 +1030,23 @@ export default function SidebarLayout({ children }) {
                             {auth.user === false && <LoginPanelSection toggleFn={setAuthModalOpen} />}
 
                             {/* Offers */}
-                            {auth.user && <OffersPanelSection offers={offers} setCreateModalOpen={setCreateOfferModalOpen} selectOffer={setSelectedOffer} />}
+                            {auth.user && <OffersPanelSection flyTo={flyTo} offers={offers} setCreateModalOpen={setCreateOfferModalOpen} selectOffer={setSelectedOffer} />}
 
                             {/* Reports */}
-                            {auth.user && <ReportsPanelSection reports={reports} setCreateModalOpen={setCreateReportModalOpen} />}
+                            {auth.user && <ReportsPanelSection flyTo={flyTo} reports={reports} setCreateModalOpen={setCreateReportModalOpen} />}
+
+                            {/* Key */}
+                            <div className="px-4 grid gap-3 py-6">
+                                <h2 className='text-lg font-medium'>Map Key</h2>
+                                <div className="pt-4 grid gap-y-6 grid-cols-3 text-sm text-center">
+                                    {pinTypes.map(type => (
+                                        <div key={type.name}>
+                                            <img src={type.src} alt={type.name} className='h-10 mb-2 mx-auto' />
+                                            <p>{type.name}</p>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
 
                             {/* Link to give page */}
                             <div className="px-4 grid gap-3 py-6">

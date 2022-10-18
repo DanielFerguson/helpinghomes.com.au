@@ -3,7 +3,6 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Auth;
 
 class StoreOfferRequest extends FormRequest
 {
@@ -38,7 +37,7 @@ class StoreOfferRequest extends FormRequest
 
     /**
      * Prepare the data for validation.
-     * 
+     *
      * Adding random noise to the point to increase privacy.
      *
      * @return void

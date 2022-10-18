@@ -3,8 +3,6 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\OfferController;
 use App\Http\Controllers\PointOfInterestController;
-use App\Http\Controllers\ReportController;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,7 +23,7 @@ Route::post('/offers/{offer}/report', [OfferController::class, 'report']);
 Route::post('/points-of-interest/{pointOfInterest}/report', [PointOfInterestController::class, 'report']);
 Route::apiResources([
     'offers' => OfferController::class,
-    'points-of-interest' => PointOfInterestController::class
+    'points-of-interest' => PointOfInterestController::class,
 ]);
 
 /*

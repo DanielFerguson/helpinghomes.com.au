@@ -25,7 +25,7 @@ class StoreReportRequest extends FormRequest
     {
         return [
             'reportable_type' => 'required|in:Offer,PointOfInterest',
-            'reportable_id' => 'required|' // TODO: Either uuid or int, check this.
+            'reportable_id' => 'required|', // TODO: Either uuid or int, check this.
         ];
     }
 }

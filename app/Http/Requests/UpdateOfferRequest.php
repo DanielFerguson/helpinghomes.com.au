@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests;
 
-use App\Models\Offer;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateOfferRequest extends FormRequest
@@ -38,7 +37,7 @@ class UpdateOfferRequest extends FormRequest
 
     /**
      * Prepare the data for validation.
-     * 
+     *
      * Adding random noise to the point to increase privacy.
      *
      * @return void

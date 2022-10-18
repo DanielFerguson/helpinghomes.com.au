@@ -1,4 +1,4 @@
-import React, { useState, Fragment } from "react";
+import React, { useState, Fragment, forwardRef, useImperativeHandle, useRef } from "react";
 import Map, { Source, Layer, GeolocateControl, NavigationControl, ScaleControl } from 'react-map-gl';
 import SidebarLayout from '../components/sidebar-layout.tsx';
 import useSWR from 'swr';
@@ -343,6 +343,7 @@ const PointOfInterestModal = ({ open, toggleFn, pointOfInterest }) => {
 }
 
 const Home = () => {
+    const map = useRef();
     const [selectedOffer, selectOffer] = useState(null);
     const [selectedPointOfInterest, selectPointOfInterest] = useState(null);
 
@@ -423,15 +424,23 @@ const Home = () => {
         });
     }
 
+    const flyToPoint = (lat, lng) => {
+        map.current.flyTo({
+            center: [lng, lat],
+            zoom: 15
+        });
+    }
+
     return (
         <>
             <Toaster />
-            <SidebarLayout>
+            <SidebarLayout flyTo={flyToPoint}>
                 <OfferModal open={selectedOffer !== null} toggleFn={selectOffer} offer={selectedOffer} />
                 <PointOfInterestModal open={selectedPointOfInterest !== null} toggleFn={selectPointOfInterest} pointOfInterest={selectedPointOfInterest} />
 
                 <div className="h-full w-full relative">
                     <Map
+                        ref={map}
                         initialViewState={{
                             longitude: 144.9631,
                             latitude: -37.8136,

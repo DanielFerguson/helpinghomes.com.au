@@ -24,7 +24,7 @@ class StorePointOfInterestReportRequest extends FormRequest
     public function rules()
     {
         return [
-            'reason' => 'nullable|string'
+            'reason' => 'nullable|string',
         ];
     }
 }

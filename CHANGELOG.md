@@ -6,6 +6,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.0] - 2022-10-18
+### Added
+- Added `Created xxx ago.` subtitle to road damage report modals
+- Added the ability to report offers.
+- Added the ability to report reports.
+- Added toast UI feedback on successful reporting.
+- Added the ability to fly-to a report and offer.
+- Added map icon key to sidebar.
+
+### Changed
+- Set laravel to strict mode in local environments.
+- Refactored `web` routes to use condensed `apiResources`.
+
+### Fixed
+- Fixed call to capacity in offer controller; attribute no longer exists.
+- Renamed `PointsOfInterestController` to uniform singular `PointOfInterestController`.
+
+### Removed
+- Removed ReportController; implementing on reportable controllers (offer, pois).
+
 ## [1.0.0] - 2022-10-17
 ### Added
 - Point of interest model and API.

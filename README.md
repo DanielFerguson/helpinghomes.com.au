@@ -17,7 +17,6 @@ An open service to connect those that need emergency housing, with the people wh
 - Navigate to a point of interest option when clicked on one w/ Google Maps.
 - Add road repairs needed POI.
 
-
 ## Questions
 
 - How can we outline places of danger, evacuations, etc?
@@ -27,22 +26,21 @@ An open service to connect those that need emergency housing, with the people wh
 
 ## 🛣️ Roadmap
 
-- [ ] Add ability to report an offer or report.
-- [ ] If an offer gets a report, send Dan Ferguson an email.
-- [ ] If a hazard gets more than 2 reports, send Dan Ferguson an email.
-
-- [ ] Add ability to 'fly-to' when select map icon next to offer or report.
-- [ ] Ability to create alternative offer types (livestock transport, livestock housing).
-- [ ] Add key/legend to the map to toggle layers.
 - [ ] Setup laravel socialite drivers for production site URLs.
 - [ ] Test logging into each of the drivers.
+- [ ] Ability to create alternative offer types (livestock transport, livestock housing).
 
+- [ ] add pre-commit commands through husky (run pint lint check)
 - [ ] Create /about page.
 - [ ] Create /help page.
 - [ ] Create SEO image banner.
 
 - [ ] Setup fathom events tracking
 - [ ] If a user requests an offers details and clicks the call button, queue up a job to message the offerer 10 minutes later asking whether the offer has been taken and if we should remove the offer.
+
+### To Do (later)
+
+- [ ] Refactor modals to reduce copied code - wrap content in a reusable modal container component.
 
 ### 🐛 Known Bugs
 

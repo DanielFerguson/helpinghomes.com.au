@@ -81,7 +81,7 @@ class OfferController extends Controller
     {
         ContactDetailRequest::create([
             'user_id' => Auth::user()->id,
-            'offer_id' => $offer->id
+            'offer_id' => $offer->id,
         ]);
 
         return response()->json([
@@ -98,7 +98,7 @@ class OfferController extends Controller
      */
     public function update(UpdateOfferRequest $request, Offer $offer): RedirectResponse
     {
-        if (!Auth::user()->can('update', $offer)) {
+        if (! Auth::user()->can('update', $offer)) {
             abort(403);
         }
 
@@ -115,7 +115,7 @@ class OfferController extends Controller
      */
     public function destroy(Offer $offer): RedirectResponse
     {
-        if (!Auth::user()->can('delete', $offer)) {
+        if (! Auth::user()->can('delete', $offer)) {
             abort(403);
         }
 
@@ -127,7 +127,7 @@ class OfferController extends Controller
     /**
      * Create a report on an offer.
      *
-     * @param \App\Http\Requests\StoreOfferReportRequest $request
+     * @param  \App\Http\Requests\StoreOfferReportRequest  $request
      * @param  \App\Models\Offer  $offer
      * @return \Illuminate\Http\RedirectResponse
      */
@@ -137,7 +137,7 @@ class OfferController extends Controller
 
         $offer->reports()->create([
             'user_id' => Auth::id(),
-            'reason' => $validated['reason']
+            'reason' => $validated['reason'],
         ]);
 
         return Redirect::route('home');

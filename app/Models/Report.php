@@ -13,7 +13,7 @@ class Report extends Model
         'user_id',
         'reason',
         'reportable_id',
-        'reportable_type'
+        'reportable_type',
     ];
 
     /**

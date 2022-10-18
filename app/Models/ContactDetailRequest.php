@@ -12,7 +12,7 @@ class ContactDetailRequest extends Model
 
     protected $fillable = [
         'user_id',
-        'offer_id'
+        'offer_id',
     ];
 
     public function requester(): BelongsTo
