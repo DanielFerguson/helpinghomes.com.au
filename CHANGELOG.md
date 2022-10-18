@@ -22,6 +22,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 - Fixed call to capacity in offer controller; attribute no longer exists.
 - Renamed `PointsOfInterestController` to uniform singular `PointOfInterestController`.
+- Fixed facebook_token field; needed to be a text field type.
 
 ### Removed
 - Removed ReportController; implementing on reportable controllers (offer, pois).

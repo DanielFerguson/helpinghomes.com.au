@@ -26,17 +26,16 @@ An open service to connect those that need emergency housing, with the people wh
 
 ## 🛣️ Roadmap
 
-- [ ] Setup laravel socialite drivers for production site URLs.
-- [ ] Test logging into each of the drivers.
 - [ ] Ability to create alternative offer types (livestock transport, livestock housing).
+- [ ] Add pre-commit commands through husky (run pint lint check)
 
-- [ ] add pre-commit commands through husky (run pint lint check)
-- [ ] Create /about page.
 - [ ] Create /help page.
 - [ ] Create SEO image banner.
 
 - [ ] Setup fathom events tracking
 - [ ] If a user requests an offers details and clicks the call button, queue up a job to message the offerer 10 minutes later asking whether the offer has been taken and if we should remove the offer.
+- [ ] Create /about page.
+- [ ] Setup periodic database backups.
 
 ### To Do (later)
 
