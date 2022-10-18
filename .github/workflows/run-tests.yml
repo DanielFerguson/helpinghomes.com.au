@@ -5,14 +5,8 @@ on: [push, pull_request]
 jobs:
   Explore-GitHub-Actions:
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: true
-      matrix:
-        os: [ubuntu-latest]
-        php: ["8.1"]
-        dependency-version: [prefer-stable]
 
-    name: P${{ matrix.php }} - ${{ matrix.dependency-version }} - ${{ matrix.os }}
+    name: Test, and Deploy
 
     steps:
       - name: Check out repository code
@@ -21,7 +15,7 @@ jobs:
       - name: Install PHP versions
         uses: shivammathur/setup-php@v2
         with:
-          php-version: ${{ matrix.php }}
+          php-version: "8.1"
 
       - name: Get Composer Cache Directory 2
         id: composer-cache
