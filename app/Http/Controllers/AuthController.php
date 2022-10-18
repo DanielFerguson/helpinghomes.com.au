@@ -30,7 +30,6 @@ class AuthController extends Controller
         } else {
             $user->google_id = $googleUser->id;
             $user->google_token = $googleUser->token;
-            $user->google_refresh_token = $googleUser->refresh_token;
             $user->save();
         }
 
@@ -60,7 +59,6 @@ class AuthController extends Controller
         } else {
             $user->facebook_id = $facebookUser->id;
             $user->facebook_token = $facebookUser->token;
-            $user->facebook_refresh_token = $facebookUser->refresh_token;
             $user->save();
         }
 
