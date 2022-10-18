@@ -1,4 +1,4 @@
-import React, { useState, Fragment, forwardRef, useImperativeHandle, useRef } from "react";
+import React, { useState, Fragment, useRef } from "react";
 import Map, { Source, Layer, GeolocateControl, NavigationControl, ScaleControl } from 'react-map-gl';
 import SidebarLayout from '../components/sidebar-layout.tsx';
 import useSWR from 'swr';
@@ -8,6 +8,7 @@ import { startCase } from 'lodash';
 import { FlagIcon } from "@heroicons/react/24/outline";
 import { useForm } from '@inertiajs/inertia-react';
 import toast, { Toaster } from 'react-hot-toast';
+import { usePage } from '@inertiajs/inertia-react'
 
 const fetcher = url => axios.get(url).then(res => res.data)
 
@@ -183,8 +184,8 @@ const LivestockTransportOfferDetails = ({ offer }) => {
 }
 
 const OfferModal = ({ open, toggleFn, offer }) => {
-    const { data, setData, post, processing } = useForm({
-        reason: '',
+    const { post } = useForm({
+        reason: null,
     });
 
     if (offer === null) return;
@@ -342,10 +343,53 @@ const PointOfInterestModal = ({ open, toggleFn, pointOfInterest }) => {
     );
 }
 
+const LoginMessageModal = ({ open, toggleFn }) => {
+    return (
+        <Transition.Root show={open} as={Fragment}>
+            <Dialog as="div" className="relative z-10" onClose={() => toggleFn(false)}>
+                <Transition.Child
+                    as={Fragment}
+                    enter="ease-out duration-300"
+                    enterFrom="opacity-0"
+                    enterTo="opacity-100"
+                    leave="ease-in duration-200"
+                    leaveFrom="opacity-100"
+                    leaveTo="opacity-0"
+                >
+                    <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
+                </Transition.Child>
+
+                <div className="fixed inset-0 z-10 overflow-y-auto">
+                    <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+                        <Transition.Child
+                            as={Fragment}
+                            enter="ease-out duration-300"
+                            enterFrom="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+                            enterTo="opacity-100 translate-y-0 sm:scale-100"
+                            leave="ease-in duration-200"
+                            leaveFrom="opacity-100 translate-y-0 sm:scale-100"
+                            leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+                        >
+                            <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white px-4 pt-5 pb-4 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-sm sm:p-6">
+                                {/* Details */}
+                                <div className="overflow-hidden text-center bg-white">
+                                    <p>Please login to see more details.</p>
+                                </div>
+                            </Dialog.Panel>
+                        </Transition.Child>
+                    </div>
+                </div>
+            </Dialog>
+        </Transition.Root>
+    );
+}
+
 const Home = () => {
+    const { auth } = usePage().props
     const map = useRef();
     const [selectedOffer, selectOffer] = useState(null);
     const [selectedPointOfInterest, selectPointOfInterest] = useState(null);
+    const [showLoginMessageModal, setShowLoginMessageModal] = useState(false);
 
     const { data: offers } = useSWR('/offers', fetcher);
     const { data: pointsOfInterest } = useSWR('/points-of-interest', fetcher);
@@ -400,6 +444,11 @@ const Home = () => {
         });
 
         map.on('click', 'offers-layer', (e) => {
+            if (!auth.user) {
+                setShowLoginMessageModal(true);
+                return;
+            }
+
             selectOffer(e.features[0].properties);
         });
 
@@ -437,6 +486,7 @@ const Home = () => {
             <SidebarLayout flyTo={flyToPoint}>
                 <OfferModal open={selectedOffer !== null} toggleFn={selectOffer} offer={selectedOffer} />
                 <PointOfInterestModal open={selectedPointOfInterest !== null} toggleFn={selectPointOfInterest} pointOfInterest={selectedPointOfInterest} />
+                <LoginMessageModal open={showLoginMessageModal} toggleFn={setShowLoginMessageModal} />
 
                 <div className="h-full w-full relative">
                     <Map
