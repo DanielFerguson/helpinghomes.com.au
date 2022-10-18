@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreOfferReportRequest;
 use App\Http\Requests\StoreOfferRequest;
 use App\Http\Requests\UpdateOfferRequest;
 use App\Models\ContactDetailRequest;
@@ -98,7 +99,7 @@ class OfferController extends Controller
     public function update(UpdateOfferRequest $request, Offer $offer): RedirectResponse
     {
         if (!Auth::user()->can('update', $offer)) {
-            return response()->back();
+            abort(403);
         }
 
         $offer->update($request->validated());
@@ -115,10 +116,29 @@ class OfferController extends Controller
     public function destroy(Offer $offer): RedirectResponse
     {
         if (!Auth::user()->can('delete', $offer)) {
-            return response()->back();
+            abort(403);
         }
 
         $offer->delete();
+
+        return Redirect::route('home');
+    }
+
+    /**
+     * Create a report on an offer.
+     *
+     * @param \App\Http\Requests\StoreOfferReportRequest $request
+     * @param  \App\Models\Offer  $offer
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function report(StoreOfferReportRequest $request, Offer $offer): RedirectResponse
+    {
+        $validated = $request->safe();
+
+        $offer->reports()->create([
+            'user_id' => Auth::id(),
+            'reason' => $validated['reason']
+        ]);
 
         return Redirect::route('home');
     }

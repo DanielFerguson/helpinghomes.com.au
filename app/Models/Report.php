@@ -17,9 +17,9 @@ class Report extends Model
     ];
 
     /**
-     * Get the parent commentable model (post or video).
+     * Get the parent reportable model (offer or point-of-interest).
      */
-    public function commentable()
+    public function reportable()
     {
         return $this->morphTo();
     }
