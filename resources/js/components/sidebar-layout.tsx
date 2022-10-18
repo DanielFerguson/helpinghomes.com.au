@@ -51,10 +51,10 @@ const CreateOfferModal = ({ open, toggleFn }) => {
     const mapRef = useRef();
     const { auth } = usePage().props
     const { data, setData, post, processing, errors } = useForm({
-        canTakeSingles: false,
-        canTakeCouples: false,
-        canTakeFamilies: false,
-        canTakePets: 'false',
+        canTakeSingles: true,
+        canTakeCouples: true,
+        canTakeFamilies: true,
+        canTakePets: 'true',
         lat: -37.8136,
         lng: 144.9631,
         type: 'HOUSING',
@@ -265,17 +265,17 @@ const CreateOfferModal = ({ open, toggleFn }) => {
     );
 }
 
-const EditOfferModal = ({ open, toggleFn, offer }) => {
+const EditOfferModal = ({ open, toggleFn, selectedOffer }) => {
     const mapRef = useRef();
     const { auth } = usePage().props
     const { data, setData, patch, delete: destroy, processing } = useForm({
-        canTakeSingles: offer.canTakeSingles,
-        canTakeCouples: offer.canTakeCouples,
-        canTakeFamilies: offer.canTakeFamilies,
-        canTakePets: offer.canTakePets ? 'true' : 'false',
-        lat: offer.lat,
-        lng: offer.lng,
-        type: offer.type,
+        canTakeSingles: selectedOffer.canTakeSingles,
+        canTakeCouples: selectedOffer.canTakeCouples,
+        canTakeFamilies: selectedOffer.canTakeFamilies,
+        canTakePets: selectedOffer.canTakePets,
+        lat: selectedOffer.lat,
+        lng: selectedOffer.lng,
+        type: selectedOffer.type,
         user_id: auth.user.id
     })
 
@@ -291,7 +291,9 @@ const EditOfferModal = ({ open, toggleFn, offer }) => {
     function submit(e) {
         e.preventDefault()
 
-        patch(`/offers/${offer.id}`, {
+        console.log(data);
+
+        patch(`/offers/${selectedOffer.id}`, {
             onSuccess: () => toggleFn(null),
         })
     }
@@ -442,7 +444,7 @@ const EditOfferModal = ({ open, toggleFn, offer }) => {
                                                     <select
                                                         id="can-take-pets"
                                                         name="can-take-pets"
-                                                        value={data.canTakePets}
+                                                        defaultValue={data.canTakePets ? 'true' : 'false'}
                                                         onChange={e => setData('canTakePets', e.target.value)}
                                                         className="block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 sm:max-w-xs sm:text-sm"
                                                     >
@@ -913,7 +915,7 @@ export default function SidebarLayout({ flyTo, children }) {
             {/* Modals */}
             <CreateOfferModal open={createOfferModalOpen} toggleFn={setCreateOfferModalOpen} />
             <CreateReportModal open={createReportModalOpen} toggleFn={setCreateReportModalOpen} />
-            {selectedOffer !== null && <EditOfferModal open={true} toggleFn={setSelectedOffer} offer={selectedOffer} />}
+            {selectedOffer !== null && <EditOfferModal open={true} toggleFn={setSelectedOffer} selectedOffer={selectedOffer} />}
 
             {/* Auth modal */}
             <AuthModal open={authModalOpen} toggleFn={setAuthModalOpen} />

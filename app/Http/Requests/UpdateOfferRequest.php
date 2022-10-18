@@ -13,7 +13,7 @@ class UpdateOfferRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return $this->user()->can('update', $this->route('offer'));
     }
 
     /**
@@ -47,7 +47,7 @@ class UpdateOfferRequest extends FormRequest
         $this->merge([
             'lat' => $this->lat + (0.00001 * rand(0, 30)),
             'lng' => $this->lng + (0.00001 * rand(0, 30)),
-            'canTakePets' => (bool) $this->canTakePets,
+            'canTakePets' => $this->canTakePets === 'true' ? true : false,
         ]);
     }
 }

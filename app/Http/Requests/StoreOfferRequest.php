@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Offer;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreOfferRequest extends FormRequest
@@ -13,7 +14,7 @@ class StoreOfferRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return $this->user()->can('create', Offer::class);
     }
 
     /**
@@ -47,7 +48,7 @@ class StoreOfferRequest extends FormRequest
         $this->merge([
             'lat' => $this->lat + (0.00001 * rand(0, 30)),
             'lng' => $this->lng + (0.00001 * rand(0, 30)),
-            'canTakePets' => (bool) $this->canTakePets,
+            'canTakePets' => $this->canTakePets === 'true' ? true : false,
         ]);
     }
 }

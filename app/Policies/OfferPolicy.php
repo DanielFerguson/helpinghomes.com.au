@@ -41,7 +41,7 @@ class OfferPolicy
      */
     public function create(User $user)
     {
-        return true;
+        return count($user->offers) < 3;
     }
 
     /**
