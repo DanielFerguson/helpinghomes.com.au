@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreReportRequest extends FormRequest
+class CompareVerificationNumberRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,6 +13,10 @@ class StoreReportRequest extends FormRequest
      */
     public function authorize()
     {
+        // TODO:
+        // Check...
+        // - if the user hasn't verified their contact number
+        // - if the user verify code isn't older than 5 minutes
         return true;
     }
 
@@ -24,8 +28,7 @@ class StoreReportRequest extends FormRequest
     public function rules()
     {
         return [
-            'reportable_type' => 'required|in:Offer,PointOfInterest',
-            'reportable_id' => 'required',
+            'verification_code' => 'required|string|min:4|max:4',
         ];
     }
 }

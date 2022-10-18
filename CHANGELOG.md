@@ -20,11 +20,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added content to mobile sidebar.
 - If the user is not logged in and clicks on an offer pin, show a modal asking them to login to view details.
 - Added Offer policy to StoreOfferRequest.
+- Setup periodic database and application backups.
+- Added phone numbers to call for injured wildlife.
 
 ### Changed
 - Set laravel to strict mode in local environments.
 - Refactored `web` routes to use condensed `apiResources`.
 - Defaulted canTake checkboxes to true.
+- Changed hazard type title to report type and swapped the position to above the map.
 
 ### Fixed
 - Fixed call to capacity in offer controller; attribute no longer exists.

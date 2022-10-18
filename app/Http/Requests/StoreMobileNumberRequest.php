@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreReportRequest extends FormRequest
+class StoreMobileNumberRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,8 +24,21 @@ class StoreReportRequest extends FormRequest
     public function rules()
     {
         return [
-            'reportable_type' => 'required|in:Offer,PointOfInterest',
-            'reportable_id' => 'required',
+            'mobile_number' => 'required|string|min:12|max:12',
         ];
+    }
+
+    /**
+     * Prepare the data for validation.
+     *
+     * Adding random noise to the point to increase privacy.
+     *
+     * @return void
+     */
+    protected function prepareForValidation()
+    {
+        $this->merge([
+            'mobile_number' => '+61'.substr($this->mobile_number, 1),
+        ]);
     }
 }

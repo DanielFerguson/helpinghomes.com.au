@@ -15,6 +15,8 @@ import {
 import { usePage, useForm } from '@inertiajs/inertia-react'
 import { Inertia } from '@inertiajs/inertia'
 import Map, { GeolocateControl, Marker } from 'react-map-gl';
+import { ExclamationCircleIcon } from '@heroicons/react/20/solid'
+import toast, { Toaster } from 'react-hot-toast';
 
 const pinTypes = [
     // {
@@ -291,8 +293,6 @@ const EditOfferModal = ({ open, toggleFn, selectedOffer }) => {
     function submit(e) {
         e.preventDefault()
 
-        console.log(data);
-
         patch(`/offers/${selectedOffer.id}`, {
             onSuccess: () => toggleFn(null),
         })
@@ -555,38 +555,11 @@ const CreateReportModal = ({ open, toggleFn }) => {
                                         </div>
 
                                         <div className="pt-6">
-                                            <legend className="sr-only">Location</legend>
-                                            <div className="text-base font-medium text-gray-900" aria-hidden="true">
-                                                Location
-                                            </div>
-                                            <div id='offer-location-select' className="h-64 w-full relative mt-4">
-                                                <Map
-                                                    ref={mapRef}
-                                                    initialViewState={{
-                                                        longitude: 144.9631,
-                                                        latitude: -37.8136,
-                                                        zoom: 5
-                                                    }}
-                                                    style={{
-                                                        width: '100%',
-                                                        height: '100%'
-                                                    }}
-                                                    onLoad={onMapLoad}
-                                                    mapStyle="mapbox://styles/mapbox/streets-v9"
-                                                    mapboxAccessToken="pk.eyJ1IjoiZGFuaWVsZmVyZ3Vzb24iLCJhIjoiY2w5YXFjazNtMGp1ZTNwcXdtMjBlYTc2YyJ9.2Cz8UmqgWB4VpagnJ6_ATw"
-                                                >
-                                                    <Marker longitude={data.lng} latitude={data.lat} anchor="bottom" />
-                                                    <GeolocateControl />
-                                                </Map>
-                                            </div>
-                                        </div>
-
-                                        <div className="pt-6">
-                                            {/* Hazard Type */}
+                                            {/* Report Type */}
                                             <fieldset>
-                                                <legend className="sr-only">Hazard Type</legend>
+                                                <legend className="sr-only">Report Type</legend>
                                                 <div className="text-base font-medium text-gray-900" aria-hidden="true">
-                                                    Hazard Type
+                                                    Report Type
                                                 </div>
                                                 <p className="text-sm text-gray-500">Please select the type of hazard.</p>
                                                 <div className="mt-4 space-y-4">
@@ -600,10 +573,59 @@ const CreateReportModal = ({ open, toggleFn }) => {
                                                         onChange={e => setData('type', e.target.value)}
                                                     >
                                                         <option value="ROAD_DAMAGE">Road Damage</option>
+                                                        <option value="INJURED_ANIMAL">Injured Animal</option>
                                                     </select>
                                                 </div>
                                             </fieldset>
                                         </div>
+
+                                        {/* Injured Animal Information */}
+                                        {data.type === 'INJURED_ANIMAL' && (
+                                            <div className="pt-6">
+                                                <fieldset>
+                                                    <legend className="sr-only">Contact Information</legend>
+                                                    <div className="text-base font-medium text-gray-900" aria-hidden="true">
+                                                        Contact Information
+                                                    </div>
+                                                    <p className="text-sm text-gray-500">Please contact the number for your state below. These organisations will be able to help you more immediately than we can.</p>
+                                                    <div className="mt-4 space-y-4">
+                                                        <ul className="text-sm list-disc space-y-3 pl-3">
+                                                            <li>VIC: <a className='underline' href="tel:0384007300" target="_blank" rel="noopener noreferrer">Wildlife Vic</a></li>
+                                                        </ul>
+                                                    </div>
+                                                </fieldset>
+                                            </div>
+                                        )}
+
+                                        {/* Map */}
+                                        {data.type === 'ROAD_DAMAGE' && (
+                                            <div className="pt-6">
+                                                <legend className="sr-only">Location</legend>
+                                                <div className="text-base font-medium text-gray-900" aria-hidden="true">
+                                                    Location
+                                                </div>
+                                                <div id='offer-location-select' className="h-64 w-full relative mt-4">
+                                                    <Map
+                                                        ref={mapRef}
+                                                        initialViewState={{
+                                                            longitude: 144.9631,
+                                                            latitude: -37.8136,
+                                                            zoom: 5
+                                                        }}
+                                                        style={{
+                                                            width: '100%',
+                                                            height: '100%'
+                                                        }}
+                                                        onLoad={onMapLoad}
+                                                        mapStyle="mapbox://styles/mapbox/streets-v9"
+                                                        mapboxAccessToken="pk.eyJ1IjoiZGFuaWVsZmVyZ3Vzb24iLCJhIjoiY2w5YXFjazNtMGp1ZTNwcXdtMjBlYTc2YyJ9.2Cz8UmqgWB4VpagnJ6_ATw"
+                                                    >
+                                                        <Marker longitude={data.lng} latitude={data.lat} anchor="bottom" />
+                                                        <GeolocateControl />
+                                                    </Map>
+                                                </div>
+                                            </div>
+                                        )}
                                     </div>
 
                                     {/* Actions */}
@@ -618,8 +640,10 @@ const CreateReportModal = ({ open, toggleFn }) => {
                                             </button>
                                             <button
                                                 type="submit"
-                                                disabled={processing}
-                                                className="ml-3 inline-flex justify-center rounded-md border border-transparent bg-green-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+                                                disabled={processing || data.type === 'INJURED_ANIMAL'}
+                                                className={
+                                                    `ml-3 inline-flex justify-center rounded-md border border-transparent py-2 px-4 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 ${data.type === 'INJURED_ANIMAL' ? 'text-gray-500' : 'bg-green-600 font-medium text-white hover:bg-green-700 focus:ring-green-500'}`
+                                                }
                                             >
                                                 Report Hazard
                                             </button>
@@ -766,6 +790,105 @@ const AccomodateTypeBadges = ({ offer }) => {
 }
 
 const OffersPanelSection = ({ flyTo, offers, setCreateModalOpen, selectOffer }) => {
+    const { auth } = usePage().props
+    const { data, setData, post, processing } = useForm({
+        mobile_number: auth.user.mobile_number
+    });
+    const { data: verificationData, setData: setVerificationData, post: postVerificationCode, processing: processingVerificationCode } = useForm({
+        verification_code: ''
+    });
+
+    const saveMobileNumber = () => {
+        const toastId = toast.loading('Sending verification code...');
+
+        post('/verify', {
+            onSuccess: () => toast.success('Verification code sent!', { id: toastId }),
+            onError: () => toast.error('Whoops. Something went wrong.', { id: toastId })
+        })
+    }
+
+    const checkVerificationCode = () => {
+        const toastId = toast.loading('Checking verification code...');
+
+        postVerificationCode('/verify-code', {
+            onSuccess: () => toast.success('Verified!', { id: toastId }),
+            onError: () => toast.error('Whoops. Something went wrong.', { id: toastId })
+        });
+    }
+
+    const dateIsWithinFiveMinutes = (dateString) => {
+        const dateNow = Date.now();
+        const dateParsed = new Date(dateString);
+    }
+
+    // No mobile number saved
+    // TODO: Check whether auth.user.verify_code_created_at is within last 5 minutes.
+    if (auth.user.mobile_number_verified_at === null) {
+        return (
+            <div className="px-4 py-6">
+                <h2 className='text-lg font-medium'>Add a Contact</h2>
+                <p className='text-sm'>Please add and verify a phone number for your offers.</p>
+                <div className="pt-4 text-sm">
+                    <label className="block text-sm font-medium text-gray-700">
+                        {auth.user.mobile_number === null ? 'Phone Number' : 'Verification Code'}
+                    </label>
+                    <div className="relative mt-1 rounded-md shadow-sm">
+                        <div className="flex gap-2">
+                            {/* Mobile Number */}
+                            {auth.user.mobile_number === null && (
+                                <>
+                                    <input
+                                        type="tel"
+                                        pattern="[0-9]{10}"
+                                        name="phone_number"
+                                        id="phone_number"
+                                        defaultValue={data.mobile_number}
+                                        onChange={(e) => setData('mobile_number', e.target.value)}
+                                        // border-red-300 text-red-900 placeholder-red-300 focus:border-red-500 focus:ring-red-500
+                                        className="block w-full rounded-md pr-10 focus:outline-none sm:text-sm focus:border-green-500 focus:outline-none focus:ring-green-500"
+                                        placeholder="0412345678"
+                                    />
+                                    <button
+                                        type="button"
+                                        disabled={processing}
+                                        onClick={() => saveMobileNumber()}
+                                        className="ml-auto inline-flex items-center rounded-md border border-gray-300 bg-white px-3 py-2 text-sm font-medium leading-4 text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+                                    >
+                                        Verify
+                                    </button>
+                                </>
+                            )}
+                            {/* Verification Code */}
+                            {auth.user.mobile_number !== null && auth.user.mobile_number_verified_at === null && (
+                                <>
+                                    <input
+                                        type="text"
+                                        pattern="[0-9]{4}"
+                                        name="verification_code"
+                                        id="verification_code"
+                                        defaultValue={verificationData.verification_code}
+                                        onChange={(e) => setVerificationData('verification_code', e.target.value)}
+                                        className="block w-full rounded-md pr-10 focus:outline-none sm:text-sm focus:border-green-500 focus:outline-none focus:ring-green-500"
+                                        placeholder="1234"
+                                    />
+                                    <button
+                                        type="button"
+                                        disabled={processingVerificationCode}
+                                        onClick={() => checkVerificationCode()}
+                                        className="ml-auto inline-flex items-center rounded-md border border-gray-300 bg-white px-3 py-2 text-sm font-medium leading-4 text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+                                    >
+                                        Verify
+                                    </button>
+                                </>
+                            )}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
+    // Verified, but no offers added
     if (offers.length === 0) {
         return (
             <div className="px-4 py-6">
@@ -912,6 +1035,7 @@ export default function SidebarLayout({ flyTo, children }) {
 
     return (
         <div className='text-gray-900'>
+            <Toaster />
             {/* Modals */}
             <CreateOfferModal open={createOfferModalOpen} toggleFn={setCreateOfferModalOpen} />
             <CreateReportModal open={createReportModalOpen} toggleFn={setCreateReportModalOpen} />
@@ -1017,7 +1141,7 @@ export default function SidebarLayout({ flyTo, children }) {
                                         {/* Assistance */}
                                         <div className="px-4 grid gap-3 py-6">
                                             <h2 className='text-lg font-medium'>Get assistance</h2>
-                                            <p className='text-sm text-red-600 font-bold'>If you need urgent assistance, please call 000 immediately.</p>
+                                            <p className='text-sm text-red-600 font-bold'>If you need urgent assistance, please <a className='underline' href="tel:+000">call 000</a> immediately.</p>
                                             <p className='text-sm'>There are other fantastic organisations who are helping in so many ways, and we want to recognise them, and enable people find the help they need.</p>
                                         </div>
 
@@ -1104,6 +1228,9 @@ export default function SidebarLayout({ flyTo, children }) {
                                 <h2 className='text-lg font-medium'>Get assistance</h2>
                                 <p className='text-sm text-red-600 font-bold'>If you need urgent assistance, please call 000 immediately.</p>
                                 <p className='text-sm'>There are other fantastic organisations who are helping in so many ways, and we want to recognise them, and enable people find the help they need.</p>
+                                <ul className="text-sm list-disc pl-3 space-y-3">
+                                    <li><a href="tel:1800560760" className='underline'>Emergency Victoria Flood Recovery Hotline (7:30am - 7:30pm)</a></li>
+                                </ul>
                             </div>
 
                             {/* Information */}

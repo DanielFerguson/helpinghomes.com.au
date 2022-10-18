@@ -86,14 +86,12 @@ class AuthController extends Controller
             $user = User::create([
                 'name' => $twitterUser->name,
                 'email' => $twitterUser->email,
-                'twitter_id' => $twitterUser->twitter_id,
-                'twitter_token' => $twitterUser->twitter_token,
-                'twitter_refresh_token' => $twitterUser->twitter_refresh_token,
+                'twitter_id' => $twitterUser->id,
+                'twitter_token' => $twitterUser->token,
             ]);
         } else {
             $user->twitter_id = $twitterUser->id;
-            $user->twitter_token = $twitterUser->twitter_token;
-            $user->twitter_refresh_token = $twitterUser->twitter_refresh_token;
+            $user->twitter_token = $twitterUser->token;
             $user->save();
         }
 
