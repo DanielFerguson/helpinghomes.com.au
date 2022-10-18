@@ -26,7 +26,6 @@ class AuthController extends Controller
                 'email' => $googleUser->email,
                 'google_id' => $googleUser->id,
                 'google_token' => $googleUser->token,
-                'google_refresh_token' => $googleUser->refresh_token,
             ]);
         } else {
             $user->google_id = $googleUser->id;
@@ -57,7 +56,6 @@ class AuthController extends Controller
                 'email' => $facebookUser->email,
                 'facebook_id' => $facebookUser->id,
                 'facebook_token' => $facebookUser->token,
-                'facebook_refresh_token' => $facebookUser->refresh_token,
             ]);
         } else {
             $user->facebook_id = $facebookUser->id;
