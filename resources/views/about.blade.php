@@ -19,17 +19,17 @@
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://www.helpinghomes.com.au">
+    <meta property="og:url" content="https://helpinghomes.com.au">
     <meta property="og:title" content="About — Helping Homes">
     <meta property="og:description" content="Emergency accommodation, offers of assistance, livestock transport and accommodation. An open service to connect those that need emergency housing, with the people who can provide it. ">
-    <!-- <meta property="og:image" content="https://www.helpinghomes.com.auassets/meta-tags-16a33a6a8531e519cc0936fbba0ad904e52d35f34a46c97a2c9f6f7dd7d336f2.png"> -->
+    <meta property="og:image" content="https://helpinghomes.com.au/assets/open-graph-banner.jpg">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://www.helpinghomes.com.au">
+    <meta property="twitter:url" content="https://helpinghomes.com.au">
     <meta property="twitter:title" content="About — Helping Homes">
     <meta property="twitter:description" content="Emergency accommodation, offers of assistance, livestock transport and accommodation. An open service to connect those that need emergency housing, with the people who can provide it. ">
-    <!-- <meta property="twitter:image" content="https://www.helpinghomes.com.auassets/meta-tags-16a33a6a8531e519cc0936fbba0ad904e52d35f34a46c97a2c9f6f7dd7d336f2.png"> -->
+    <meta property="twitter:image" content="https://helpinghomes.com.au/assets/open-graph-banner.jpg">
 
     <link href="{{ mix('/css/app.css') }}" rel="stylesheet" />
 
