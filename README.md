@@ -23,30 +23,23 @@ An open service to connect those that need emergency housing, with the people wh
 - How can we allow businesses to add support offers as well? Another page of business offers, with a map of locations so users can get relevant offers? It would be cool if we could scrape branding details (logo/favicon/color) from a businesses website.
 - How can we allow users to report offers, and how do we mediate those?
 
-
 ## 🛣️ Roadmap
 
-- [ ] If the user is not logged in and clicks on an offer pin, show a modal asking them to login to view details.
-- [ ] Ability to create alternative offer types (livestock transport, livestock housing).
-- [ ] Add pre-commit commands through husky (run pint lint check)
-- [ ] Create /help page.
-- [ ] Create SEO image banner.
-- [ ] Setup fathom events tracking
-- [ ] If a user requests an offers details and clicks the call button, queue up a job to message the offerer 10 minutes later asking whether the offer has been taken and if we should remove the offer.
-- [ ] Create /about page.
-- [ ] Setup periodic database backups.
-
-### To Do (later)
-
-- [ ] Refactor modals to reduce copied code - wrap content in a reusable modal container component.
-- [ ] If you click on a map key item, it will toggle it's visibility on the map.
-
-### 🐛 Known Bugs
-
-- [ ] Can set canTakePets to true, but can't set it back to false.
-- [ ] User can create more than 3 offers at a time.
-- [ ] When you create an offer of accomodation, you need to select at least one type
-- [ ] When you register with one service (ie. facebook) and then try and login with a different service (ie. Google), it will break.
+- [ ] 🎨 Move sidebar content to mobile.
+- [ ] 🐛 If the user is not logged in and clicks on an offer pin, show a modal asking them to login to view details.
+- [ ] ✨ Ability to create alternative offer types (livestock transport, livestock housing).
+- [ ] ✨ Create SEO image banner.
+- [ ] ✨ If a user requests an offers details and clicks the call button, queue up a job to message the offerer 10 minutes later asking whether the offer has been taken and if we should remove the offer.
+- [ ] 🐛 Fix: can set canTakePets to true, but can't set it back to false.
+- [ ] 🐛 Fix: user can create more than 3 offers at a time.
+- [ ] 🐛 Fix: when you create an offer of accomodation, you need to select at least one type
+- [ ] 🐛 Fix: when you register with one service (ie. facebook) and then try and login with a different service (ie. Google), it will break.
+- [ ] ✨ Create /help page.
+- [ ] ✨ Setup fathom events tracking
+- [ ] 🗃️ Setup periodic database backups.
+- [ ] ✨ Create /about page.
+- [ ] ♻️ Refactor modals to reduce copied code - wrap content in a reusable modal container component.
+- [ ] ✨ If you click on a map key item, it will toggle it's visibility on the map.
 
 ### ⚗️ Tests to write...
 

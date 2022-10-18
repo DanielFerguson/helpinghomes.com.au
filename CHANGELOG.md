@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added toast UI feedback on successful reporting.
 - Added the ability to fly-to a report and offer.
 - Added map icon key to sidebar.
+- Added husky pre-commit checks and linting
 
 ### Changed
 - Set laravel to strict mode in local environments.
