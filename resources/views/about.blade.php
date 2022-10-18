@@ -56,7 +56,7 @@
             <ul>
                 <li>Points on the map are not accurate representation of the offers location, they should be treated as an approximate. Offer locations are fuzzed in order to help protect privacy.</li>
                 <li>If you have a concern with an offer or report, please report it by clicking on the offer, then clicking the flag on the top right of the offer window.</li>
-                <li>Please note that your details will be displayed on the website, including your name and phone number. By submitting your information you are agreeing to have your details displayed publically on the website.</li>
+                <li>Please note that your details will be displayed on the website, including your name and phone number. By submitting your information you are agreeing to have your details displayed publicly on the website.</li>
             </ul>
         </div>
 
