@@ -24,14 +24,14 @@ class AuthController extends Controller
             $user = User::create([
                 'name' => $googleUser->name,
                 'email' => $googleUser->email,
-                'google_id' => $googleUser->google_id,
-                'google_token' => $googleUser->google_token,
-                'google_refresh_token' => $googleUser->google_refresh_token,
+                'google_id' => $googleUser->id,
+                'google_token' => $googleUser->token,
+                'google_refresh_token' => $googleUser->refresh_token,
             ]);
         } else {
             $user->google_id = $googleUser->id;
-            $user->google_token = $googleUser->google_token;
-            $user->google_refresh_token = $googleUser->google_refresh_token;
+            $user->google_token = $googleUser->token;
+            $user->google_refresh_token = $googleUser->refresh_token;
             $user->save();
         }
 
@@ -55,14 +55,14 @@ class AuthController extends Controller
             $user = User::create([
                 'name' => $facebookUser->name,
                 'email' => $facebookUser->email,
-                'facebook_id' => $facebookUser->facebook_id,
-                'facebook_token' => $facebookUser->facebook_token,
-                'facebook_refresh_token' => $facebookUser->facebook_refresh_token,
+                'facebook_id' => $facebookUser->id,
+                'facebook_token' => $facebookUser->token,
+                'facebook_refresh_token' => $facebookUser->refresh_token,
             ]);
         } else {
             $user->facebook_id = $facebookUser->id;
-            $user->facebook_token = $facebookUser->facebook_token;
-            $user->facebook_refresh_token = $facebookUser->facebook_refresh_token;
+            $user->facebook_token = $facebookUser->token;
+            $user->facebook_refresh_token = $facebookUser->refresh_token;
             $user->save();
         }
 
