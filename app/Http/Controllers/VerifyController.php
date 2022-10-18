@@ -49,7 +49,7 @@ class VerifyController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Http\Requests\CompareVerificationNumberRequest $request
+     * @param  \App\Http\Requests\CompareVerificationNumberRequest  $request
      * @return \Illuminate\Http\RedirectResponse
      */
     public function verify(CompareVerificationNumberRequest $request): RedirectResponse
