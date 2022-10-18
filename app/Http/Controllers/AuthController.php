@@ -9,29 +9,6 @@ use Laravel\Socialite\Facades\Socialite;
 
 class AuthController extends Controller
 {
-    public function redirectGithub(): RedirectResponse
-    {
-        return Socialite::driver('github')->redirect();
-    }
-
-    public function callbackGithub(): RedirectResponse
-    {
-        $githubUser = Socialite::driver('github')->user();
-
-        $user = User::updateOrCreate([
-            'github_id' => $githubUser->id,
-        ], [
-            'name' => $githubUser->name,
-            'email' => $githubUser->email,
-            'github_token' => $githubUser->token,
-            'github_refresh_token' => $githubUser->refreshToken,
-        ]);
-
-        Auth::login($user, true);
-
-        return redirect('/');
-    }
-
     public function redirectGoogle(): RedirectResponse
     {
         return Socialite::driver('google')->redirect();
@@ -41,14 +18,22 @@ class AuthController extends Controller
     {
         $googleUser = Socialite::driver('google')->user();
 
-        $user = User::updateOrCreate([
-            'google_id' => $googleUser->id,
-        ], [
-            'name' => $googleUser->name,
-            'email' => $googleUser->email,
-            'google_token' => $googleUser->token,
-            'google_refresh_token' => $googleUser->refreshToken,
-        ]);
+        $user = User::where('email', $googleUser->email)->first();
+
+        if ($user === null) {
+            $user = User::create([
+                'name' => $googleUser->name,
+                'email' => $googleUser->email,
+                'google_id' => $googleUser->google_id,
+                'google_token' => $googleUser->google_token,
+                'google_refresh_token' => $googleUser->google_refresh_token,
+            ]);
+        } else {
+            $user->google_id = $googleUser->id;
+            $user->google_token = $googleUser->google_token;
+            $user->google_refresh_token = $googleUser->google_refresh_token;
+            $user->save();
+        }
 
         Auth::login($user, true);
 
@@ -64,14 +49,22 @@ class AuthController extends Controller
     {
         $facebookUser = Socialite::driver('facebook')->user();
 
-        $user = User::updateOrCreate([
-            'facebook_id' => $facebookUser->id,
-        ], [
-            'name' => $facebookUser->name,
-            'email' => $facebookUser->email,
-            'facebook_token' => $facebookUser->token,
-            'facebook_refresh_token' => $facebookUser->refreshToken,
-        ]);
+        $user = User::where('email', $facebookUser->email)->first();
+
+        if ($user === null) {
+            $user = User::create([
+                'name' => $facebookUser->name,
+                'email' => $facebookUser->email,
+                'facebook_id' => $facebookUser->facebook_id,
+                'facebook_token' => $facebookUser->facebook_token,
+                'facebook_refresh_token' => $facebookUser->facebook_refresh_token,
+            ]);
+        } else {
+            $user->facebook_id = $facebookUser->id;
+            $user->facebook_token = $facebookUser->facebook_token;
+            $user->facebook_refresh_token = $facebookUser->facebook_refresh_token;
+            $user->save();
+        }
 
         Auth::login($user, true);
 
@@ -87,13 +80,22 @@ class AuthController extends Controller
     {
         $twitterUser = Socialite::driver('twitter-oauth-2')->user();
 
-        $user = User::updateOrCreate([
-            'twitter_id' => $twitterUser->id,
-        ], [
-            'name' => $twitterUser->name,
-            'twitter_token' => $twitterUser->token,
-            'twitter_refresh_token' => $twitterUser->refreshToken,
-        ]);
+        $user = User::where('email', $twitterUser->email)->first();
+
+        if ($user === null) {
+            $user = User::create([
+                'name' => $twitterUser->name,
+                'email' => $twitterUser->email,
+                'twitter_id' => $twitterUser->twitter_id,
+                'twitter_token' => $twitterUser->twitter_token,
+                'twitter_refresh_token' => $twitterUser->twitter_refresh_token,
+            ]);
+        } else {
+            $user->twitter_id = $twitterUser->id;
+            $user->twitter_token = $twitterUser->twitter_token;
+            $user->twitter_refresh_token = $twitterUser->twitter_refresh_token;
+            $user->save();
+        }
 
         Auth::login($user, true);
 
