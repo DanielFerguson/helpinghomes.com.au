@@ -106,7 +106,7 @@ const CreateOfferModal = ({ open, toggleFn }) => {
                             leaveFrom="opacity-100 translate-y-0 sm:scale-100"
                             leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
                         >
-                            <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white px-4 pt-5 pb-4 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-sm sm:p-6">
+                            <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white px-4 pt-5 pb-4 text-left shadow-xl transition-all sm:my-8 w-full md:max-w-sm sm:p-6">
                                 <form onSubmit={submit} className="space-y-6 divide-y divide-gray-200">
                                     <div className="space-y-6 divide-y divide-gray-200">
                                         <div>
@@ -331,7 +331,7 @@ const EditOfferModal = ({ open, toggleFn, selectedOffer }) => {
                             leaveFrom="opacity-100 translate-y-0 sm:scale-100"
                             leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
                         >
-                            <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white px-4 pt-5 pb-4 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-sm sm:p-6">
+                            <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white px-4 pt-5 pb-4 text-left shadow-xl transition-all sm:my-8 w-full md:max-w-sm sm:p-6">
                                 <form onSubmit={submit} className="space-y-6 divide-y divide-gray-200">
                                     <div className="space-y-6 divide-y divide-gray-200">
                                         <div>
@@ -545,7 +545,7 @@ const CreateReportModal = ({ open, toggleFn }) => {
                             leaveFrom="opacity-100 translate-y-0 sm:scale-100"
                             leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
                         >
-                            <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white px-4 pt-5 pb-4 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-sm sm:p-6">
+                            <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white px-4 pt-5 pb-4 text-left shadow-xl transition-all sm:my-8 w-full md:max-w-sm sm:p-6">
                                 <form onSubmit={submit} className="space-y-6 divide-y divide-gray-200">
                                     <div className="space-y-6 divide-y divide-gray-200">
                                         <div>
@@ -687,7 +687,7 @@ const AuthModal = ({ open, toggleFn }) => {
                             leaveFrom="opacity-100 translate-y-0 sm:scale-100"
                             leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
                         >
-                            <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white px-4 pt-5 pb-4 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-sm sm:p-6">
+                            <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white px-4 pt-5 pb-4 text-left shadow-xl transition-all sm:my-8 w-full md:max-w-sm sm:p-6">
                                 <div>
                                     <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-green-100">
                                         <UsersIcon className="h-6 w-6 text-green-600" aria-hidden="true" />
@@ -1290,7 +1290,7 @@ export default function SidebarLayout({ flyTo, children }) {
                 <div className="sticky top-0 z-10 py-1 pl-4 pr-2 md:hidden flex gap-3 justify-between items-center">
                     <div className='flex gap-3 items-center'>
                         <img src="/icon.svg" alt="Helping Homes logo" className='h-8 w-auto' />
-                        <h1 className='font-brand text-green-600'>Helping Homes</h1>
+                        <h1 className='font-brand text-green-600 w-48'>Helping Homes</h1>
                     </div>
 
                     <button
