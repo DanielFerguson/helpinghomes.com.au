@@ -8,6 +8,7 @@ import {
     MapPinIcon
 } from '@heroicons/react/24/outline'
 import {
+    Bars3BottomLeftIcon,
     HomeIcon,
     PencilSquareIcon,
     PlusCircleIcon
@@ -15,7 +16,7 @@ import {
 import { usePage, useForm } from '@inertiajs/inertia-react'
 import { Inertia } from '@inertiajs/inertia'
 import Map, { GeolocateControl, Marker } from 'react-map-gl';
-import { ExclamationCircleIcon } from '@heroicons/react/20/solid'
+import { Bars3BottomRightIcon, ExclamationCircleIcon } from '@heroicons/react/20/solid'
 import toast, { Toaster } from 'react-hot-toast';
 
 const pinTypes = [
@@ -95,7 +96,7 @@ const CreateOfferModal = ({ open, toggleFn }) => {
                 </Transition.Child>
 
                 <div className="fixed inset-0 z-10 overflow-y-auto">
-                    <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+                    <div className="flex min-h-full items-center justify-center p-4 text-center sm:items-center sm:p-0">
                         <Transition.Child
                             as={Fragment}
                             enter="ease-out duration-300"
@@ -320,7 +321,7 @@ const EditOfferModal = ({ open, toggleFn, selectedOffer }) => {
                 </Transition.Child>
 
                 <div className="fixed inset-0 z-10 overflow-y-auto">
-                    <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+                    <div className="flex min-h-full items-center justify-center p-4 text-center sm:items-center sm:p-0">
                         <Transition.Child
                             as={Fragment}
                             enter="ease-out duration-300"
@@ -534,7 +535,7 @@ const CreateReportModal = ({ open, toggleFn }) => {
                 </Transition.Child>
 
                 <div className="fixed inset-0 z-10 overflow-y-auto">
-                    <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+                    <div className="flex min-h-full items-center justify-center p-4 text-center sm:items-center sm:p-0">
                         <Transition.Child
                             as={Fragment}
                             enter="ease-out duration-300"
@@ -676,7 +677,7 @@ const AuthModal = ({ open, toggleFn }) => {
                 </Transition.Child>
 
                 <div className="fixed inset-0 z-10 overflow-y-auto">
-                    <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+                    <div className="flex min-h-full items-center justify-center p-4 text-center sm:items-center sm:p-0">
                         <Transition.Child
                             as={Fragment}
                             enter="ease-out duration-300"
@@ -735,7 +736,7 @@ const AuthModal = ({ open, toggleFn }) => {
                                         className="inline-flex w-full justify-center px-4 py-2 text-sm hover:text-green-600"
                                         onClick={() => toggleFn(false)}
                                     >
-                                        Back to map
+                                        Back
                                     </button>
                                 </div>
                             </Dialog.Panel>
@@ -814,11 +815,6 @@ const OffersPanelSection = ({ flyTo, offers, setCreateModalOpen, selectOffer }) 
             onSuccess: () => toast.success('Verified!', { id: toastId }),
             onError: () => toast.error('Whoops. Something went wrong.', { id: toastId })
         });
-    }
-
-    const dateIsWithinFiveMinutes = (dateString) => {
-        const dateNow = Date.now();
-        const dateParsed = new Date(dateString);
     }
 
     // No mobile number saved
@@ -1007,7 +1003,7 @@ const LoginPanelSection = ({ toggleFn }) => {
     return (
         <div className="px-4 grid gap-3 py-6">
             <h2 className='text-lg font-medium'>Register an offer</h2>
-            <p className='text-sm font-normal'>Please login to create an offer.</p>
+            <p className='text-sm font-normal'>Login to create an offer, or report a danger or hazard.</p>
             <button
                 type="button"
                 onClick={() => toggleFn(true)}
@@ -1020,7 +1016,7 @@ const LoginPanelSection = ({ toggleFn }) => {
 }
 
 export default function SidebarLayout({ flyTo, children }) {
-    const [sidebarOpen, setSidebarOpen] = useState(false)
+    const [sidebarOpen, setSidebarOpen] = useState(true)
     const [authModalOpen, setAuthModalOpen] = useState(false);
     const [createOfferModalOpen, setCreateOfferModalOpen] = useState(false);
     const [selectedOffer, setSelectedOffer] = useState(null);
@@ -1045,7 +1041,7 @@ export default function SidebarLayout({ flyTo, children }) {
             <AuthModal open={authModalOpen} toggleFn={setAuthModalOpen} />
 
             {/* Sidebar */}
-            <Transition.Root show={sidebarOpen && !createOfferModalOpen && !createReportModalOpen} as={Fragment}>
+            <Transition.Root show={sidebarOpen && !createOfferModalOpen && !createReportModalOpen && !authModalOpen} as={Fragment}>
                 <Dialog as="div" className="relative z-40 md:hidden" onClose={setSidebarOpen}>
                     <Transition.Child
                         as={Fragment}
@@ -1103,6 +1099,24 @@ export default function SidebarLayout({ flyTo, children }) {
                                         <p className='text-gray-400 italic text-xs'>Proudly by Helping Group</p>
                                     </div>
                                     <nav className="flex-1 space-y-1 divide-y">
+                                        {/* Helping Homes */}
+                                        <div className="px-4 grid gap-3 py-6">
+                                            <h2 className='text-lg font-medium'>Helping Homes</h2>
+
+                                            <p className="text-sm">Helping Homes is a peer-to-peer connection platform to help those fleeing natural disaesters find temporary emergency accommodation.</p>
+                                            <p className="text-sm">We help Good Samaritans like yourself offer emergency accomodation, livestock transport and temporary livestock agistment for those in need.</p>
+                                            <p className="text-sm">If you can, please register an offer of support for those in need.</p>
+                                            <p className="text-sm">You can also help protect our communities by reporting dangers like road damage, and injured wildlife.</p>
+                                            <p className="text-sm">Before making an offer, please make sure to read our about page.</p>
+                                            <a
+                                                href="/about"
+                                                target="_blank"
+                                                className="inline-flex items-center rounded-md mt-2 border border-gray-300 bg-white px-3 py-2 text-sm font-medium leading-4 text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+                                            >
+                                                Our About Page
+                                            </a>
+                                        </div>
+
                                         {/* Login */}
                                         {auth.user === false && <LoginPanelSection toggleFn={setAuthModalOpen} />}
 
@@ -1188,6 +1202,24 @@ export default function SidebarLayout({ flyTo, children }) {
                             <p className='text-gray-400 italic text-xs'>Proudly by Helping Group</p>
                         </div>
                         <nav className="flex-1 space-y-1 divide-y">
+                            {/* Helping Homes */}
+                            <div className="px-4 grid gap-3 py-6">
+                                <h2 className='text-lg font-medium'>Helping Homes</h2>
+
+                                <p className="text-sm">Helping Homes is a peer-to-peer connection platform to help those fleeing natural disaesters find temporary emergency accommodation.</p>
+                                <p className="text-sm">We help Good Samaritans like yourself offer emergency accomodation, livestock transport and temporary livestock agistment for those in need.</p>
+                                <p className="text-sm">If you can, please register an offer of support for those in need.</p>
+                                <p className="text-sm">You can also help protect our communities by reporting dangers like road damage, and injured wildlife.</p>
+                                <p className="text-sm">Before making an offer, please make sure to read our about page.</p>
+                                <a
+                                    href="/about"
+                                    target="_blank"
+                                    className="inline-flex items-center rounded-md mt-2 border border-gray-300 bg-white px-3 py-2 text-sm font-medium leading-4 text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+                                >
+                                    Our About Page
+                                </a>
+                            </div>
+
                             {/* Login */}
                             {auth.user === false && <LoginPanelSection toggleFn={setAuthModalOpen} />}
 
@@ -1255,14 +1287,19 @@ export default function SidebarLayout({ flyTo, children }) {
 
             {/* Content */}
             <div className="flex flex-1 flex-col md:pl-72 h-screen">
-                <div className="sticky top-0 z-10 p-1 md:hidden">
+                <div className="sticky top-0 z-10 py-1 pl-4 pr-2 md:hidden flex gap-3 justify-between items-center">
+                    <div className='flex gap-3 items-center'>
+                        <img src="/icon.svg" alt="Helping Homes logo" className='h-8 w-auto' />
+                        <h1 className='font-brand text-green-600'>Helping Homes</h1>
+                    </div>
+
                     <button
                         type="button"
-                        className="-ml-0.5 -mt-0.5 inline-flex h-12 w-12 items-center justify-center rounded-md text-gray-500 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-green-500"
+                        className="inline-flex h-12 w-12 items-center justify-center rounded-md text-gray-500 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-green-500"
                         onClick={() => setSidebarOpen(true)}
                     >
                         <span className="sr-only">Open sidebar</span>
-                        <Bars3Icon className="h-6 w-6" aria-hidden="true" />
+                        <Bars3BottomRightIcon className="h-6 w-6" aria-hidden="true" />
                     </button>
                 </div>
                 <main className="flex-1">

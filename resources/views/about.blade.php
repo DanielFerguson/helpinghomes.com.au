@@ -38,10 +38,10 @@
 
 <body class="h-full">
 
-    <main class="prose mx-auto py-16">
+    <main class="prose-sm mx-auto px-4 md:py-16 py-4">
 
-        <nav>
-            <a href="/">Back to Map</a>
+        <nav class="hidden md:block">
+            <a href="/">Back</a>
         </nav>
 
         <div class="flex flex-col items-end">
@@ -49,6 +49,10 @@
             <img src="/assets/banner.png" alt="Banner image">
             <p class="italic mt-0">Proudly by the <a href="https://helping.group" target="_blank" rel="noopener noreferrer">Helping Group</a>.</p>
         </div>
+
+        <nav class="md:hidden">
+            <a href="/">Back</a>
+        </nav>
 
         <div>
             <h2>General information</h2>
@@ -93,7 +97,7 @@
         </div>
 
         <nav>
-            <a href="/">Back to Map</a>
+            <a href="/">Back</a>
         </nav>
 
     </main>
