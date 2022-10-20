@@ -894,7 +894,7 @@ const OffersPanelSection = ({ flyTo, offers, setCreateModalOpen, selectOffer }) 
                     className="relative block w-full rounded-lg border-2 border-dashed border-gray-300 px-12 py-6 text-center hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
                 >
                     <PlusCircleIcon className="mx-auto h-12 w-12 text-gray-400" />
-                    <span className="mt-2 block text-sm font-medium text-gray-900">Offer accomodation, livestock housing or transport.</span>
+                    <span className="mt-2 block text-sm font-medium text-gray-900">Offer accommodation, livestock housing or transport.</span>
                 </button>
             </div>
         )
@@ -909,7 +909,7 @@ const OffersPanelSection = ({ flyTo, offers, setCreateModalOpen, selectOffer }) 
                         <div className='flex justify-between'>
                             <div className="flex items-center">
                                 <HomeIcon className='h-5 w-5 mr-2' />
-                                <span>Offer of Accomodation</span>
+                                <span>Offer of accommodation</span>
                             </div>
                             <div className="flex items-center gap-2">
                                 <button onClick={() => selectOffer(offer)}>
@@ -1104,7 +1104,7 @@ export default function SidebarLayout({ flyTo, children }) {
                                             <h2 className='text-lg font-medium'>Helping Homes</h2>
 
                                             <p className="text-sm">Helping Homes is a peer-to-peer connection platform to help those fleeing natural disaesters find temporary emergency accommodation.</p>
-                                            <p className="text-sm">We help Good Samaritans like yourself offer emergency accomodation, livestock transport and temporary livestock agistment for those in need.</p>
+                                            <p className="text-sm">We help Good Samaritans like yourself offer emergency accommodation, livestock transport and temporary livestock agistment for those in need.</p>
                                             <p className="text-sm">If you can, please register an offer of support for those in need.</p>
                                             <p className="text-sm">You can also help protect our communities by reporting dangers like road damage, and injured wildlife.</p>
                                             <p className="text-sm">Before making an offer, please make sure to read our about page.</p>
@@ -1142,7 +1142,7 @@ export default function SidebarLayout({ flyTo, children }) {
                                         {/* Link to give page */}
                                         <div className="px-4 grid gap-3 py-6">
                                             <h2 className='text-lg font-medium'>Other ways to help</h2>
-                                            <p className='text-sm'>Not everyone can offer accomodation, however there are other ways to make an immediate, meaningful impact in this time of crisis.</p>
+                                            <p className='text-sm'>Not everyone can offer accommodation, however there are other ways to make an immediate, meaningful impact in this time of crisis.</p>
                                             <p className='text-sm'>Each of these organisations are helping communities affected by natural disaster right now - <b>and they need our help.</b></p>
                                             <a
                                                 href="/help"
@@ -1207,7 +1207,7 @@ export default function SidebarLayout({ flyTo, children }) {
                                 <h2 className='text-lg font-medium'>Helping Homes</h2>
 
                                 <p className="text-sm">Helping Homes is a peer-to-peer connection platform to help those fleeing natural disaesters find temporary emergency accommodation.</p>
-                                <p className="text-sm">We help Good Samaritans like yourself offer emergency accomodation, livestock transport and temporary livestock agistment for those in need.</p>
+                                <p className="text-sm">We help Good Samaritans like yourself offer emergency accommodation, livestock transport and temporary livestock agistment for those in need.</p>
                                 <p className="text-sm">If you can, please register an offer of support for those in need.</p>
                                 <p className="text-sm">You can also help protect our communities by reporting dangers like road damage, and injured wildlife.</p>
                                 <p className="text-sm">Before making an offer, please make sure to read our about page.</p>
@@ -1245,7 +1245,7 @@ export default function SidebarLayout({ flyTo, children }) {
                             {/* Link to give page */}
                             <div className="px-4 grid gap-3 py-6">
                                 <h2 className='text-lg font-medium'>Other ways to help</h2>
-                                <p className='text-sm'>Not everyone can offer accomodation, however there are other ways to make an immediate, meaningful impact in this time of crisis.</p>
+                                <p className='text-sm'>Not everyone can offer accommodation, however there are other ways to make an immediate, meaningful impact in this time of crisis.</p>
                                 <p className='text-sm'>Each of these organisations are helping communities affected by natural disaster right now - <b>and they need our help.</b></p>
                                 <a
                                     href="/help"

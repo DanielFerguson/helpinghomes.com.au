@@ -202,7 +202,7 @@ const OfferModal = ({ open, toggleFn, offer }) => {
     }
 
     const description = {
-        'HOUSING': 'If you have been displaced due to natural disaster and need temporary accomodation, this Good Samaritan has offered to help.',
+        'HOUSING': 'If you have been displaced due to natural disaster and need temporary accommodation, this Good Samaritan has offered to help.',
         'TRANSPORT_ASSISTANCE': 'If you have livestock and need help transporting them to a place of safety, this Good Samaritan has offered to help.',
     };
 

@@ -55,8 +55,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added linting check to ci pipeline.
 - Added license to project.
 - Added point clustering.
-- Added ability to create an offer of accomodation.
-- Added slight location fuzzing to increase privacy of offers of accomodation.
+- Added ability to create an offer of accommodation.
+- Added slight location fuzzing to increase privacy of offers of accommodation.
 - Added a resource controller and form requests for point of interests.
 - Added ability to create a hazard report.
 - Added list of offers.

@@ -10,7 +10,7 @@ An open service to connect those that need emergency housing, with the people wh
 
 - Quickly find relief centers near you.
 - Ability to register offers of assistance.
-- Ability to register offers of livestock accomodation.
+- Ability to register offers of livestock accommodation.
 - Facebook and Google OAuth support.
 - Improved viewing of offers through modal popups (single and multi-offer view).
 - Improved privacy with location fuzzing and rate-limiting of contact detail requests.
@@ -33,7 +33,7 @@ An open service to connect those that need emergency housing, with the people wh
 - [ ] ✨ Create /help page.
 - [ ] ✨ Add more information about Helping Homes to the LHS section.
 - [ ] ✨ If a user requests an offers details and clicks the call button, queue up a job to message the offerer 10 minutes later asking whether the offer has been taken and if we should remove the offer.
-- [ ] ✨ Add optional notes section to accomodation offer.
+- [ ] ✨ Add optional notes section to accommodation offer.
 - [ ] ♻️ Refactor modals to reduce copied code - wrap content in a reusable modal container component.
 - [ ] ✨ If you click on a map key item, it will toggle it's visibility on the map.
 - [ ] ✨ Add ability to edit/update the user profile (specifically mobile_number).
