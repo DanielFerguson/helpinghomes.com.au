@@ -38,7 +38,7 @@
 
 <body class="h-full">
 
-    <main class="prose-sm mx-auto px-4 md:py-16 py-4">
+    <main class="prose-sm max-w-sm md:max-w-lg mx-auto px-4 md:py-16 py-4">
 
         <nav class="hidden md:block">
             <a href="/">Back</a>
