@@ -7,12 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ## [1.0.0] - 2022-11-19
+### Added
+- Added the ability to reset mobile numbers before verifying status.
+- Added the ability to add and edit notes on offers
+- Added toast notifications on offer creation, updates
+
 ### Removed
 - Removed nova.
 
 ## [1.0.0] - 2022-10-18
 ### Added
-- Added `Created xxx ago.` subtitle to road damage report modals
+- Added `Created xxx ago.` subtitle to road damage report modals.
 - Added the ability to report offers.
 - Added the ability to report reports.
 - Added toast UI feedback on successful reporting.

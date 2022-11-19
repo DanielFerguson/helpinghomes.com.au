@@ -33,6 +33,7 @@ class StoreOfferRequest extends FormRequest
             'canTakeSingles' => 'required|boolean',
             'canTakeCouples' => 'required|boolean',
             'canTakeFamilies' => 'required|boolean',
+            'notes' => 'nullable|string',
         ];
     }
 

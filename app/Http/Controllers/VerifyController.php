@@ -48,7 +48,7 @@ class VerifyController extends Controller
         return Redirect::route('home');
     }
 
-    public function reset(Request $request): RedirectResponse
+    public function reset(): RedirectResponse
     {
         Auth::user()->mobile_number = null;
         Auth::user()->verify_code = null;

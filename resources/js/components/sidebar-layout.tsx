@@ -62,6 +62,7 @@ const CreateOfferModal = ({ open, toggleFn }) => {
         lat: -37.8136,
         lng: 144.9631,
         type: 'HOUSING',
+        notes: '',
         user_id: auth.user.id
     })
 
@@ -75,9 +76,15 @@ const CreateOfferModal = ({ open, toggleFn }) => {
     }, []);
 
     function submit(e) {
+        const toastId = toast.loading('Creating an offer...');
         e.preventDefault()
+
         post('/offers', {
-            onSuccess: () => toggleFn(false)
+            onSuccess: () => {
+                toast.success('Offer created!', { id: toastId })
+                toggleFn(false)
+            },
+            onError: () => toast.error('Whoops. Something went wrong.', { id: toastId })
         })
     }
 
@@ -221,7 +228,7 @@ const CreateOfferModal = ({ open, toggleFn }) => {
                                                     <select
                                                         id="can-take-pets"
                                                         name="can-take-pets"
-                                                        value={data.canTakePets}
+                                                        defaultValue={data.canTakePets}
                                                         onChange={e => setData('canTakePets', e.target.value)}
                                                         className="block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 sm:max-w-xs sm:text-sm"
                                                     >
@@ -230,6 +237,25 @@ const CreateOfferModal = ({ open, toggleFn }) => {
                                                     </select>
                                                 </div>
                                             </div>
+                                        </div>
+
+                                        <div className="pt-6">
+                                            {/* Notes */}
+                                            <fieldset>
+                                                <legend className="sr-only">Notes</legend>
+                                                <div className="text-base font-medium text-gray-900" aria-hidden="true">
+                                                    Notes
+                                                </div>
+                                                <p className="text-sm text-gray-500">Optional</p>
+                                                <textarea
+                                                    rows={4}
+                                                    name="notes"
+                                                    id="notes"
+                                                    className="mt-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 sm:text-sm"
+                                                    defaultValue={data.notes ?? ''}
+                                                    onChange={(e) => setData('notes', e.target.value)}
+                                                />
+                                            </fieldset>
                                         </div>
 
                                         {/* Offer Notice */}
@@ -280,6 +306,7 @@ const EditOfferModal = ({ open, toggleFn, selectedOffer }) => {
         lat: selectedOffer.lat,
         lng: selectedOffer.lng,
         type: selectedOffer.type,
+        notes: selectedOffer.notes,
         user_id: auth.user.id
     })
 
@@ -293,16 +320,27 @@ const EditOfferModal = ({ open, toggleFn, selectedOffer }) => {
     }, []);
 
     function submit(e) {
+        const toastId = toast.loading('Creating an offer...');
         e.preventDefault()
 
         patch(`/offers/${selectedOffer.id}`, {
-            onSuccess: () => toggleFn(null),
+            onSuccess: () => {
+                toggleFn(null)
+                toast.success('Offer updated!', { id: toastId })
+            },
+            onError: () => toast.error('Whoops. Something went wrong.', { id: toastId })
         })
     }
 
     function deleteOffer() {
+        const toastId = toast.loading('Deleting the offer...');
+
         destroy(`/offers/${selectedOffer.id}`, {
-            onSuccess: () => toggleFn(null),
+            onSuccess: () => {
+                toggleFn(null);
+                toast.success('Offer deleted.', { id: toastId })
+            },
+            onError: () => toast.error('Whoops. Something went wrong.', { id: toastId })
         })
     }
 
@@ -456,6 +494,25 @@ const EditOfferModal = ({ open, toggleFn, selectedOffer }) => {
                                                 </div>
                                             </div>
                                         </div>
+
+                                        <div className="pt-6">
+                                            {/* Notes */}
+                                            <fieldset>
+                                                <legend className="sr-only">Notes</legend>
+                                                <div className="text-base font-medium text-gray-900" aria-hidden="true">
+                                                    Notes
+                                                </div>
+                                                <p className="text-sm text-gray-500">Optional</p>
+                                                <textarea
+                                                    rows={4}
+                                                    name="notes"
+                                                    id="notes"
+                                                    className="mt-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 sm:text-sm"
+                                                    defaultValue={data.notes ?? ''}
+                                                    onChange={(e) => setData('notes', e.target.value)}
+                                                />
+                                            </fieldset>
+                                        </div>
                                     </div>
 
                                     {/* Actions */}
@@ -514,9 +571,15 @@ const CreateReportModal = ({ open, toggleFn }) => {
     }, []);
 
     function submit(e) {
+        const toastId = toast.loading('Creating a report...');
         e.preventDefault()
+
         post('/points-of-interest', {
-            onSuccess: () => toggleFn(false)
+            onSuccess: () => {
+                toggleFn(false);
+                toast.success('Report created!', { id: toastId })
+            },
+            onError: () => toast.error('Whoops. Something went wrong.', { id: toastId })
         })
     }
 
@@ -1163,10 +1226,10 @@ export default function SidebarLayout({ flyTo, children }) {
                                             <p className='text-sm'>Not everyone can offer accommodation, however there are other ways to make an immediate, meaningful impact in this time of crisis.</p>
                                             <p className='text-sm'>Each of these organisations are helping communities affected by natural disaster right now - <b>and they need our help.</b></p>
                                             <a
-                                                href="/help"
+                                                href="https://www.australianphilanthropicservices.com.au/give-list-victorian-floods-2022/"
                                                 className="inline-flex items-center rounded-md mt-2 border border-gray-300 bg-white px-3 py-2 text-sm font-medium leading-4 text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
                                             >
-                                                Find out how
+                                                Find out where
                                             </a>
                                         </div>
 
@@ -1266,10 +1329,10 @@ export default function SidebarLayout({ flyTo, children }) {
                                 <p className='text-sm'>Not everyone can offer accommodation, however there are other ways to make an immediate, meaningful impact in this time of crisis.</p>
                                 <p className='text-sm'>Each of these organisations are helping communities affected by natural disaster right now - <b>and they need our help.</b></p>
                                 <a
-                                    href="/help"
+                                    href="https://www.australianphilanthropicservices.com.au/give-list-victorian-floods-2022/"
                                     className="inline-flex items-center rounded-md mt-2 border border-gray-300 bg-white px-3 py-2 text-sm font-medium leading-4 text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
                                 >
-                                    Find out how
+                                    Find out where
                                 </a>
                             </div>
 
