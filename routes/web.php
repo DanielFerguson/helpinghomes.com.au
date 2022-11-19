@@ -17,6 +17,7 @@ Route::inertia('/', 'home')->name('home');
 Route::view('/about', 'about');
 
 Route::post('/offers/{offer}/report', [OfferController::class, 'report']);
+Route::post('/offers/{offer}/called', [OfferController::class, 'called']);
 Route::post('/points-of-interest/{pointOfInterest}/report', [PointOfInterestController::class, 'report']);
 Route::apiResources([
     'offers' => OfferController::class,

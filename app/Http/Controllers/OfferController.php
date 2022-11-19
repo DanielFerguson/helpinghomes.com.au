@@ -5,10 +5,14 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreOfferReportRequest;
 use App\Http\Requests\StoreOfferRequest;
 use App\Http\Requests\UpdateOfferRequest;
+use App\Jobs\MessageOffererAfterCall;
+use App\Models\Call;
 use App\Models\ContactDetailRequest;
 use App\Models\Offer;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 
@@ -16,21 +20,11 @@ use Illuminate\Support\Facades\Redirect;
 
 class OfferController extends Controller
 {
-    /**
-     * Instantiate a new controller instance.
-     *
-     * @return void
-     */
     public function __construct()
     {
         $this->middleware('auth')->except('index');
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
     public function index(): JsonResponse
     {
         $offers = Offer::all()->map(fn ($offer) => [
@@ -58,12 +52,6 @@ class OfferController extends Controller
         ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StoreOfferRequest  $request
-     * @return \Illuminate\Http\RedirectResponse
-     */
     public function store(StoreOfferRequest $request): RedirectResponse
     {
         Offer::create($request->validated());
@@ -71,12 +59,6 @@ class OfferController extends Controller
         return Redirect::route('home');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Offer  $offer
-     * @return \Illuminate\Http\JsonResponse
-     */
     public function show(Offer $offer): JsonResponse
     {
         ContactDetailRequest::create([
@@ -89,16 +71,9 @@ class OfferController extends Controller
         ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdateOfferRequest  $request
-     * @param  \App\Models\Offer  $offer
-     * @return \Illuminate\Http\RedirectResponse
-     */
     public function update(UpdateOfferRequest $request, Offer $offer): RedirectResponse
     {
-        if (! Auth::user()->can('update', $offer)) {
+        if (!Auth::user()->can('update', $offer)) {
             abort(403);
         }
 
@@ -107,15 +82,9 @@ class OfferController extends Controller
         return Redirect::route('home');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Offer  $offer
-     * @return \Illuminate\Http\RedirectResponse
-     */
     public function destroy(Offer $offer): RedirectResponse
     {
-        if (! Auth::user()->can('delete', $offer)) {
+        if (!Auth::user()->can('delete', $offer)) {
             abort(403);
         }
 
@@ -124,13 +93,6 @@ class OfferController extends Controller
         return Redirect::route('home');
     }
 
-    /**
-     * Create a report on an offer.
-     *
-     * @param  \App\Http\Requests\StoreOfferReportRequest  $request
-     * @param  \App\Models\Offer  $offer
-     * @return \Illuminate\Http\RedirectResponse
-     */
     public function report(StoreOfferReportRequest $request, Offer $offer): RedirectResponse
     {
         $validated = $request->safe();
@@ -139,6 +101,21 @@ class OfferController extends Controller
             'user_id' => Auth::id(),
             'reason' => $validated['reason'],
         ]);
+
+        return Redirect::route('home');
+    }
+
+    public function called(Request $request, Offer $offer): RedirectResponse
+    {
+        Call::create([
+            'caller_id' => $request->user()->id,
+            'offer_id' => $offer->id
+        ]);
+
+        $delay = App::isProduction() ? 15 : 1;
+
+        MessageOffererAfterCall::dispatch($offer)
+            ->delay(now()->addMinutes($delay));
 
         return Redirect::route('home');
     }

@@ -94,6 +94,10 @@ const HousingOfferDetails = ({ offer }) => {
         setContactDetails(response.data);
     }
 
+    const offerRequested = async () => {
+        axios.post(`/offers/${offer.id}/called`);
+    }
+
     return (
         <dl className="sm:divide-y sm:divide-gray-200">
             <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5">
@@ -128,6 +132,7 @@ const HousingOfferDetails = ({ offer }) => {
                         </button>
                     ) : (
                         <a
+                            onClick={() => offerRequested()}
                             className="inline-flex items-center rounded-md border border-gray-300 bg-white px-3 py-2 text-sm font-medium leading-4 text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
                             href={`tel:+${contactDetails.mobile_number}`}
                         >Call Offerer Now</a>

@@ -29,14 +29,14 @@ const pinTypes = [
         src: '/assets/map/offer-housing.png',
         name: 'Offer of Housing',
     },
-    {
-        src: '/assets/map/offer-shelter-livestock.png',
-        name: 'Offer of Livestock Shelter',
-    },
-    {
-        src: '/assets/map/offer-transport-livestock.png',
-        name: 'Offer of Livestock Transport',
-    },
+    // {
+    //     src: '/assets/map/offer-shelter-livestock.png',
+    //     name: 'Offer of Livestock Shelter',
+    // },
+    // {
+    //     src: '/assets/map/offer-transport-livestock.png',
+    //     name: 'Offer of Livestock Transport',
+    // },
     {
         src: '/assets/map/danger-road-damage.png',
         name: 'Road Damaged',
@@ -45,10 +45,10 @@ const pinTypes = [
         src: '/assets/map/point-of-interest-relief-center.png',
         name: 'Relief Center',
     },
-    {
-        src: '/assets/map/point-of-interest-sandbagging-site.png',
-        name: 'Sandbagging Site',
-    },
+    // {
+    //     src: '/assets/map/point-of-interest-sandbagging-site.png',
+    //     name: 'Sandbagging Site',
+    // },
 ]
 
 const CreateOfferModal = ({ open, toggleFn }) => {
