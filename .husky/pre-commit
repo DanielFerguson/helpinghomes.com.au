@@ -1,7 +1,0 @@
-#!/usr/bin/env sh
-. "$(dirname -- "$0")/_/husky.sh"
-
-./vendor/bin/pint
-./vendor/bin/pest
-./vendor/bin/phpstan analyse
-./vendor/bin/x-ray . --compact

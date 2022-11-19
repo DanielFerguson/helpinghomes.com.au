@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.0] - 2022-11-19
+### Removed
+- Removed nova.
+
 ## [1.0.0] - 2022-10-18
 ### Added
 - Added `Created xxx ago.` subtitle to road damage report modals

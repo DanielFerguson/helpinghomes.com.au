@@ -22,10 +22,6 @@ jobs:
         run: |
           echo "::set-output name=dir::$(composer config cache-files-dir)"
 
-      - name: Setup composer auth variables
-        run: |
-          composer config http-basic.nova.laravel.com ${{ secrets.NOVA_USER }} ${{ secrets.NOVA_KEY }}
-
       - uses: actions/cache@v2
         id: actions-cache
         with:
