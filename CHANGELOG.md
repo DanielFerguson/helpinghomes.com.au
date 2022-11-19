@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added the ability to reset mobile numbers before verifying status.
 - Added the ability to add and edit notes on offers
 - Added toast notifications on offer creation, updates
+- Added post-call message automation.
 
 ### Removed
 - Removed nova.
