@@ -10,7 +10,7 @@ import { useForm } from '@inertiajs/inertia-react';
 import toast, { Toaster } from 'react-hot-toast';
 import { usePage } from '@inertiajs/inertia-react'
 
-const fetcher = url => axios.get(url).then(res => res.data)
+const fetcher = (url) => axios.get(url).then(res => res.data)
 
 const offersLayerStyle = {
     id: 'offers-layer',
@@ -62,34 +62,28 @@ const AccomodateTypeBadges = ({ offer }) => {
         )
     }
 
-    if (offer.canTakeSingles) {
-        badges.push(
-            <span key="singles" className="inline-flex items-center rounded bg-green-100 px-2 py-0.5 text-xs font-medium text-green-800">
-                <svg xmlns="http://www.w3.org/2000/svg" className="mr-1.5 h-3 w-3 text-green-400" viewBox="0 0 512 512"><path d="M470.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L192 338.7 425.4 105.4c12.5-12.5 32.8-12.5 45.3 0z" /></svg>
-                Singles
-            </span>
-        )
-    }
-
-    if (offer.canTakeCouples) {
-        badges.push(
-            <span key="couples" className="inline-flex items-center rounded bg-green-100 px-2 py-0.5 text-xs font-medium text-green-800">
-                <svg xmlns="http://www.w3.org/2000/svg" className="mr-1.5 h-3 w-3 text-green-400" viewBox="0 0 512 512"><path d="M470.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L192 338.7 425.4 105.4c12.5-12.5 32.8-12.5 45.3 0z" /></svg>
-                Couples
-            </span>
-        )
-    }
-
-    if (offer.canTakeFamilies) {
-        badges.push(
-            <span key="families" className="inline-flex items-center rounded bg-green-100 px-2 py-0.5 text-xs font-medium text-green-800">
-                <svg xmlns="http://www.w3.org/2000/svg" className="mr-1.5 h-3 w-3 text-green-400" viewBox="0 0 512 512"><path d="M470.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L192 338.7 425.4 105.4c12.5-12.5 32.8-12.5 45.3 0z" /></svg>
-                Families
-            </span>
-        )
-    }
-
-    return badges;
+    return (
+        <>
+            {offer.canTakeSingles && (
+                <span key="singles" className="inline-flex items-center rounded bg-green-100 px-2 py-0.5 text-xs font-medium text-green-800">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="mr-1.5 h-3 w-3 text-green-400" viewBox="0 0 512 512"><path d="M470.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L192 338.7 425.4 105.4c12.5-12.5 32.8-12.5 45.3 0z" /></svg>
+                    Singles
+                </span>
+            )}
+            {offer.canTakeCouples && (
+                <span key="couples" className="inline-flex items-center rounded bg-green-100 px-2 py-0.5 text-xs font-medium text-green-800">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="mr-1.5 h-3 w-3 text-green-400" viewBox="0 0 512 512"><path d="M470.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L192 338.7 425.4 105.4c12.5-12.5 32.8-12.5 45.3 0z" /></svg>
+                    Couples
+                </span>
+            )}
+            {offer.canTakeFamilies && (
+                <span key="families" className="inline-flex items-center rounded bg-green-100 px-2 py-0.5 text-xs font-medium text-green-800">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="mr-1.5 h-3 w-3 text-green-400" viewBox="0 0 512 512"><path d="M470.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L192 338.7 425.4 105.4c12.5-12.5 32.8-12.5 45.3 0z" /></svg>
+                    Families
+                </span>
+            )}
+        </>
+    );
 }
 
 const HousingOfferDetails = ({ offer }) => {

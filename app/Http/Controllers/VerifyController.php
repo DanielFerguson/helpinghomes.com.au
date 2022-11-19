@@ -3,31 +3,21 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CompareVerificationNumberRequest;
+use App\Http\Requests\ResetVerificationMobileNumberRequest;
 use App\Http\Requests\StoreMobileNumberRequest;
 use App\Notifications\VerificationPinRequested;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 
 class VerifyController extends Controller
 {
-    /**
-     * Instantiate a new controller instance.
-     *
-     * @return void
-     */
     public function __construct()
     {
         $this->middleware('auth')->except('index');
     }
 
-    /**
-     * Store a mobile number for the authenticated user, generate a new verification
-     * pin and message it to them.
-     *
-     * @param  \App\Http\Requests\StoreMobileNumberRequest  $request
-     * @return \Illuminate\Http\RedirectResponse
-     */
     public function store(StoreMobileNumberRequest $request): RedirectResponse
     {
         $validated = $request->validated();
@@ -46,12 +36,6 @@ class VerifyController extends Controller
         return Redirect::route('home');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Http\Requests\CompareVerificationNumberRequest  $request
-     * @return \Illuminate\Http\RedirectResponse
-     */
     public function verify(CompareVerificationNumberRequest $request): RedirectResponse
     {
         $validated = $request->validated();
@@ -60,6 +44,16 @@ class VerifyController extends Controller
             Auth::user()->mobile_number_verified_at = now();
             Auth::user()->save();
         }
+
+        return Redirect::route('home');
+    }
+
+    public function reset(Request $request): RedirectResponse
+    {
+        Auth::user()->mobile_number = null;
+        Auth::user()->verify_code = null;
+        Auth::user()->mobile_number_verified_at = null;
+        Auth::user()->save();
 
         return Redirect::route('home');
     }

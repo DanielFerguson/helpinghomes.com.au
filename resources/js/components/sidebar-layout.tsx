@@ -5,7 +5,8 @@ import {
     UsersIcon,
     XMarkIcon,
     ExclamationTriangleIcon,
-    MapPinIcon
+    MapPinIcon,
+    ArrowPathIcon
 } from '@heroicons/react/24/outline'
 import {
     Bars3BottomLeftIcon,
@@ -704,13 +705,13 @@ const AuthModal = ({ open, toggleFn }) => {
                                     </div>
                                 </div>
                                 <div className="mt-5 sm:mt-6 grid gap-3">
-                                    {/* <a
+                                    <a
                                         href="/auth/redirect/github"
                                         className="inline-flex items-center justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-base font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
                                     >
                                         <img className="-ml-1 mr-3 h-5 w-5 text-white" src='/assets/icons/github.svg' />
                                         Github (Dev Only)
-                                    </a> */}
+                                    </a>
                                     <a
                                         href="/auth/redirect/facebook"
                                         className="inline-flex items-center justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-base font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
@@ -817,6 +818,17 @@ const OffersPanelSection = ({ flyTo, offers, setCreateModalOpen, selectOffer }) 
         });
     }
 
+    const resetMobileNumber = () => {
+        const toastId = toast.loading('Resetting phone number...');
+
+        setData('mobile_number', null);
+
+        post('/reset-mobile', {
+            onSuccess: () => toast.success('Mobile reset successfully!', { id: toastId }),
+            onError: () => toast.error('Whoops. Something went wrong.', { id: toastId })
+        })
+    }
+
     // No mobile number saved
     // TODO: Check whether auth.user.verify_code_created_at is within last 5 minutes.
     if (auth.user.mobile_number_verified_at === null) {
@@ -828,7 +840,7 @@ const OffersPanelSection = ({ flyTo, offers, setCreateModalOpen, selectOffer }) 
                     <label className="block text-sm font-medium text-gray-700">
                         {auth.user.mobile_number === null ? 'Phone Number' : 'Verification Code'}
                     </label>
-                    <div className="relative mt-1 rounded-md shadow-sm">
+                    <div className="relative mt-1 rounded-md">
                         <div className="flex gap-2">
                             {/* Mobile Number */}
                             {auth.user.mobile_number === null && (
@@ -840,8 +852,7 @@ const OffersPanelSection = ({ flyTo, offers, setCreateModalOpen, selectOffer }) 
                                         id="phone_number"
                                         defaultValue={data.mobile_number}
                                         onChange={(e) => setData('mobile_number', e.target.value)}
-                                        // border-red-300 text-red-900 placeholder-red-300 focus:border-red-500 focus:ring-red-500
-                                        className="block w-full rounded-md pr-10 focus:outline-none sm:text-sm focus:border-green-500 focus:outline-none focus:ring-green-500"
+                                        className="block w-full rounded-md pr-10 border-gray-300 focus:outline-none sm:text-sm focus:border-green-500 focus:outline-none focus:ring-green-500"
                                         placeholder="0412345678"
                                     />
                                     <button
@@ -864,7 +875,7 @@ const OffersPanelSection = ({ flyTo, offers, setCreateModalOpen, selectOffer }) 
                                         id="verification_code"
                                         defaultValue={verificationData.verification_code}
                                         onChange={(e) => setVerificationData('verification_code', e.target.value)}
-                                        className="block w-full rounded-md pr-10 focus:outline-none sm:text-sm focus:border-green-500 focus:outline-none focus:ring-green-500"
+                                        className="block w-full rounded-md pr-10 border-gray-300 focus:outline-none sm:text-sm focus:border-green-500 focus:outline-none focus:ring-green-500"
                                         placeholder="1234"
                                     />
                                     <button
@@ -874,6 +885,13 @@ const OffersPanelSection = ({ flyTo, offers, setCreateModalOpen, selectOffer }) 
                                         className="ml-auto inline-flex items-center rounded-md border border-gray-300 bg-white px-3 py-2 text-sm font-medium leading-4 text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
                                     >
                                         Verify
+                                    </button>
+                                    <button
+                                        type="button"
+                                        onClick={() => resetMobileNumber()}
+                                        className="ml-auto inline-flex items-center rounded-md border border-gray-300 bg-white px-3 py-2 text-sm font-medium leading-4 text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+                                    >
+                                        <ArrowPathIcon className='h-5 w-5' />
                                     </button>
                                 </>
                             )}
